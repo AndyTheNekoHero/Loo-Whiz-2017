@@ -1,1 +1,7 @@
 *.docx
+*.xml
+*.txt
+*.info
+*.mdb
+*.stamp
+*.asset

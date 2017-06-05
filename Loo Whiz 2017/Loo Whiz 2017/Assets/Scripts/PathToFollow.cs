@@ -3,103 +3,71 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PathToFollow : MonoBehaviour {
+    public static PathToFollow Instance = null;
 
-    public GameObject ParentToTakeFrom;
-    public List<Transform> pathParent = new List<Transform>();
-    public float speed;
-    public float reachDist = 1.0f;
+    public static List<Transform> pathParent = new List<Transform>();
+    public float speed = 1000f;
+    public float reachDist = 0.1f;
     public int currentPoint = 0;
-    private Vector2 dir;
-    public SpriteRenderer SR;
     public bool ExitToilet;
-    // Use this for initialization
-    void Start () {
-        ExitToilet = false;
-        //add child
-        StartCoroutine(AddChild());
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        //move to waypoint
-        MoveToWaypoint();
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void FlipX()
-    {
-        if (dir.x > 0f)
-        {
-            SR.flipX = false;
-        }
+    // Use this for initialization
+    void Start() {
+    }
+
+    // Update is called once per frame
+    void Update() {
+        Debug.Log(pathParent.Count);
     }
 
     public void MoveToWaypoint()
     {
+        NPC_Script NPC = GameObject.Find("Customer").GetComponent<NPC_Script>();
         //distance between point A and point B
-        float dist = Vector2.Distance(pathParent[currentPoint].position, transform.position);
-
+        float dist = Vector2.Distance(pathParent[currentPoint].position, NPC.transform.position);
         //Move to waypoint
-        transform.position = Vector2.Lerp(transform.position, pathParent[currentPoint].position, Time.deltaTime * speed);
+
+        NPC.transform.position = Vector2.Lerp(NPC.transform.position, pathParent[currentPoint].position, Time.deltaTime * speed);
 
         //true if reach current point
         if (dist <= reachDist)
         {
             currentPoint++;
-            //if (currentPoint <= pathParent.Count - 1)
-            //{
-            //    dir = (pathParent[currentPoint].position - transform.position).normalized;
-            //}
         }
-        //true if current point ended
-        if (currentPoint >= pathParent.Count)
-        {
-            WaypointEnded();
-        }
-    }
-    public void WaypointEnded()
-    {
-        //check what AI gonna do
-        currentPoint = pathParent.Count - 1;
-        if(ExitToilet == false)
-            Pee();
-        
-    }
-    public void Pee()
-    {
-        ExitToilet = true;
-        SR.flipX = false;
-        //Change path to Pee
-        ParentToTakeFrom = GameObject.Find("Pee");
-        //add child
-        StartCoroutine(AddChild());
-        //Move in the path
-        MoveToWaypoint();
-        
-    }
-    public void Exit()
-    {
-    }
-    //Loop to add child
-    public IEnumerator AddChild()
-    {
-        foreach (Transform child in ParentToTakeFrom.transform)
-        {
-            pathParent.Add(child);
-        }
-        
-        yield return null;
-    }
-    //Render waypoints
-    void OnDrawGizmos()
-    {
-        for (var i = 0; i < ParentToTakeFrom.transform.childCount; i++)
-        {
-            if (ParentToTakeFrom.transform.GetChild(i) != null)
-            {
-                Gizmos.DrawWireSphere(ParentToTakeFrom.transform.GetChild(i).position, 0.5f);
-            }
-        }
+        WaypointEnded();
 
     }
+    public bool WaypointEnded()
+    { 
+        if (currentPoint >= pathParent.Count-1)
+        {
+        currentPoint = pathParent.Count - 1;
+        return true;
+        }
+        return false;
+    }
+
+    ////Render waypoints
+    //void OnDrawGizmos()
+    //{
+    //    for (var i = 0; i < ParentToTakeFrom.transform.childCount; i++)
+    //    {
+    //        if (ParentToTakeFrom.transform.GetChild(i) != null)
+    //        {
+    //            Gizmos.DrawWireSphere(ParentToTakeFrom.transform.GetChild(i).position, 0.5f);
+    //        }
+    //    }
+
+    //}
 
 }

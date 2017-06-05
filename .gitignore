@@ -6,3 +6,5 @@
 *.stamp
 *.asset
 *.metadata
+*.bin
+*.backup

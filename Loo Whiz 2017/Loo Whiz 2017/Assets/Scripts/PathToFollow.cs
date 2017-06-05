@@ -6,8 +6,8 @@ public class PathToFollow : MonoBehaviour {
     public static PathToFollow Instance = null;
 
     public static List<Transform> pathParent = new List<Transform>();
-    public float speed = 1000f;
-    public float reachDist = 0.1f;
+    public float speed = 2f;
+    public float reachDist = 1f;
     public int currentPoint = 0;
     public bool ExitToilet;
 

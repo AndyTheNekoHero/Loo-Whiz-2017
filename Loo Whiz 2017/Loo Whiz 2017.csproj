@@ -76,12 +76,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnviManager.cs" />
@@ -90,13 +84,10 @@
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\PathToFollow.cs" />
-<<<<<<< HEAD
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Sink.cs" />
     <Compile Include="Assets\Scripts\ToiletBowl.cs" />
     <Compile Include="Assets\Scripts\Urinal.cs" />
-=======
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
->>>>>>> 94d275435cb6ea7f4d4f7723711f46c5952d2984
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

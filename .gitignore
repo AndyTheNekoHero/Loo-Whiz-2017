@@ -9,4 +9,12 @@
 *.bin
 *.backup
 Loo Whiz 2017/Temp/UnityLockfile
+<<<<<<< HEAD
+
+# Unity3D generated meta files
+*.pidb.meta
+
+
+=======
 Loo Whiz 2017/Loo Whiz 2017/Temp/UnityLockfile
+>>>>>>> 32fbe632f6aed41a5ac44b38d7998ffa87a4cec8

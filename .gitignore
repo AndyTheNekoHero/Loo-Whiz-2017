@@ -11,4 +11,7 @@
 Loo Whiz 2017/Library/metadata/
 Loo Whiz 2017/Temp/UnityLockfile
 
+# Unity3D generated meta files
+*.pidb.meta
+
 

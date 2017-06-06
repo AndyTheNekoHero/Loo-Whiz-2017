@@ -20,7 +20,7 @@ public class NPC_Script : MonoBehaviour {
     public GameObject ParentToTakeFrom;
 
     bool tests;
-
+    public int RNG_Path;
     public List<Transform> test = new List<Transform>();
 
     // Use this for initialization
@@ -83,11 +83,20 @@ public class NPC_Script : MonoBehaviour {
             AddChild();
         //Move in the path
         PathToFollow.Instance.MoveToWaypoint();
+        if (PathToFollow.Instance.WaypointEnded())
+        {
+            tests = false;
+            //run animation here
+
+
+            //if(animation ended) wash hand
+            State = C_STATE.WASH;
+        }
 
     }
     //go to cubicle
     public void Shit()
-    {
+    { 
         SR.flipX = false;
         //Change path to Pee
        ParentToTakeFrom = GameObject.Find("Shit");
@@ -119,9 +128,47 @@ public class NPC_Script : MonoBehaviour {
            AddChild();
 
          PathToFollow.Instance.MoveToWaypoint();
+
         if (PathToFollow.Instance.WaypointEnded())
         {
-            Debug.Log("IT ENDED");
+            tests = false;
+            RNG_Path = Random.Range(1, 5);
+            switch (RNG_Path)
+            {
+                case 1:
+                    {
+                        //go to urinal
+                        State = C_STATE.PEE;
+                    }
+                    break;
+                case 2:
+                    {
+                        //go to cubicle
+                        State = C_STATE.SHIT;
+                    }
+                    break;
+                case 3:
+                    {
+                        //Draw Left
+                        State = C_STATE.SHIT;
+                    }
+                    break;
+                case 4:
+                    {
+                        //Draw Right
+                        State = C_STATE.SHIT;
+                    }
+                    break;
+                case 5:
+                    {
+                        //go to basin
+                        State = C_STATE.WASH;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            Debug.Log("IT ENDED, Set Path to " + ParentToTakeFrom.name);
         }
         //Debug.Log(test.Count);
         //Move to target path

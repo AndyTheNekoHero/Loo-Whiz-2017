@@ -27,7 +27,6 @@ public class PathToFollow : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(pathParent.Count);
     }
 
     public void MoveToWaypoint()

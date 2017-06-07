@@ -29,32 +29,35 @@ public class PathToFollow : MonoBehaviour {
     void Update() {
     }
 
-    public void MoveToWaypoint()
-    {
-        NPC_Script NPC = GameObject.FindGameObjectWithTag("Customer").GetComponent<NPC_Script>();
-        //distance between point A and point B
-        float dist = Vector2.Distance(pathParent[currentPoint].position, NPC.transform.position);
-        //Move to waypoint
-
-        NPC.transform.position = Vector2.Lerp(NPC.transform.position, pathParent[currentPoint].position, Time.deltaTime * speed);
-
-        //true if reach current point
-        if (dist <= reachDist)
-        {
-            currentPoint++;
-        }
-        WaypointEnded();
-
-    }
-    public bool WaypointEnded()
-    { 
-        if (currentPoint >= pathParent.Count-1)
-        {
-        currentPoint = pathParent.Count - 1;
-        return true;
-        }
-        return false;
-    }
+    //public void MoveToWaypoint()
+    //{
+    //    //NPC_Script NPC = GameObject.Find("Customer").GetComponent<NPC_Script>();
+    //    foreach (GameObject NPC in GameObject.FindGameObjectsWithTag("Customer"))
+    //    {
+    //        //distance between point A and point B
+    //        float dist = Vector2.Distance(pathParent[currentPoint].position, NPC.transform.position);
+    //        //Move to waypoint
+    //
+    //        NPC.transform.position = Vector2.Lerp(NPC.transform.position, pathParent[currentPoint].position, Time.deltaTime * speed);
+    //
+    //        //true if reach current point
+    //        if (dist <= reachDist)
+    //        {
+    //            currentPoint++;
+    //        }
+    //        WaypointEnded();
+    //    }
+    //
+    //}
+   //public bool WaypointEnded()
+   //{ 
+   //    if (currentPoint >= pathParent.Count-1)
+   //    {
+   //    currentPoint = pathParent.Count - 1;
+   //    return true;
+   //    }
+   //    return false;
+   //}
 
     ////Render waypoints
     //void OnDrawGizmos()

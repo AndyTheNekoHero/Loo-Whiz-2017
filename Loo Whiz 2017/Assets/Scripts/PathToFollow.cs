@@ -31,7 +31,7 @@ public class PathToFollow : MonoBehaviour {
 
     public void MoveToWaypoint()
     {
-        NPC_Script NPC = GameObject.Find("Customer").GetComponent<NPC_Script>();
+        NPC_Script NPC = GameObject.FindGameObjectWithTag("Customer").GetComponent<NPC_Script>();
         //distance between point A and point B
         float dist = Vector2.Distance(pathParent[currentPoint].position, NPC.transform.position);
         //Move to waypoint

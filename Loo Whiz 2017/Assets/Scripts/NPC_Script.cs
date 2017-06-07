@@ -19,21 +19,60 @@ public class NPC_Script : MonoBehaviour {
     private Vector2 dir;
     public GameObject ParentToTakeFrom;
 
-    bool tests;
+    bool Stop;
     public int RNG_Path;
     public List<Transform> test = new List<Transform>();
 
+    public float speed = 2f;
+    public float reachDist = 0.1f;
+    public int currentPoint = 0;
+    Rigidbody2D BodyMovement;
+
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         State = C_STATE.WALK;
-        test = PathToFollow.pathParent;
-        tests = false;
-	}
+        Stop = false;
+        BodyMovement = GetComponent<Rigidbody2D>();
+
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         StartCoroutine(ProcessState());
 	}
+
+    void MoveToWaypoint()
+    {
+        //distance between point A and point B
+        float dist = Vector2.Distance(test[currentPoint].position, transform.position);
+        Vector2 dir = (test[currentPoint].position - transform.position).normalized;
+
+        //Move to waypoint
+        //transform.position = Vector2.Lerp(transform.position, test[currentPoint].position, Time.deltaTime * speed);
+
+        if (dist > reachDist)
+        {
+            BodyMovement.AddForce(dir * speed);
+        }
+        else if (dist <= reachDist)
+        {
+            BodyMovement.velocity = Vector2.zero;
+            currentPoint++;
+        }
+        WaypointEnded();
+    }
+
+    public bool WaypointEnded()
+    {
+        if (currentPoint >= test.Count - 1)
+        {
+            currentPoint = test.Count - 1;
+            return true;
+        }
+        return false;
+    }
 
     public IEnumerator ProcessState()
     {
@@ -79,13 +118,13 @@ public class NPC_Script : MonoBehaviour {
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Pee");
         //add child
-        if(!tests)
+        if(!Stop)
             AddChild();
         //Move in the path
-        PathToFollow.Instance.MoveToWaypoint();
-        if (PathToFollow.Instance.WaypointEnded())
+       MoveToWaypoint();
+        if (WaypointEnded())
         {
-            tests = false;
+            Stop = false;
             //run animation here
 
 
@@ -103,7 +142,7 @@ public class NPC_Script : MonoBehaviour {
         //add child
         AddChild();
         //Move in the path
-        PathToFollow.Instance.MoveToWaypoint();
+       MoveToWaypoint();
 
     }
     //go to basin
@@ -115,7 +154,7 @@ public class NPC_Script : MonoBehaviour {
         //add child
         AddChild();
         //Move in the path
-        PathToFollow.Instance.MoveToWaypoint();
+        MoveToWaypoint();
 
     }
     //walking
@@ -124,14 +163,14 @@ public class NPC_Script : MonoBehaviour {
         //Change path to Walk
        ParentToTakeFrom = GameObject.Find("Enter");
         //Add Child
-        if(!tests)
+        if(!Stop)
            AddChild();
 
-         PathToFollow.Instance.MoveToWaypoint();
+         MoveToWaypoint();
 
-        if (PathToFollow.Instance.WaypointEnded())
+        if (!WaypointEnded())
         {
-            tests = false;
+            Stop = false;
             RNG_Path = Random.Range(1, 5);
             switch (RNG_Path)
             {
@@ -183,6 +222,6 @@ public class NPC_Script : MonoBehaviour {
         {
             test.Add(child);
         }
-        tests = true;
+        Stop = true;
     }
 }

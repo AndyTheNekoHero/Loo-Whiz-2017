@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float movespeed = 100.0f;
     Rigidbody2D RB2D;
 
+    public bool DragToMove = false;
+
     private Animator anim;
 
     void Start()
@@ -22,7 +24,20 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //check if the screen is touched / clicked   
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)))
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) && DragToMove == false)
+        {
+            move = true;
+
+            //for unity editor
+#if UNITY_EDITOR
+            touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //for touch device
+#elif (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP8)
+        touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+#endif
+        }
+        else if ((Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)) || (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && DragToMove == true)
         {
             move = true;
 

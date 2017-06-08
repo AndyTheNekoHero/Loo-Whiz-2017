@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\GameBtn.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Mess.cs" />
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PathToFollow.cs" />

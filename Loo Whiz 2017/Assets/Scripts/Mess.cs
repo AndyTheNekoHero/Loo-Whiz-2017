@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Mess : MonoBehaviour
 {
-    private GameObject Player;
+    private Transform Player;
     private Rigidbody2D PlayerRB;
     private bool InRange = false;
 
 	// Use this for initialization
 	void Start ()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<GameObject>();
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         PlayerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 	}
 	

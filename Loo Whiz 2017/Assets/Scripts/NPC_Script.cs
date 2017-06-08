@@ -31,6 +31,7 @@ public class NPC_Script : MonoBehaviour {
 
     ObjectPool NPC;
     Spawner Spwn;
+    private Animator anim;
 
     // Use this for initialization
     void Start ()
@@ -41,6 +42,7 @@ public class NPC_Script : MonoBehaviour {
         NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
+        anim = GetComponent<Animator>();
 
     }
 	
@@ -58,6 +60,9 @@ public class NPC_Script : MonoBehaviour {
         //distance between point A and point B
         float dist = Vector2.Distance(test[currentPoint].position, transform.position);
         Vector2 dir = (test[currentPoint].position - transform.position).normalized;
+
+        anim.SetFloat("MoveX", dir.x);
+        anim.SetFloat("MoveY", dir.y);
 
         //Move to waypoint
         //transform.position = Vector2.Lerp(transform.position, test[currentPoint].position, Time.deltaTime * speed);
@@ -165,7 +170,7 @@ public class NPC_Script : MonoBehaviour {
     //go to basin
     public void Wash()
     {
-        SR.flipX = false;
+        SR.flipX = true;
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Wash");
         //add child
@@ -177,7 +182,12 @@ public class NPC_Script : MonoBehaviour {
         if (WaypointEnded() && State == C_STATE.WASH)
         {
             Stop = false;
-            State = C_STATE.EXIT;
+            anim.SetBool("Washing", true);
+            if (!anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+            {
+                anim.SetBool("Washing", false);
+                State = C_STATE.EXIT;
+            }
         }
 
         }
@@ -240,7 +250,7 @@ public class NPC_Script : MonoBehaviour {
 
     public void NPC_Exit()
     {
-        SR.flipX = false;
+        SR.flipX = true;
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Exit");
         Debug.Log(Stop);

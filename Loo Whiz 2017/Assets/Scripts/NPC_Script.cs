@@ -30,6 +30,7 @@ public class NPC_Script : MonoBehaviour {
     Rigidbody2D BodyMovement;
 
     ObjectPool NPC;
+    Spawner Spwn;
 
     // Use this for initialization
     void Start ()
@@ -38,6 +39,8 @@ public class NPC_Script : MonoBehaviour {
         Stop = false;
         BodyMovement = GetComponent<Rigidbody2D>();
         NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+        Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
+        transform.position = Spwn.transform.position;
 
     }
 	
@@ -45,7 +48,10 @@ public class NPC_Script : MonoBehaviour {
 	void Update ()
     {
         StartCoroutine(ProcessState());
-	}
+        WaypointEnded();
+        //Debug.Log("Waypoint: " + WaypointEnded());
+        Debug.Log(State.ToString());
+    }
 
     void MoveToWaypoint()
     {
@@ -65,17 +71,17 @@ public class NPC_Script : MonoBehaviour {
             BodyMovement.velocity = Vector2.zero;
             currentPoint++;
         }
-        WaypointEnded();
     }
 
     public bool WaypointEnded()
     {
-        if (currentPoint >= test.Count - 1)
+        if (currentPoint >= test.Count )
         {
-            currentPoint = test.Count - 1;
+            currentPoint = test.Count ;
             return true;
         }
-        return false;
+        else
+            return false;
     }
 
     public IEnumerator ProcessState()
@@ -113,7 +119,9 @@ public class NPC_Script : MonoBehaviour {
                 break;
             case C_STATE.WAITING_TO_SPAWN:
                 {
-
+                    currentPoint = 0;
+                    State = C_STATE.WALK;
+                    transform.position = Spwn.transform.position;
                 }
                 break;
             default:
@@ -132,7 +140,7 @@ public class NPC_Script : MonoBehaviour {
             AddChild();
         //Move in the path
        MoveToWaypoint();
-        if (WaypointEnded())
+        if (WaypointEnded() && State == C_STATE.PEE)
         {
             Stop = false;
             //run animation here
@@ -166,13 +174,10 @@ public class NPC_Script : MonoBehaviour {
         //Move in the path
         MoveToWaypoint();
 
-        if (WaypointEnded())
+        if (WaypointEnded() && State == C_STATE.WASH)
         {
             Stop = false;
-
-
             State = C_STATE.EXIT;
-            Debug.Log("HEHEXD");
         }
 
         }
@@ -187,7 +192,7 @@ public class NPC_Script : MonoBehaviour {
 
          MoveToWaypoint();
 
-        if (!WaypointEnded())
+        if (WaypointEnded())
         {
             Stop = false;
             RNG_Path = Random.Range(1, 3);
@@ -235,24 +240,26 @@ public class NPC_Script : MonoBehaviour {
 
     public void NPC_Exit()
     {
-        Debug.Log(WaypointEnded());
         SR.flipX = false;
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Exit");
+        Debug.Log(Stop);
         //add child
         if (!Stop)
             AddChild();
+
         //Move in the path
         MoveToWaypoint();
-        if (WaypointEnded())
+
+        if (WaypointEnded() && State == C_STATE.EXIT)
         {
-            //run animation here
-            Debug.Log("XDEHEH");
-            //Delete
+            Stop = false;
+            //    //run animation here
+
+            //    //Delete
             NPC.ReturnObject(gameObject);
             GlobalVar.Instance.CustomerCount--;
             State = C_STATE.WAITING_TO_SPAWN;
-            Stop = false;
         }
 
     }
@@ -266,4 +273,5 @@ public class NPC_Script : MonoBehaviour {
         }
         Stop = true;
     }
+
 }

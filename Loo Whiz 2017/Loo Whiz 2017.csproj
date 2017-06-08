@@ -76,8 +76,15 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CharSelector1.cs" />
     <Compile Include="Assets\Scripts\EnviManager.cs" />
     <Compile Include="Assets\Scripts\GameBtn.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
@@ -86,13 +93,15 @@
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PathToFollow.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-<<<<<<< HEAD
-    <Compile Include="Assets\Scripts\Spawner.cs" />
-=======
     <Compile Include="Assets\Scripts\Sink.cs" />
+    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\ToiletBowl.cs" />
+    <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
+    <Compile Include="Assets\Scripts\UI\Globals.cs" />
+    <Compile Include="Assets\Scripts\UI\module_objpersistence.cs" />
+    <Compile Include="Assets\Scripts\UI\obj_OptionsDisplay.cs" />
+    <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
     <Compile Include="Assets\Scripts\Urinal.cs" />
->>>>>>> ec4072db5a839ed198a0d6ee11025fdb832baef8
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -2,15 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PathToFollow : MonoBehaviour {
-    public static PathToFollow Instance = null;
+public class GlobalVar : MonoBehaviour {
+    public static GlobalVar Instance = null;
 
-    public static List<Transform> pathParent = new List<Transform>();
-    public float speed = 2f;
-    public float reachDist = 1f;
-    public int currentPoint = 0;
-    public bool ExitToilet;
-
+    public int CustomerCount = 0;
     void Awake()
     {
         if (Instance == null)

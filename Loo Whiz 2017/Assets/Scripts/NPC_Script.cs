@@ -10,7 +10,9 @@ public class NPC_Script : MonoBehaviour {
         PEE,
         SHIT,
         WASH,
-        DRAW,
+        WAITING_TO_SPAWN,
+        DRAW_L,
+        DRAW_R,
         EXIT,
     };
 
@@ -22,11 +24,12 @@ public class NPC_Script : MonoBehaviour {
     bool Stop;
     public int RNG_Path;
     public List<Transform> test = new List<Transform>();
-
     public float speed = 2f;
     public float reachDist = 0.1f;
     public int currentPoint = 0;
     Rigidbody2D BodyMovement;
+
+    ObjectPool NPC;
 
     // Use this for initialization
     void Start ()
@@ -34,6 +37,7 @@ public class NPC_Script : MonoBehaviour {
         State = C_STATE.WALK;
         Stop = false;
         BodyMovement = GetComponent<Rigidbody2D>();
+        NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
 
     }
 	
@@ -104,6 +108,12 @@ public class NPC_Script : MonoBehaviour {
             case C_STATE.EXIT:
                 {
                     //Customer go out
+                    NPC_Exit();
+                }
+                break;
+            case C_STATE.WAITING_TO_SPAWN:
+                {
+
                 }
                 break;
             default:
@@ -126,8 +136,7 @@ public class NPC_Script : MonoBehaviour {
         {
             Stop = false;
             //run animation here
-
-
+            
             //if(animation ended) wash hand
             State = C_STATE.WASH;
         }
@@ -152,11 +161,21 @@ public class NPC_Script : MonoBehaviour {
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Wash");
         //add child
-        AddChild();
+        if (!Stop)
+            AddChild();
         //Move in the path
         MoveToWaypoint();
 
-    }
+        if (WaypointEnded())
+        {
+            Stop = false;
+
+
+            State = C_STATE.EXIT;
+            Debug.Log("HEHEXD");
+        }
+
+        }
     //walking
     public void Walk()
     {
@@ -171,7 +190,7 @@ public class NPC_Script : MonoBehaviour {
         if (!WaypointEnded())
         {
             Stop = false;
-            RNG_Path = Random.Range(1, 5);
+            RNG_Path = Random.Range(1, 3);
             switch (RNG_Path)
             {
                 case 1:
@@ -192,26 +211,49 @@ public class NPC_Script : MonoBehaviour {
                         State = C_STATE.SHIT;
                     }
                     break;
-                case 4:
-                    {
-                        //Draw Right
-                        State = C_STATE.SHIT;
-                    }
-                    break;
-                case 5:
-                    {
-                        //go to basin
-                        State = C_STATE.WASH;
-                    }
-                    break;
+                //case 4:
+                //    {
+                //        //Draw Right
+                //        State = C_STATE.SHIT;
+                //    }
+                //    break;
+                //case 5:
+                //    {
+                //        //go to basin
+                //        State = C_STATE.WASH;
+                //    }
+                   // break;
                 default:
                     break;
             }
-            Debug.Log("IT ENDED, Set Path to " + ParentToTakeFrom.name);
         }
         //Debug.Log(test.Count);
         //Move to target path
 
+
+    }
+
+    public void NPC_Exit()
+    {
+        Debug.Log(WaypointEnded());
+        SR.flipX = false;
+        //Change path to Pee
+        ParentToTakeFrom = GameObject.Find("Exit");
+        //add child
+        if (!Stop)
+            AddChild();
+        //Move in the path
+        MoveToWaypoint();
+        if (WaypointEnded())
+        {
+            //run animation here
+            Debug.Log("XDEHEH");
+            //Delete
+            NPC.ReturnObject(gameObject);
+            GlobalVar.Instance.CustomerCount--;
+            State = C_STATE.WAITING_TO_SPAWN;
+            Stop = false;
+        }
 
     }
 

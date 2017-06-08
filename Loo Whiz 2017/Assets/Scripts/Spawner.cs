@@ -7,7 +7,6 @@ public class Spawner : MonoBehaviour
     private float countdown = 0f;
     public float SpawnTime = 1.0f;
     private bool spawnedSuccessfully;
-    private int currentCustomer = 0;
     public int MaxTotalCustomer = 5;
     public ObjectPool Cust;
 
@@ -29,13 +28,13 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         spawnedSuccessfully = false;
-        if (currentCustomer < MaxTotalCustomer)
+        if (GlobalVar.Instance.CustomerCount < MaxTotalCustomer)
         {
             while (spawnedSuccessfully == false)
             {
                 //Instantiate(Customer, transform.position, Quaternion.identity);
                 Cust.GetObject();
-                currentCustomer++;
+                GlobalVar.Instance.CustomerCount++;
                 spawnedSuccessfully = true;
             }
         }

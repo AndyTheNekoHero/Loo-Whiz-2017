@@ -90,7 +90,12 @@
     <Compile Include="Assets\Scripts\GlobalVar.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
-    <Compile Include="Assets\Scripts\Mess.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Paper.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Pee.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Shit.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Sink.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Wall.cs" />
+    <Compile Include="Assets\Scripts\Mess\Refill_Roll.cs" />
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
@@ -99,8 +104,6 @@
     <Compile Include="Assets\Scripts\ToiletBowl.cs" />
     <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
-    <Compile Include="Assets\Scripts\UI\module_objpersistence.cs" />
-    <Compile Include="Assets\Scripts\UI\obj_OptionsDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
     <Compile Include="Assets\Scripts\Urinal.cs" />
   </ItemGroup>

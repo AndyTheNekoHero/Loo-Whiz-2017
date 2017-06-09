@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //check if the screen is touched / clicked   
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) && DragToMove == false)
+        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) && !DragToMove && GlobalVar.Instance.IsEnableInput)
         {
             move = true;
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 #endif
         }
-        else if ((Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)) || (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && DragToMove == true)
+        else if ((Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)) || (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && DragToMove && GlobalVar.Instance.IsEnableInput)
         {
             move = true;
 

@@ -31,7 +31,9 @@ public class NPC_Script : MonoBehaviour {
 
     ObjectPool NPC;
     Spawner Spwn;
+    EnviManager EnviMag;
     private Animator anim;
+    //private float countdown = 0.0f;
 
     // Use this for initialization
     void Start ()
@@ -41,6 +43,7 @@ public class NPC_Script : MonoBehaviour {
         BodyMovement = GetComponent<Rigidbody2D>();
         NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
+        EnviMag = GameObject.Find("Envi GameObject").GetComponent<EnviManager>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
 
@@ -53,6 +56,17 @@ public class NPC_Script : MonoBehaviour {
         WaypointEnded();
         //Debug.Log("Waypoint: " + WaypointEnded());
         Debug.Log(State.ToString());
+    }
+
+    public IEnumerator AnimEnded()
+    {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        if (State == C_STATE.WASH)
+        {
+            anim.SetBool("Washing", false);
+            State = C_STATE.EXIT;
+        }
+
     }
 
     void MoveToWaypoint()
@@ -124,9 +138,9 @@ public class NPC_Script : MonoBehaviour {
                 break;
             case C_STATE.WAITING_TO_SPAWN:
                 {
-                    currentPoint = 0;
-                    State = C_STATE.WALK;
                     transform.position = Spwn.transform.position;
+                    currentPoint = 0;
+                    State = C_STATE.WALK;   
                 }
                 break;
             default:
@@ -183,11 +197,7 @@ public class NPC_Script : MonoBehaviour {
         {
             Stop = false;
             anim.SetBool("Washing", true);
-            if (!anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-            {
-                anim.SetBool("Washing", false);
-                State = C_STATE.EXIT;
-            }
+            StartCoroutine(AnimEnded());
         }
 
         }
@@ -205,7 +215,7 @@ public class NPC_Script : MonoBehaviour {
         if (WaypointEnded())
         {
             Stop = false;
-            RNG_Path = Random.Range(1, 3);
+            RNG_Path = Random.Range(1, 1);
             switch (RNG_Path)
             {
                 case 1:

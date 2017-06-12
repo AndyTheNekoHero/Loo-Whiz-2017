@@ -76,6 +76,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharSelector1.cs" />
@@ -84,7 +90,12 @@
     <Compile Include="Assets\Scripts\GlobalVar.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
-    <Compile Include="Assets\Scripts\Mess.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Paper.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Pee.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Shit.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Sink.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Wall.cs" />
+    <Compile Include="Assets\Scripts\Mess\Refill_Roll.cs" />
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />

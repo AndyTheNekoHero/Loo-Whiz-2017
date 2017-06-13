@@ -9,7 +9,9 @@ public class Globals : MonoBehaviour {
 
     // Audio, common
     private AudioSource source;
+
     float sfx_vol = 1.0f;
+    float bgm_vol = 1.0f;
     public AudioClip snd_btnpress;
 
     public static int selected_char = 1;
@@ -62,5 +64,16 @@ public class Globals : MonoBehaviour {
     public float get_sfx_vol()
     {
         return sfx_vol;
+    }
+
+    public void set_bgm_vol(float val)
+    {
+        // source.volume = bgm_vol = val; // should not be used as AudioSource 'source' is the same one used by sfx
+        bgm_vol = val;
+    }
+
+    public float get_bgm_vol()
+    {
+        return bgm_vol;
     }
 }

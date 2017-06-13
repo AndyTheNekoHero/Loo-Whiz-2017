@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class obj_sfxslider : MonoBehaviour {
-
     public Slider selfslider;
 
     void Start()

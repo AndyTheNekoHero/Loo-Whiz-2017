@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\ToiletBowl.cs" />
     <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
+    <Compile Include="Assets\Scripts\UI\obj_bgmslider.cs" />
     <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
     <Compile Include="Assets\Scripts\Urinal.cs" />
   </ItemGroup>

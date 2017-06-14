@@ -29,8 +29,6 @@ public class LoadingScreenManager : MonoBehaviour
     Scene currentScene;
 
     public static int sceneToLoad = -1;
-    // IMPORTANT! This is the build index of your loading scene. You need to change this to match your actual scene index
-    static int loadingSceneIndex = 2;
 
     public static void LoadScene(int levelNum)
     {
@@ -85,7 +83,7 @@ public class LoadingScreenManager : MonoBehaviour
         yield return new WaitForSeconds(fadeDuration);
 
         if (loadSceneMode == LoadSceneMode.Additive)
-            SceneManager.UnloadScene(currentScene.name);
+            SceneManager.UnloadSceneAsync(currentScene.name);
         else
             operation.allowSceneActivation = true;
     }

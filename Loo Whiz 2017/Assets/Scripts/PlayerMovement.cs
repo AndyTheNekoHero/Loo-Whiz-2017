@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) && !DragToMove && GlobalVar.Instance.IsEnableInput)
         {
             move = true;
-
             //for unity editor
 #if UNITY_EDITOR
             touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -75,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D colliderInfo)
     {
         move = false;
+        RB2D.velocity = Vector2.zero;
         touchPosition = prevPos;
     }
 

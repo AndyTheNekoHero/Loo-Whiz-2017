@@ -61,10 +61,23 @@ public class NPC_Script : MonoBehaviour {
     public IEnumerator AnimEnded()
     {
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        if (State == C_STATE.WASH)
+
+        switch (State)
         {
-            anim.SetBool("Washing", false);
-            State = C_STATE.EXIT;
+            case C_STATE.WASH:
+                {
+                    anim.SetBool("Washing", false);
+                    State = C_STATE.EXIT;
+                }
+                break;
+            case C_STATE.PEE:
+                {
+                    anim.SetBool("Peeing", false);
+                    State = C_STATE.WASH;
+                }
+                break;
+            default:
+                break;
         }
 
     }
@@ -140,6 +153,7 @@ public class NPC_Script : MonoBehaviour {
                 {
                     transform.position = Spwn.transform.position;
                     currentPoint = 0;
+                    test.Clear();
                     State = C_STATE.WALK;   
                 }
                 break;
@@ -151,7 +165,6 @@ public class NPC_Script : MonoBehaviour {
     //go to urinal
     public void Pee()
     {
-        SR.flipX = false;
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Pee");
         //add child
@@ -163,28 +176,34 @@ public class NPC_Script : MonoBehaviour {
         {
             Stop = false;
             //run animation here
-            
-            //if(animation ended) wash hand
-            State = C_STATE.WASH;
+            anim.SetBool("Peeing", true);
+            //Animation Ended
+            StartCoroutine(AnimEnded());
         }
 
     }
     //go to cubicle
     public void Shit()
     { 
-        SR.flipX = false;
         //Change path to Pee
        ParentToTakeFrom = GameObject.Find("Shit");
         //add child
         AddChild();
         //Move in the path
        MoveToWaypoint();
+        if (WaypointEnded() && State == C_STATE.SHIT)
+        {
+            Stop = false;
+            //run animation here
+
+            //if(animation ended) wash hand
+            State = C_STATE.WASH;
+        }
 
     }
     //go to basin
     public void Wash()
     {
-        SR.flipX = true;
         //Change path to Pee
         ParentToTakeFrom = GameObject.Find("Wash");
         //add child
@@ -274,9 +293,9 @@ public class NPC_Script : MonoBehaviour {
         if (WaypointEnded() && State == C_STATE.EXIT)
         {
             Stop = false;
-            //    //run animation here
+            //run animation here
 
-            //    //Delete
+           //Delete
             NPC.ReturnObject(gameObject);
             GlobalVar.Instance.CustomerCount--;
             State = C_STATE.WAITING_TO_SPAWN;

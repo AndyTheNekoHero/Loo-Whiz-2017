@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnviManager : MonoBehaviour {
+public class EnviManager : MonoBehaviour
+{
     public static EnviManager Instance;
 
     Urinal urinal;
     ToiletBowl toiletbowl;
     Sink sink;
+
+    private int EmptySlots;
 
     public List<Transform> UrinalList = new List<Transform>();
     public List<Transform> BowlList = new List<Transform>();
@@ -24,7 +27,8 @@ public class EnviManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         foreach (Transform child in transform)
         {
             if (child.GetComponent<Urinal>())
@@ -40,10 +44,47 @@ public class EnviManager : MonoBehaviour {
                 SinkList.Add(child);
             }
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    //True if no urinal left
+    public bool UrinalAllFull()
+    {
+        foreach (Transform child in UrinalList)
+        {
+            if (child.GetComponent<Urinal>().InUse() == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Get Empty Urinal
+    public int GetEmptyUrinalSlots()
+    {
+        EmptySlots = 0;
+        foreach (Transform child in UrinalList)
+        {
+            if (child.GetComponent<Urinal>().InUse() == false)
+            {
+                EmptySlots++;
+            }
+        }
+        return EmptySlots;
+    }
+    //Get one Transform of an Empty Urinal
+    public Transform GetEmptyUrinal()
+    {
+        foreach (Transform child in UrinalList)
+        {
+            if (child.GetComponent<Urinal>().InUse() == false)
+            {
+                return child;
+            }
+        }
+        return null;
+    }
 }

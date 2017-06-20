@@ -10,6 +10,7 @@ public class Character_Button : MonoBehaviour
     private Vector2 TouchPosition;
     private bool ScreenTouched;
     private bool Once;
+    public bool ButtonClick;
     Ray ray;
 
     // Use this for initialization
@@ -30,8 +31,7 @@ public class Character_Button : MonoBehaviour
 #if UNITY_EDITOR
         TouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //Debug.DrawRay(ray.origin, ray.direction * 10000000000000000000f, Color.green, 1000f);
-
+     
             //for touch device
 #elif (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP8)
         TouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -41,25 +41,25 @@ public class Character_Button : MonoBehaviour
             Collider2D touchedObject = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (touchedObject)
             {
-                if (touchedObject.tag == "Button" || touchedObject.tag == "Player")
+                if (touchedObject.tag == "Player")
                 {
                     Chara_button.SetActive(true);
+                    ButtonClick = true;
+                    GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
+
+                }
+                else if (touchedObject.tag == "Button")
+                {
+                    ButtonClick = true;
+                    GetComponent<PlayerMovement>().move = false;
                 }
                 else
                 {
                     Chara_button.SetActive(false);
+                    ButtonClick = false;
                 }
             }
 
-        }
-
-        if (ScreenTouched && Vector2.Distance(transform.position, TouchPosition) <= 0.5f)
-        {
-            Chara_button.SetActive(true);
-        }
-        else
-        {
-            ScreenTouched = false;
         }
 
     }

@@ -140,6 +140,7 @@ public class NPC_Script : MonoBehaviour {
                 {
                     transform.position = Spwn.transform.position;
                     currentPoint = 0;
+                    test.Clear();
                     State = C_STATE.WALK;   
                 }
                 break;

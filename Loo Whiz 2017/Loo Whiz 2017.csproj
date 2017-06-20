@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharSelector1.cs" />
+    <Compile Include="Assets\Scripts\Character_Button.cs" />
     <Compile Include="Assets\Scripts\EnviManager.cs" />
     <Compile Include="Assets\Scripts\GameBtn.cs" />
     <Compile Include="Assets\Scripts\GlobalVar.cs" />

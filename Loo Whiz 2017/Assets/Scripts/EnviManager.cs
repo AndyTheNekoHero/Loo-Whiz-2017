@@ -10,11 +10,12 @@ public class EnviManager : MonoBehaviour
     ToiletBowl toiletbowl;
     Sink sink;
 
-    private int EmptySlots;
+    private int EmptySlots, EmptySinkSlots;
 
     public List<Transform> UrinalList = new List<Transform>();
     public List<Transform> BowlList = new List<Transform>();
     public List<Transform> SinkList = new List<Transform>();
+
 
     void Awake()
     {
@@ -29,26 +30,38 @@ public class EnviManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
         foreach (Transform child in transform)
         {
-            if (child.GetComponent<Urinal>())
+            if (child.name == "Urinals")
             {
-                UrinalList.Add(child);
+                foreach (Transform UrinalChild in child)
+                {
+                    if (UrinalChild.GetComponent<Urinal>())
+                    {
+                        UrinalList.Add(UrinalChild);
+                    }
+                }
             }
             if (child.GetComponent<ToiletBowl>())
             {
                 BowlList.Add(child);
             }
-            if (child.GetComponent<Sink>())
+            if (child.name == "Sinks")
             {
-                SinkList.Add(child);
+                foreach (Transform SinkChild in child)
+                {
+                    if (SinkChild.GetComponent<Sink>())
+                    {
+                        SinkList.Add(SinkChild);
+                    }
+                }
             }
         }
     }
     // Update is called once per frame
     void Update()
     {
-
     }
     //True if no urinal left
     public bool UrinalAllFull()
@@ -82,6 +95,46 @@ public class EnviManager : MonoBehaviour
         {
             if (child.GetComponent<Urinal>().InUse() == false)
             {
+                child.GetComponent<Urinal>().Occupy();
+                return child;
+            }
+        }
+        return null;
+    }
+
+    //True if no Sink left
+    public bool SinkAllFull()
+    {
+        foreach (Transform child in SinkList)
+        {
+            if (child.GetComponent<Sink>().InUse() == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Get Empty Sink
+    public int GetEmptySinkSlots()
+    {
+        EmptySinkSlots = 0;
+        foreach (Transform child in SinkList)
+        {
+            if (child.GetComponent<Sink>().InUse() == false)
+            {
+                EmptySinkSlots++;
+            }
+        }
+        return EmptySinkSlots;
+    }
+    //Get one Transform of an Empty Urinal
+    public Transform GetEmptySink()
+    {
+        foreach (Transform child in SinkList)
+        {
+            if (child.GetComponent<Sink>().InUse() == false)
+            {
+                child.GetComponent<Sink>().Occupy();
                 return child;
             }
         }

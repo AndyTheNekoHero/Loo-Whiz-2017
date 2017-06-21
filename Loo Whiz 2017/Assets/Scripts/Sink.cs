@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Sink : MonoBehaviour {
 
+    private bool Occupied = false;
+
     public bool InUse()
     {
-        return true;
+        return Occupied;
+    }
+    public void UnOccupy()
+    {
+        Occupied = false;
+    }
+    public void Occupy()
+    {
+        Occupied = true;
     }
 }

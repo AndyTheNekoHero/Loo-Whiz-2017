@@ -10,7 +10,7 @@ public class Character_Button : MonoBehaviour
     private Vector2 TouchPosition;
     private bool ScreenTouched;
     private bool Once;
-    public bool ButtonClick;
+    public bool ButtonClick = true;
     Ray ray;
 
     // Use this for initialization
@@ -46,12 +46,14 @@ public class Character_Button : MonoBehaviour
                     Chara_button.SetActive(true);
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
+                    GetComponent<PlayerMovement>().move = false;
 
                 }
                 else if (touchedObject.tag == "Button")
                 {
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().move = false;
+                    GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
                 }
                 else
                 {

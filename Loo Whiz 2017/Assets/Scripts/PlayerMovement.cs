@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D RB2D;
     public bool DragToMove= false;
     private Animator anim;
-
+    public Vector3 vel;
 
     void Start()
     {
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         if (move && Vector2.Distance(transform.position, touchPosition) > 0.1f && !GetComponent<Character_Button>().ButtonClick)
         {
             RB2D.velocity = Vector2.zero;
-            RB2D.AddForce(dir * movespeed);
+            RB2D.velocity = (dir * movespeed);
         }
         else if (move && Vector2.Distance(transform.position, touchPosition) < 0.1f)
         {
@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colliderInfo)
     {
+        print(colliderInfo.gameObject.name);
         move = false;
         RB2D.velocity = Vector2.zero;
         touchPosition = prevPos;

@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
 
-    private bool move = false;
+    public bool move = false;
     private Vector2 touchPosition;
     private Vector2 prevPos;
     public float movespeed = 100.0f;
-    Rigidbody2D RB2D;
-
-    public bool DragToMove = false;
-
+    public Rigidbody2D RB2D;
+    public bool DragToMove= false;
     private Animator anim;
+
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //check if the screen is touched / clicked   
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) && !DragToMove && GlobalVar.Instance.IsEnableInput)
+        if ( ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0)) ) && !DragToMove && GlobalVar.Instance.IsEnableInput)
         {
             move = true;
             //for unity editor
@@ -36,10 +36,9 @@ public class PlayerMovement : MonoBehaviour
         touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 #endif
         }
-        else if ((Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)) || (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && DragToMove && GlobalVar.Instance.IsEnableInput)
+        if ( ((Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)) || (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) ) && DragToMove && GlobalVar.Instance.IsEnableInput)
         {
             move = true;
-
             //for unity editor
 #if UNITY_EDITOR
             touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -53,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         prevPos = transform.position;
          Vector2 dir = (touchPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
         //check if the flag for movement is true and the current gameobject position is not same as the clicked / tapped position
-        if (move && Vector2.Distance(transform.position, touchPosition) > 0.1f)
+        if (move && Vector2.Distance(transform.position, touchPosition) > 0.1f && !GetComponent<Character_Button>().ButtonClick)
         {
             RB2D.velocity = Vector2.zero;
             RB2D.AddForce(dir * movespeed);
@@ -81,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionStay2D(Collision2D colliderInfo)
     {
         move = false;
+        RB2D.velocity = Vector2.zero;
     }
 }
 

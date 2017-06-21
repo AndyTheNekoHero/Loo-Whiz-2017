@@ -10,6 +10,8 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Roll_Selected    = false;
         GlobalVar.Instance.Sweep_Selected   = false;
         GlobalVar.Instance.Wipe_Selected    = false;
+        gameObject.SetActive(false);
+        GlobalVar.Instance.IsEnableInput = true;
     }
     public void FillRoll()
     {
@@ -18,6 +20,8 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Roll_Selected    = true;
         GlobalVar.Instance.Sweep_Selected   = false;
         GlobalVar.Instance.Wipe_Selected    = false;
+        gameObject.SetActive(false);
+        GlobalVar.Instance.IsEnableInput = true;
     }
     public void Sweep()
     {
@@ -26,6 +30,8 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Roll_Selected    = false;
         GlobalVar.Instance.Sweep_Selected   = true;
         GlobalVar.Instance.Wipe_Selected    = false;
+        gameObject.SetActive(false);
+        GlobalVar.Instance.IsEnableInput = true;
     }
     public void Wipe()
     {
@@ -34,5 +40,7 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Roll_Selected    = false;
         GlobalVar.Instance.Sweep_Selected   = false;
         GlobalVar.Instance.Wipe_Selected    = true;
+        gameObject.SetActive(false);
+        GlobalVar.Instance.IsEnableInput = true;
     }
 }

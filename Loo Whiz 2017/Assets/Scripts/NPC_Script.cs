@@ -171,7 +171,7 @@ public class NPC_Script : MonoBehaviour
         MoveToWaypoint();
         if (WaypointEnded() && State == C_STATE.PEE)
         {
-            Stop = false;
+            //Stop = false;
             //run animation here
             anim.SetBool("Peeing", true);
             //Animation Ended

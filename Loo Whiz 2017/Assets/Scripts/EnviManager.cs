@@ -6,15 +6,12 @@ public class EnviManager : MonoBehaviour
 {
     public static EnviManager Instance;
 
-    Urinal urinal;
-    ToiletBowl toiletbowl;
-    Sink sink;
-
-    private int EmptySlots, EmptySinkSlots;
+    private int EmptySlots, EmptySinkSlots, EmptyBowlSlots, EmptyWallSlots;
 
     public List<Transform> UrinalList = new List<Transform>();
     public List<Transform> BowlList = new List<Transform>();
     public List<Transform> SinkList = new List<Transform>();
+    public List<Transform> GraffitiList = new List<Transform>();
 
 
     void Awake()
@@ -43,9 +40,15 @@ public class EnviManager : MonoBehaviour
                     }
                 }
             }
-            if (child.GetComponent<ToiletBowl>())
+            if (child.name == "Cubicles")
             {
-                BowlList.Add(child);
+                foreach (Transform CubicleChild in child)
+                {
+                    if (CubicleChild.GetComponent<ToiletBowl>())
+                    {
+                        BowlList.Add(CubicleChild);
+                    }
+                }
             }
             if (child.name == "Sinks")
             {
@@ -57,12 +60,25 @@ public class EnviManager : MonoBehaviour
                     }
                 }
             }
+            if (child.name == "Graffiti")
+            {
+                foreach (Transform GraffitiChild in child)
+                {
+                    if (GraffitiChild.GetComponent<Draw>())
+                    {
+                        GraffitiList.Add(GraffitiChild);
+                    }
+                }
+            }
         }
     }
     // Update is called once per frame
     void Update()
     {
     }
+
+    #region Urinal
+
     //True if no urinal left
     public bool UrinalAllFull()
     {
@@ -96,11 +112,16 @@ public class EnviManager : MonoBehaviour
             if (child.GetComponent<Urinal>().InUse() == false)
             {
                 child.GetComponent<Urinal>().Occupy();
+                Debug.Log("Child in EnviManager: " + child.name);
                 return child;
             }
         }
         return null;
     }
+
+    #endregion
+
+    #region Sink
 
     //True if no Sink left
     public bool SinkAllFull()
@@ -140,4 +161,93 @@ public class EnviManager : MonoBehaviour
         }
         return null;
     }
+
+    #endregion
+
+    #region Cubicle
+
+    //True if no Sink left
+    public bool BowlAllFull()
+    {
+        foreach (Transform child in BowlList)
+        {
+            if (child.GetComponent<ToiletBowl>().InUse() == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Get Empty Sink
+    public int GetEmptyBowlSlots()
+    {
+        EmptyBowlSlots = 0;
+        foreach (Transform child in BowlList)
+        {
+            if (child.GetComponent<ToiletBowl>().InUse() == false)
+            {
+                EmptyBowlSlots++;
+            }
+        }
+        return EmptyBowlSlots;
+    }
+    //Get one Transform of an Empty Urinal
+    public Transform GetEmptyBowl()
+    {
+        foreach (Transform child in BowlList)
+        {
+            if (child.GetComponent<ToiletBowl>().InUse() == false)
+            {
+                child.GetComponent<ToiletBowl>().Occupy();
+                return child;
+            }
+        }
+        return null;
+    }
+
+    #endregion
+
+    #region Graffiti
+
+    //True if no Sink left
+    public bool AllDrawn()
+    {
+        foreach (Transform child in GraffitiList)
+        {
+            if (child.GetComponent<Draw>().IsDrawing() == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Get Empty Sink
+    public int GetEmptyWallSlots()
+    {
+        EmptyWallSlots = 0;
+        foreach (Transform child in GraffitiList)
+        {
+            if (child.GetComponent<Draw>().IsDrawing() == false)
+            {
+                EmptyWallSlots++;
+            }
+        }
+        return EmptyWallSlots;
+    }
+    //Get one Transform of an Empty Urinal
+    public Transform GetEmptyWall()
+    {
+        foreach (Transform child in GraffitiList)
+        {
+            if (child.GetComponent<Draw>().IsDrawing() == false)
+            {
+                child.GetComponent<Draw>().HadDrawn();
+                return child;
+            }
+        }
+        return null;
+    }
+
+    #endregion
+
 }

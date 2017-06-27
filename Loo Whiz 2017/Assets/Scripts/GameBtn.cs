@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameBtn : MonoBehaviour {
+public class GameBtn : MonoBehaviour
+{
+    private Animator anim;
+
+    void Start()
+    {
+        anim = GameObject.Find("Player").GetComponent<Animator>();
+    }
 
     public void Mop()
     {
@@ -12,6 +19,12 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+
+        //change animation on button click
+        anim.SetBool("Mop_Selected",    true);
+        anim.SetBool("Roll_Selected",   false);
+        anim.SetBool("Sweep_Selected",  false);
+        anim.SetBool("Wipe_Selected",   false);
     }
     public void FillRoll()
     {
@@ -22,6 +35,12 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+
+        //change animation on button click
+        anim.SetBool("Mop_Selected",    false);
+        anim.SetBool("Roll_Selected",   true);
+        anim.SetBool("Sweep_Selected",  false);
+        anim.SetBool("Wipe_Selected",   false);
     }
     public void Sweep()
     {
@@ -32,6 +51,12 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+
+        //change animation on button click
+        anim.SetBool("Mop_Selected",    false);
+        anim.SetBool("Roll_Selected",   false);
+        anim.SetBool("Sweep_Selected",  true);
+        anim.SetBool("Wipe_Selected",   false);
     }
     public void Wipe()
     {
@@ -42,5 +67,11 @@ public class GameBtn : MonoBehaviour {
         GlobalVar.Instance.Wipe_Selected    = true;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+
+        //change animation on button click
+        anim.SetBool("Mop_Selected",    false);
+        anim.SetBool("Roll_Selected",   false);
+        anim.SetBool("Sweep_Selected",  false);
+        anim.SetBool("Wipe_Selected",   true);
     }
 }

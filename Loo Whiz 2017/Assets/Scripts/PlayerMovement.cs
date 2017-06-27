@@ -7,18 +7,36 @@ public class PlayerMovement : MonoBehaviour
 
     public bool move = false;
     private Vector2 touchPosition;
-    private Vector2 prevPos;
     public float movespeed = 100.0f;
     public Rigidbody2D RB2D;
     public bool DragToMove= false;
     private Animator anim;
     public Vector3 vel;
-
+    public GameObject selected = null;
     void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
+
+    void OnTriggerEnter2D(Collider2D info)
+    {
+        Mess_Check m = info.GetComponent<Mess_Check>();
+        if (m && selected == null)
+        {
+            StartCoroutine(m.StartAction());
+        }
+        RB2D.velocity = Vector2.zero;
+    }
+    void OnTriggerExit2D(Collider2D info)
+    {
+        GlobalVar.Instance.IsEnableInput = true;
+        GlobalVar.Instance.Cleaning = false;
+        anim.SetBool("Sweeping", false);
+        anim.SetBool("Wipping", false);
+        anim.SetBool("Mopping", false);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -49,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
 #endif
         }
 
-        prevPos = transform.position;
          Vector2 dir = (touchPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
         //check if the flag for movement is true and the current gameobject position is not same as the clicked / tapped position
         if (move && Vector2.Distance(transform.position, touchPosition) > 0.1f && !GetComponent<Character_Button>().ButtonClick)
@@ -62,7 +79,9 @@ public class PlayerMovement : MonoBehaviour
             move = false;
             RB2D.velocity = Vector2.zero;
         }
-        //set the movement indicator flag to false if the endPoint and current gameobject position are equal
+
+        if (GetComponent<Character_Button>().ButtonClick)
+            move = false;
 
         //set animation
         anim.SetFloat("MoveX", dir.x);

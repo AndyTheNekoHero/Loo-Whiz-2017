@@ -53,8 +53,8 @@ public class NPC_Script : MonoBehaviour
     {
         StartCoroutine(ProcessState());
         WaypointEnded();
-        Debug.Log(currentPoint + " " + Waypoint.Count);
-        Debug.Log(Stop);
+        //Debug.Log(currentPoint + " " + Waypoint.Count);
+        //Debug.Log(Stop);
     }
 
     public IEnumerator PeeAnimEnded()
@@ -171,7 +171,7 @@ public class NPC_Script : MonoBehaviour
         MoveToWaypoint();
         if (WaypointEnded() && State == C_STATE.PEE)
         {
-            Stop = false;
+            //Stop = false;
             //run animation here
             anim.SetBool("Peeing", true);
             //Animation Ended
@@ -207,7 +207,7 @@ public class NPC_Script : MonoBehaviour
         //add child
         if (!Stop)
         {
-            WalkToSink();  
+            WalkToSink();
         }
         //Move in the path
         MoveToWaypoint();
@@ -255,18 +255,18 @@ public class NPC_Script : MonoBehaviour
                         State = C_STATE.SHIT;
                     }
                     break;
-               case 4:
-                   {
-                       //Draw Right
-                       State = C_STATE.SHIT;
-                   }
-                   break;
-               case 5:
-                   {
-                       //go to basin
-                       State = C_STATE.WASH;
-                   }
-                break;
+                case 4:
+                    {
+                        //Draw Right
+                        State = C_STATE.SHIT;
+                    }
+                    break;
+                case 5:
+                    {
+                        //go to basin
+                        State = C_STATE.WASH;
+                    }
+                    break;
                 default:
                     break;
             }

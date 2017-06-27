@@ -12,6 +12,7 @@ public class GlobalVar : MonoBehaviour
     public bool Mop_Selected    = false;
     public bool Sweep_Selected  = false;
     public bool IsEnableInput   = true;
+    public bool Cleaning = false;
 
     void Awake()
     {

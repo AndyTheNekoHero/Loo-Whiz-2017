@@ -8,10 +8,8 @@ public class Character_Button : MonoBehaviour
     public GameObject Chara_button;
 
     private Vector2 TouchPosition;
-    private bool ScreenTouched;
     private bool Once;
     public bool ButtonClick = true;
-    Ray ray;
 
     // Use this for initialization
     void Start ()
@@ -26,33 +24,28 @@ public class Character_Button : MonoBehaviour
 
         if ( ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0))) )
         {
-            ScreenTouched = true;
             //for unity editor
 #if UNITY_EDITOR
         TouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
      
             //for touch device
 #elif (UNITY_ANDROID || UNITY_IPHONE || UNITY_WP8)
         TouchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
 
-            Collider2D touchedObject = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Collider2D touchedObject = Physics2D.OverlapPoint(TouchPosition);
             if (touchedObject)
             {
-                if (touchedObject.tag == "Player")
+                if (touchedObject.tag == "Player" && GlobalVar.Instance.Cleaning == false)
                 {
                     Chara_button.SetActive(true);
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
-                    GetComponent<PlayerMovement>().move = false;
 
                 }
                 else if (touchedObject.tag == "Button")
                 {
                     ButtonClick = true;
-                    GetComponent<PlayerMovement>().move = false;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
                 }
                 else

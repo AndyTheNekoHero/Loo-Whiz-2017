@@ -72,17 +72,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colliderInfo)
     {
-        print(colliderInfo.gameObject.name);
         move = false;
         RB2D.velocity = Vector2.zero;
-        touchPosition = prevPos;
     }
 
-    void OnCollisionStay2D(Collision2D colliderInfo)
-    {
-        move = false;
-        RB2D.velocity = Vector2.zero;
-    }
 }
 
 

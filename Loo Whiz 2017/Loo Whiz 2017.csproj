@@ -76,17 +76,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AspectRatioScript.cs" />
     <Compile Include="Assets\Scripts\CharSelector1.cs" />
     <Compile Include="Assets\Scripts\Character_Button.cs" />
+    <Compile Include="Assets\Scripts\Draw.cs" />
     <Compile Include="Assets\Scripts\EnviManager.cs" />
     <Compile Include="Assets\Scripts\GameBtn.cs" />
     <Compile Include="Assets\Scripts\GlobalVar.cs" />
@@ -100,6 +95,7 @@
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
     <Compile Include="Assets\Scripts\Sink.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />

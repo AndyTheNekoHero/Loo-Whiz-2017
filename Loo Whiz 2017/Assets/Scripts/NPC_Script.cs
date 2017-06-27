@@ -12,20 +12,18 @@ public class NPC_Script : MonoBehaviour
         SHIT,
         WASH,
         WAITING_TO_SPAWN,
-        DRAW_L,
-        DRAW_R,
+        DRAW,
         EXIT,
     };
 
     C_STATE State;
-    private Vector2 dir;
     public GameObject ParentToTakeFrom;
 
     bool Stop;
     public int RNG_Path;
     public List<Transform> Waypoint = new List<Transform>();
     public float speed = 2f;
-    public float reachDist = 0.1f;
+    private float reachDist = 0.3f;
     public int currentPoint = 0;
     Rigidbody2D BodyMovement;
 
@@ -53,16 +51,51 @@ public class NPC_Script : MonoBehaviour
     {
         StartCoroutine(ProcessState());
         WaypointEnded();
+<<<<<<< HEAD
         //Debug.Log(currentPoint + " " + Waypoint.Count);
         //Debug.Log(Stop);
+=======
+
+        #region Debug Fast Forward
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            Time.timeScale = 2f;
+        }
+        else
+            Time.timeScale = 1f;
+        #endregion
+
+        if (ParentToTakeFrom == null)
+        {
+            Debug.LogWarning("Error404! GameObject Not Found! Ending Proramme Now!");
+            Application.Quit();
+        }
+        //Debug.Log(currentPoint + " " + Waypoint.Count);
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
     }
 
+    #region Animation Ended
     public IEnumerator PeeAnimEnded()
     {
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
         if (WaypointEnded() && State == C_STATE.PEE)
         {
             anim.SetBool("Peeing", false);
+            WalkToSink();
+            UrinalUnOccupy();
+            State = C_STATE.WASH;
+        }
+
+    }
+    public IEnumerator ShitAnimEnded()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (WaypointEnded() && State == C_STATE.SHIT)
+        {
+            WalkToSink();
+            BowlUnOccupy();
             State = C_STATE.WASH;
         }
 
@@ -74,9 +107,25 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded() && State == C_STATE.WASH)
         {
             anim.SetBool("Washing", false);
+            SinkUnOccupy();
+            ParentToTakeFrom = GameObject.Find("Exit");
+            AddChild();
             State = C_STATE.EXIT;
         }
     }
+    public IEnumerator DrawAnimEnded()
+    {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        if (WaypointEnded() && State == C_STATE.DRAW)
+        {
+            anim.SetBool("Drawing", false);
+            ParentToTakeFrom = GameObject.Find("Exit");
+            AddChild();
+            State = C_STATE.EXIT;
+        }
+    }
+    #endregion
 
     void MoveToWaypoint()
     {
@@ -92,12 +141,11 @@ public class NPC_Script : MonoBehaviour
 
         //Move to waypoint
         //transform.position = Vector2.Lerp(transform.position, test[currentPoint].position, Time.deltaTime * speed);
-
         if (dist > reachDist)
         {
             BodyMovement.velocity = dir * speed;
         }
-        else if (dist <= reachDist)
+        if (dist <= reachDist)
         {
             BodyMovement.velocity = Vector2.zero;
             currentPoint++;
@@ -134,6 +182,11 @@ public class NPC_Script : MonoBehaviour
                     Wash();
                 }
                 break;
+            case C_STATE.DRAW:
+                {
+                    Draw();
+                }
+                break;
             case C_STATE.WALK:
                 {
                     Walk();
@@ -162,7 +215,7 @@ public class NPC_Script : MonoBehaviour
     public void Pee()
     {
         //Change path to Pee
-        //ParentToTakeFrom = GameObject.Find("Sinks");
+        //ParentToTakeFrom = GameObject.Find("Pee");
         if (!Stop)
         {
             WalkToPee();
@@ -171,7 +224,10 @@ public class NPC_Script : MonoBehaviour
         MoveToWaypoint();
         if (WaypointEnded() && State == C_STATE.PEE)
         {
+<<<<<<< HEAD
             //Stop = false;
+=======
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
             //run animation here
             anim.SetBool("Peeing", true);
             //Animation Ended
@@ -183,19 +239,18 @@ public class NPC_Script : MonoBehaviour
     //go to cubicle
     public void Shit()
     {
-        //Change path to Pee
-        ParentToTakeFrom = GameObject.Find("Shit");
-        //add child
-        AddChild();
+        //Change path to Cubicle
+        if (!Stop)
+        {
+            WalkToShit();
+        }
         //Move in the path
         MoveToWaypoint();
+
         if (WaypointEnded() && State == C_STATE.SHIT)
         {
-            Stop = false;
             //run animation here
-
-            //if(animation ended) wash hand
-            State = C_STATE.WASH;
+            StartCoroutine(ShitAnimEnded());
         }
 
     }
@@ -203,12 +258,14 @@ public class NPC_Script : MonoBehaviour
     public void Wash()
     {
         //Change path to wash
-        //ParentToTakeFrom = GameObject.Find("Sinks");
         //add child
+<<<<<<< HEAD
         if (!Stop)
         {
             WalkToSink();
         }
+=======
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
         //Move in the path
         MoveToWaypoint();
 
@@ -220,6 +277,27 @@ public class NPC_Script : MonoBehaviour
         }
 
     }
+    //Go to wall
+    public void Draw()
+    {
+        if (!Stop)
+        {
+            WalkToWall();
+        }
+        //Move in the path
+        MoveToWaypoint();
+
+        if (WaypointEnded() && State == C_STATE.DRAW )
+        {
+            //run animation here
+            anim.SetBool("Drawing", true);
+            //Animation Ended
+            StartCoroutine(DrawAnimEnded());
+
+        }
+
+    }
+
     //walking
     public void Walk()
     {
@@ -234,7 +312,13 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
-            RNG_Path = Random.Range(1, 1);
+            
+            //Random Path
+            if (EnviManager.Instance.UrinalAllFull()) { RNG_Path = Random.Range(2, 4); }
+            else if (EnviManager.Instance.AllDrawn()) { RNG_Path =  Random.Range(1, 3); }
+            else
+                RNG_Path = Random.Range(1, 4);
+
             switch (RNG_Path)
             {
                 case 1:
@@ -251,10 +335,11 @@ public class NPC_Script : MonoBehaviour
                     break;
                 case 3:
                     {
-                        //Draw Left
-                        State = C_STATE.SHIT;
+                        //Draw
+                        State = C_STATE.DRAW;
                     }
                     break;
+<<<<<<< HEAD
                 case 4:
                     {
                         //Draw Right
@@ -267,6 +352,14 @@ public class NPC_Script : MonoBehaviour
                         State = C_STATE.WASH;
                     }
                     break;
+=======
+               case 4:
+                   {
+                       //go to basin
+                       State = C_STATE.WASH;
+                   }
+                break;
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
                 default:
                     break;
             }
@@ -279,13 +372,6 @@ public class NPC_Script : MonoBehaviour
 
     public void NPC_Exit()
     {
-        //Stop = false;
-        //Change path to Pee
-        ParentToTakeFrom = GameObject.Find("Exit");
-        //add child
-        if (!Stop)
-            AddChild();
-
         //Move in the path
         MoveToWaypoint();
 
@@ -301,6 +387,9 @@ public class NPC_Script : MonoBehaviour
         }
 
     }
+
+
+    #region For Walk
 
     //Loop to add child
     public void AddChild()
@@ -319,8 +408,10 @@ public class NPC_Script : MonoBehaviour
         {
             Waypoint.Add(EnviManager.Instance.GetEmptyUrinal());
         }
+       
         Stop = true;
     }
+
     public void WalkToSink()
     {
         //Getting One Sink
@@ -330,4 +421,69 @@ public class NPC_Script : MonoBehaviour
         }
         Stop = true;
     }
+<<<<<<< HEAD
 }
+=======
+
+    public void WalkToShit()
+    {
+        ////Getting One Cubicle
+        if (EnviManager.Instance.GetEmptyBowlSlots() >= 0)
+        {
+            Waypoint.Add(EnviManager.Instance.GetEmptyBowl());
+        }
+
+        Stop = true;
+    }
+
+    public void WalkToWall()
+    {
+        ////Getting One Cubicle
+        if (EnviManager.Instance.GetEmptyWallSlots() >= 0)
+        {
+            Waypoint.Add(EnviManager.Instance.GetEmptyWall());
+        }
+
+        Stop = true;
+    }
+
+    #endregion
+
+    #region UnOccupy
+
+    private void UrinalUnOccupy()
+    {
+        foreach (Transform child in Waypoint)
+        {
+            if (child.GetComponent<Urinal>())
+            {
+                Debug.Log("Child in NPC: " + child.name);
+                child.GetComponent<Urinal>().UnOccupy();
+            }
+        }
+    }
+    private void SinkUnOccupy()
+    {
+        foreach (Transform child in Waypoint)
+        {
+            if (child.GetComponent<Sink>())
+            {
+                Debug.Log("Child in NPC: " + child.name);
+                child.GetComponent<Sink>().UnOccupy();
+            }
+        }
+    }
+    private void BowlUnOccupy()
+    {
+        foreach (Transform child in Waypoint)
+        {
+            if (child.GetComponent<ToiletBowl>())
+            {
+                Debug.Log("Child in NPC: " + child.name);
+                child.GetComponent<ToiletBowl>().UnOccupy();
+            }
+        }
+    }
+    #endregion
+}
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780

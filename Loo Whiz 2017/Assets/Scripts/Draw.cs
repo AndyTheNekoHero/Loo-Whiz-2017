@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToiletBowl : MonoBehaviour {
+public class Draw : MonoBehaviour {
 
     private bool Occupied = false;
 
-    public bool InUse()
+    public bool IsDrawing()
     {
         return Occupied;
     }
-    public void UnOccupy()
+    public void NotDrawn()
     {
         Occupied = false;
     }
-    public void Occupy()
+    public void HadDrawn()
     {
         Occupied = true;
     }

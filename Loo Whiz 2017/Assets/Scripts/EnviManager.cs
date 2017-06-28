@@ -112,11 +112,23 @@ public class EnviManager : MonoBehaviour
             if (child.GetComponent<Urinal>().InUse() == false)
             {
                 child.GetComponent<Urinal>().Occupy();
-                Debug.Log("Child in EnviManager: " + child.name);
+                //Debug.Log("Child in EnviManager: " + child.name);
                 return child;
             }
         }
         return null;
+    }
+    public bool UrinalMess(Urinal current)
+    {
+        if (current == null)
+            return false;
+
+         if (current.IsPeed())
+         {
+             return true;
+         }
+
+        return false;
     }
 
     #endregion

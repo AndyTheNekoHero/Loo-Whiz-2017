@@ -77,12 +77,30 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded() && State == C_STATE.PEE)
         {
             anim.SetBool("Peeing", false);
-            WalkToSink();
+            CreatedPeeMess();
             UrinalUnOccupy();
             State = C_STATE.WASH;
-        }
 
+            GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().transform));
+            EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f , -8.0f , 0));
+            EnviroPee.transform.localScale = new Vector2(2.5f, 4.0f);
+            WalkToSink();
+        }
     }
+    public IEnumerator AngryAnimEnded()
+    {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        if (WaypointEnded() && State == C_STATE.PEE)
+        {
+            anim.SetBool("Angry", false);
+            UrinalUnOccupy();
+            ParentToTakeFrom = GameObject.Find("Exit");
+            AddChild();
+            State = C_STATE.EXIT;
+        }
+    }
+
     public IEnumerator ShitAnimEnded()
     {
         yield return new WaitForSeconds(2f);
@@ -214,16 +232,25 @@ public class NPC_Script : MonoBehaviour
         if (!Stop)
         {
             WalkToPee();
+            return;
         }
+
         //Move in the path
         MoveToWaypoint();
-        if (WaypointEnded() && State == C_STATE.PEE)
+        if (WaypointEnded() && EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()) == false)
         {
             //run animation here
             anim.SetBool("Peeing", true);
             //Animation Ended
             StartCoroutine(PeeAnimEnded());
-
+        }
+        if(WaypointEnded() && EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()))
+        {
+            //angry animation here
+            anim.SetBool("Angry", true);
+            //animation ended
+            StartCoroutine(AngryAnimEnded());
+            Debug.Log("asdasd");
         }
 
     }
@@ -301,7 +328,7 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.UrinalAllFull()) { RNG_Path = Random.Range(2, 4); }
             else if (EnviManager.Instance.AllDrawn()) { RNG_Path =  Random.Range(1, 3); }
             else
-                RNG_Path = Random.Range(1, 4);
+                RNG_Path = Random.Range(1, 1);
 
             switch (RNG_Path)
             {
@@ -357,7 +384,6 @@ public class NPC_Script : MonoBehaviour
 
     }
 
-
     #region For Walk
 
     //Loop to add child
@@ -373,7 +399,7 @@ public class NPC_Script : MonoBehaviour
     public void WalkToPee()
     {
         ////Getting One Urinal
-        if (EnviManager.Instance.GetEmptyUrinalSlots() >= 0)
+        if (EnviManager.Instance.GetEmptyUrinalSlots() >= 0 && EnviManager.Instance.UrinalList != null)
         {
             Waypoint.Add(EnviManager.Instance.GetEmptyUrinal());
         }
@@ -387,6 +413,7 @@ public class NPC_Script : MonoBehaviour
         if (EnviManager.Instance.GetEmptySinkSlots() >= 0 && EnviManager.Instance.SinkList != null)
         {
             Waypoint.Add(EnviManager.Instance.GetEmptySink());
+            //Debug.Log(EnviManager.Instance.GetEmptySink());
         }
         Stop = true;
     }
@@ -415,6 +442,19 @@ public class NPC_Script : MonoBehaviour
 
     #endregion
 
+    private void CreatedPeeMess()
+    {
+        Debug.Log(Waypoint.Count - 1);
+
+        if (Waypoint.Count < 0)
+            return;
+
+        if (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>())
+        {
+            Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().CreatedPeeMess();
+        }
+    }
+
     #region UnOccupy
 
     private void UrinalUnOccupy()
@@ -423,8 +463,9 @@ public class NPC_Script : MonoBehaviour
         {
             if (child.GetComponent<Urinal>())
             {
-                Debug.Log("Child in NPC: " + child.name);
+                //Debug.Log("Child in NPC: " + child.name);
                 child.GetComponent<Urinal>().UnOccupy();
+                break;
             }
         }
     }
@@ -434,8 +475,9 @@ public class NPC_Script : MonoBehaviour
         {
             if (child.GetComponent<Sink>())
             {
-                Debug.Log("Child in NPC: " + child.name);
+               // Debug.Log("Child in NPC: " + child.name);
                 child.GetComponent<Sink>().UnOccupy();
+                break;
             }
         }
     }
@@ -445,8 +487,8 @@ public class NPC_Script : MonoBehaviour
         {
             if (child.GetComponent<ToiletBowl>())
             {
-                Debug.Log("Child in NPC: " + child.name);
                 child.GetComponent<ToiletBowl>().UnOccupy();
+                break;
             }
         }
     }

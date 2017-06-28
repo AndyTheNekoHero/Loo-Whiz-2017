@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AspectRatioScript.cs" />
     <Compile Include="Assets\Scripts\CharSelector1.cs" />
     <Compile Include="Assets\Scripts\Envi\Draw.cs" />
     <Compile Include="Assets\Scripts\Envi\Sink.cs" />

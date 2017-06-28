@@ -51,6 +51,10 @@ public class NPC_Script : MonoBehaviour
     {
         StartCoroutine(ProcessState());
         WaypointEnded();
+<<<<<<< HEAD
+        //Debug.Log(currentPoint + " " + Waypoint.Count);
+        //Debug.Log(Stop);
+=======
 
         #region Debug Fast Forward
         if (Input.GetKey(KeyCode.RightArrow))
@@ -67,6 +71,7 @@ public class NPC_Script : MonoBehaviour
             Application.Quit();
         }
         //Debug.Log(currentPoint + " " + Waypoint.Count);
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
     }
 
     #region Animation Ended
@@ -239,6 +244,10 @@ public class NPC_Script : MonoBehaviour
         MoveToWaypoint();
         if (WaypointEnded() && EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()) == false)
         {
+<<<<<<< HEAD
+            //Stop = false;
+=======
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
             //run animation here
             anim.SetBool("Peeing", true);
             //Animation Ended
@@ -277,6 +286,13 @@ public class NPC_Script : MonoBehaviour
     {
         //Change path to wash
         //add child
+<<<<<<< HEAD
+        if (!Stop)
+        {
+            WalkToSink();
+        }
+=======
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
         //Move in the path
         MoveToWaypoint();
 
@@ -350,12 +366,27 @@ public class NPC_Script : MonoBehaviour
                         State = C_STATE.DRAW;
                     }
                     break;
+<<<<<<< HEAD
+                case 4:
+                    {
+                        //Draw Right
+                        State = C_STATE.SHIT;
+                    }
+                    break;
+                case 5:
+                    {
+                        //go to basin
+                        State = C_STATE.WASH;
+                    }
+                    break;
+=======
                case 4:
                    {
                        //go to basin
                        State = C_STATE.WASH;
                    }
                 break;
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780
                 default:
                     break;
             }
@@ -417,6 +448,9 @@ public class NPC_Script : MonoBehaviour
         }
         Stop = true;
     }
+<<<<<<< HEAD
+}
+=======
 
     public void WalkToShit()
     {
@@ -494,3 +528,4 @@ public class NPC_Script : MonoBehaviour
     }
     #endregion
 }
+>>>>>>> 47185636cdb9705ebdb0314d49a396d3d827a780

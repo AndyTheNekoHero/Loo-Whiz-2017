@@ -76,35 +76,41 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AspectRatioScript.cs" />
     <Compile Include="Assets\Scripts\CharSelector1.cs" />
-    <Compile Include="Assets\Scripts\Character_Button.cs" />
-    <Compile Include="Assets\Scripts\Draw.cs" />
+    <Compile Include="Assets\Scripts\Envi\Draw.cs" />
+    <Compile Include="Assets\Scripts\Envi\Sink.cs" />
+    <Compile Include="Assets\Scripts\Envi\ToiletBowl.cs" />
+    <Compile Include="Assets\Scripts\Envi\Urinal.cs" />
     <Compile Include="Assets\Scripts\EnviManager.cs" />
-    <Compile Include="Assets\Scripts\GameBtn.cs" />
     <Compile Include="Assets\Scripts\GlobalVar.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
-    <Compile Include="Assets\Scripts\Mess\Mess_Paper.cs" />
-    <Compile Include="Assets\Scripts\Mess\Mess_Pee.cs" />
-    <Compile Include="Assets\Scripts\Mess\Mess_Shit.cs" />
-    <Compile Include="Assets\Scripts\Mess\Mess_Sink.cs" />
-    <Compile Include="Assets\Scripts\Mess\Mess_Wall.cs" />
-    <Compile Include="Assets\Scripts\Mess\Refill_Roll.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mess_Check.cs" />
+    <Compile Include="Assets\Scripts\Mess\Mop.cs" />
+    <Compile Include="Assets\Scripts\Mess\Roll.cs" />
+    <Compile Include="Assets\Scripts\Mess\Sweep.cs" />
+    <Compile Include="Assets\Scripts\Mess\Wipe.cs" />
     <Compile Include="Assets\Scripts\NPC_Script.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Player\Character_Button.cs" />
+    <Compile Include="Assets\Scripts\Player\GameBtn.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
-    <Compile Include="Assets\Scripts\Sink.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />
-    <Compile Include="Assets\Scripts\ToiletBowl.cs" />
     <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
     <Compile Include="Assets\Scripts\UI\obj_bgmslider.cs" />
     <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
-    <Compile Include="Assets\Scripts\Urinal.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

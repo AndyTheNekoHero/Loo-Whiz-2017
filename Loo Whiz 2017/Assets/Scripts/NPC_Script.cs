@@ -301,7 +301,7 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.UrinalAllFull()) { RNG_Path = Random.Range(2, 4); }
             else if (EnviManager.Instance.AllDrawn()) { RNG_Path =  Random.Range(1, 3); }
             else
-                RNG_Path = Random.Range(1, 4);
+                RNG_Path = Random.Range(1, 1);
 
             switch (RNG_Path)
             {

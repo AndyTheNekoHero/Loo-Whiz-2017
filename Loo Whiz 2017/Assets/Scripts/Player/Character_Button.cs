@@ -41,10 +41,7 @@ public class Character_Button : MonoBehaviour
                     Chara_button.SetActive(true);
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
-<<<<<<< HEAD:Loo Whiz 2017/Assets/Scripts/Player/Character_Button.cs
-=======
 
->>>>>>> 0d239c17016ecdaf4c6c62bc626acf57178634ad:Loo Whiz 2017/Assets/Scripts/Character_Button.cs
                 }
                 else if (touchedObject.tag == "Button")
                 {

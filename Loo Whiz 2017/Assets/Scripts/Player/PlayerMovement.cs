@@ -13,13 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public Vector3 vel;
     public GameObject selected = null;
+    public static bool PathBlocked = false;
+
     void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
-    void OnTriggerEnter2D(Collider2D info)
+        void OnTriggerEnter2D(Collider2D info)
     {
         Mess_Check m = info.GetComponent<Mess_Check>();
         if (m && selected == null)
@@ -27,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(m.StartAction());
         }
         RB2D.velocity = Vector2.zero;
+
+        if (info.tag == "Waypoints")
+        { PathBlocked = true; }
+  
     }
     void OnTriggerExit2D(Collider2D info)
     {
@@ -35,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("Sweeping", false);
         anim.SetBool("Wipping", false);
         anim.SetBool("Mopping", false);
+        PathBlocked = false;
     }
 
 
@@ -87,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("MoveX", dir.x);
         anim.SetFloat("MoveY", dir.y);
         anim.SetBool("PlayerMoving", move);
+
     }
 
     void OnCollisionEnter2D(Collision2D colliderInfo)
@@ -94,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
         move = false;
         RB2D.velocity = Vector2.zero;
     }
-
 }
 
 

@@ -111,20 +111,20 @@ public class NPC_Script : MonoBehaviour
         while (delay < angryTime)
         {
             delay += Time.deltaTime;
-            if (EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()) == false)
+            if (EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()) == false && State == C_STATE.PEE)
             {
                 anim.SetBool("Angry", false);
                 anim.SetBool("Peeing", true);
                 StartCoroutine(PeeAnimEnded());
                 yield break;
             }
-            if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false)
+            if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && State == C_STATE.SHIT)
             {
                 anim.SetBool("Angry", false);
                 StartCoroutine(ShitAnimEnded());
                 yield break;
             }
-            if (EnviManager.Instance.SinkMess(Waypoint[Waypoint.Count - 1].GetComponent<Sink>()) == false)
+            if (EnviManager.Instance.SinkMess(Waypoint[Waypoint.Count - 1].GetComponent<Sink>()) == false && State == C_STATE.WASH)
             {
                 anim.SetBool("Angry", false);
                 anim.SetBool("Washing", true);

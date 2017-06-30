@@ -5,6 +5,7 @@ using UnityEngine;
 public class Draw : MonoBehaviour {
 
     private bool Occupied = false;
+    private bool Graffite = false;
 
     public bool IsDrawing()
     {
@@ -17,5 +18,18 @@ public class Draw : MonoBehaviour {
     public void HadDrawn()
     {
         Occupied = true;
+    }
+
+    public bool IsGraffite()
+    {
+        return Graffite;
+    }
+    public void CreatedGraffite()
+    {
+        Graffite = true;
+    }
+    public void GraffiteCleaned()
+    {
+        Graffite = false;
     }
 }

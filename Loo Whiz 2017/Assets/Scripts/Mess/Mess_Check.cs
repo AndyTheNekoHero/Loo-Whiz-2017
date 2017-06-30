@@ -13,7 +13,6 @@ public class Mess_Check : MonoBehaviour
 {
     public bool InRange = false;
     public Animator anim;
-
     public NPC_Script cust;
 
     [SerializeField]
@@ -24,7 +23,6 @@ public class Mess_Check : MonoBehaviour
     [SerializeField]
     protected bool Selected = false;
     private Vector2 TouchPosition;
-
 
     public MESS_TYPE gettype()
     {
@@ -55,9 +53,6 @@ public class Mess_Check : MonoBehaviour
             DoAction();
             yield return null;
         }
-
-        FinishedAction();
-
         yield break;
     }
 
@@ -89,9 +84,6 @@ public class Mess_Check : MonoBehaviour
         if (GetComponent<Collider2D>().OverlapPoint(TouchPosition))
         {
             Selected = true;
-
-            print("SELECTED: " + gameObject.name);
-
         }
         else
         {

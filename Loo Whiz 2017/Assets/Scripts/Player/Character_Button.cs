@@ -41,7 +41,6 @@ public class Character_Button : MonoBehaviour
                     Chara_button.SetActive(true);
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
-
                 }
                 else if (touchedObject.tag == "Button")
                 {

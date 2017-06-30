@@ -8,9 +8,7 @@ public class Mop : Mess_Check
     {
         type = MESS_TYPE.MOP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-
         cust = GameObject.FindGameObjectWithTag("Customer").GetComponent<NPC_Script>();
-
     }
 
     protected override void DoAction()
@@ -27,18 +25,21 @@ public class Mop : Mess_Check
 
     protected override void FinishedAction()
     {
-        GlobalVar.Instance.IsEnableInput = true;
-        GlobalVar.Instance.Cleaning = false;
-        anim.SetBool("Mopping", false);
+            GlobalVar.Instance.IsEnableInput = true;
+            GlobalVar.Instance.Cleaning = false;
+            anim.SetBool("Mopping", false);
 
-        CheckPeeClean();
-    }
-
-    private void CheckPeeClean()
-    {   
-        if (EnviManager.Instance.UrinalMess(cust.Waypoint[cust.Waypoint.Count - 1].GetComponent<Urinal>()))
-        {
-            cust.Waypoint[cust.Waypoint.Count - 1].GetComponent<Urinal>().PeeCleaned();
-        }
+            if (gameObject.GetComponentInParent<Urinal>())
+            {
+                gameObject.GetComponentInParent<Urinal>().PeeCleaned();
+            }
+            else if (gameObject.GetComponentInParent<ToiletBowl>())
+            {
+                gameObject.GetComponentInParent<ToiletBowl>().ShitCleaned();
+            }
+            else if (gameObject.GetComponentInParent<Sink>())
+            {
+                gameObject.GetComponentInParent<Sink>().WaterPuddleCleaned();
+            }
     }
 }

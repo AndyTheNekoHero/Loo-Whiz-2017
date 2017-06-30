@@ -28,5 +28,6 @@ public class Wipe : Mess_Check
         GlobalVar.Instance.IsEnableInput = true;
         GlobalVar.Instance.Cleaning = false;
         anim.SetBool("Wipping", false);
+        gameObject.GetComponentInParent<Draw>().GraffiteCleaned();
     }
 }

@@ -13,10 +13,8 @@ public class Mess_Check : MonoBehaviour
 {
     public bool InRange = false;
     public Animator anim;
-<<<<<<< HEAD
     public NPC_Script cust;
-=======
->>>>>>> 0d239c17016ecdaf4c6c62bc626acf57178634ad
+
     [SerializeField]
     protected float ActionTime = 5.0f;
     [SerializeField]
@@ -26,10 +24,6 @@ public class Mess_Check : MonoBehaviour
     protected bool Selected = false;
     private Vector2 TouchPosition;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0d239c17016ecdaf4c6c62bc626acf57178634ad
     public MESS_TYPE gettype()
     {
         return type;
@@ -59,9 +53,6 @@ public class Mess_Check : MonoBehaviour
             DoAction();
             yield return null;
         }
-
-        FinishedAction();
-
         yield break;
     }
 
@@ -93,10 +84,6 @@ public class Mess_Check : MonoBehaviour
         if (GetComponent<Collider2D>().OverlapPoint(TouchPosition))
         {
             Selected = true;
-<<<<<<< HEAD
-=======
-            print("SELECTED: " + gameObject.name);
->>>>>>> 0d239c17016ecdaf4c6c62bc626acf57178634ad
         }
         else
         {

@@ -72,10 +72,6 @@ public class EnviManager : MonoBehaviour
             }
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     #region Urinal
 
@@ -174,6 +170,19 @@ public class EnviManager : MonoBehaviour
         return null;
     }
 
+    public bool SinkMess(Sink current)
+    {
+        if (current == null)
+            return false;
+
+        if (current.IsWaterPuddle())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     #endregion
 
     #region Cubicle
@@ -217,6 +226,32 @@ public class EnviManager : MonoBehaviour
         return null;
     }
 
+    public bool ShitMess(ToiletBowl current)
+    {
+        if (current == null)
+            return false;
+
+        if (current.IsShit())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool RollMess(ToiletBowl current)
+    {
+        if (current == null)
+            return false;
+
+        if (current.IsToiletPaper())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     #endregion
 
     #region Graffiti
@@ -258,6 +293,19 @@ public class EnviManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public bool GraffitiMess(Draw current)
+    {
+        if (current == null)
+            return false;
+
+        if (current.IsGraffite())
+        {
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

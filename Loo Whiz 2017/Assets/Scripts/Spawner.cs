@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
+        countdown = SpawnTime;
     }
     
     // Update is called once per frame

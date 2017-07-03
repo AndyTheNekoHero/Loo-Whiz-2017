@@ -6,6 +6,7 @@ public class Sink : MonoBehaviour {
 
     private bool Occupied = false;
     private bool WaterPuddle = false;
+    public bool P_Block = false;
 
     public bool InUse()
     {
@@ -31,5 +32,28 @@ public class Sink : MonoBehaviour {
     public void WaterPuddleCleaned()
     {
         WaterPuddle = false;
+    }
+
+    //Check Path Block
+    public bool PathIsBlocked()
+    {
+        return P_Block;
+    }
+
+    public void OnTriggerEnter2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            //Debug.Log("I AM COLLIDED");
+            P_Block = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            //Debug.Log("I EXIT!");
+            P_Block = false;
+        }
     }
 }

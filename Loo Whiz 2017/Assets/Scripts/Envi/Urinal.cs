@@ -6,6 +6,7 @@ public class Urinal : MonoBehaviour {
 
     private bool Occupied = false;
     public bool Peed = false;
+    public bool P_Block = false;
 
     public bool InUse()
     {
@@ -31,5 +32,26 @@ public class Urinal : MonoBehaviour {
     public void PeeCleaned()
     {
         Peed = false;
+    }
+
+    //Check Path Block
+    public bool PathIsBlocked()
+    {
+        return P_Block;
+    }
+
+    public void OnTriggerEnter2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            P_Block = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            P_Block = false;
+        }
     }
 }

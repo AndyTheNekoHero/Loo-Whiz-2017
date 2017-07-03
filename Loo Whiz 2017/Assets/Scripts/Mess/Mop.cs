@@ -8,7 +8,6 @@ public class Mop : Mess_Check
     {
         type = MESS_TYPE.MOP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        cust = GameObject.FindGameObjectWithTag("Customer").GetComponent<NPC_Script>();
     }
 
     protected override void DoAction()

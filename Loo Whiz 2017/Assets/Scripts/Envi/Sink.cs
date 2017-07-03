@@ -6,6 +6,7 @@ public class Sink : MonoBehaviour {
 
     private bool Occupied = false;
     private bool WaterPuddle = false;
+    public Animator anim;
 
     public bool InUse()
     {
@@ -31,5 +32,14 @@ public class Sink : MonoBehaviour {
     public void WaterPuddleCleaned()
     {
         WaterPuddle = false;
+    }
+
+    public void PlayAnimation()
+    {
+        anim.SetBool("Using", true);
+    }
+    public void StopAnimation()
+    {
+        anim.SetBool("Using", false);
     }
 }

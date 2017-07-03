@@ -42,7 +42,7 @@ public class Character_Button : MonoBehaviour
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
                 }
-                else if (touchedObject.tag == "Button")
+                else if (touchedObject.tag == "Button" && GlobalVar.Instance.Cleaning == false)
                 {
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;

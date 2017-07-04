@@ -13,6 +13,7 @@ public class GlobalVar : MonoBehaviour
     public bool Sweep_Selected  = false;
     public bool IsEnableInput   = true;
     public bool Cleaning = false;
+    public int ToiletPaper = 4;
 
     void Awake()
     {

@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public float SpawnTime = 1.0f;
     private bool spawnedSuccessfully;
     public int MaxTotalCustomer = 5;
-    public ObjectPool Cust;
+    public ObjectPool Customer;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
             while (spawnedSuccessfully == false)
             {
                 //Instantiate(Customer, transform.position, Quaternion.identity);
-                Cust.GetObject();
+                Customer.GetObject();
                 GlobalVar.Instance.CustomerCount++;
                 spawnedSuccessfully = true;
             }

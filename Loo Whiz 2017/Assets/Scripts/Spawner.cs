@@ -29,7 +29,8 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         spawnedSuccessfully = false;
-        if (GlobalVar.Instance.CustomerCount < MaxTotalCustomer)
+        if (GlobalVar.Instance.CustomerCount < MaxTotalCustomer && (!EnviManager.Instance.SinkAllFull()
+            || !EnviManager.Instance.BowlAllFull() || !EnviManager.Instance.UrinalAllFull()))
         {
             while (spawnedSuccessfully == false)
             {

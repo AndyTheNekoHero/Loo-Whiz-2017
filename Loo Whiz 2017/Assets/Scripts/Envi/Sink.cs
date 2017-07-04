@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Sink : MonoBehaviour {
 
-    private bool Occupied = false;
+    public bool Occupied = false;
     private bool WaterPuddle = false;
-<<<<<<< HEAD
     public Animator anim;
-=======
     public bool P_Block = false;
->>>>>>> 46670009b3f5e5d9613e486302af879356cb39ba
 
     public bool InUse()
     {
@@ -38,7 +35,6 @@ public class Sink : MonoBehaviour {
         WaterPuddle = false;
     }
 
-<<<<<<< HEAD
     public void PlayAnimation()
     {
         anim.SetBool("Using", true);
@@ -46,7 +42,8 @@ public class Sink : MonoBehaviour {
     public void StopAnimation()
     {
         anim.SetBool("Using", false);
-=======
+    }
+
     //Check Path Block
     public bool PathIsBlocked()
     {
@@ -68,6 +65,5 @@ public class Sink : MonoBehaviour {
             //Debug.Log("I EXIT!");
             P_Block = false;
         }
->>>>>>> 46670009b3f5e5d9613e486302af879356cb39ba
     }
 }

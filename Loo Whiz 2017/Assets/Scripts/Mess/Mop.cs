@@ -27,6 +27,7 @@ public class Mop : Mess_Check
             GlobalVar.Instance.IsEnableInput = true;
             GlobalVar.Instance.Cleaning = false;
             anim.SetBool("Mopping", false);
+            GlobalVar.Instance.MeterValue++;
 
             if (gameObject.GetComponentInParent<Urinal>())
             {

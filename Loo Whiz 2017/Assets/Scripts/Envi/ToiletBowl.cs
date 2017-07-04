@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToiletBowl : MonoBehaviour {
 
-    private bool Occupied = false;
+    public bool Occupied = false;
     private bool Shit = false;
     private bool ToiletPaper = false;
     public bool P_Block = false;

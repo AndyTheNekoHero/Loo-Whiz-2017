@@ -14,6 +14,9 @@ public class GlobalVar : MonoBehaviour
     public bool IsEnableInput   = true;
     public bool Cleaning = false;
     public int ToiletPaper = 4;
+    public float MeterValue = 0;
+    public bool Win = false;
+    public bool Lose = false;
 
     void Awake()
     {
@@ -22,7 +25,10 @@ public class GlobalVar : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
   
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+       // QualitySettings.vSyncCount = 0;
+       // Application.targetFrameRate = 60;
     }
 
 

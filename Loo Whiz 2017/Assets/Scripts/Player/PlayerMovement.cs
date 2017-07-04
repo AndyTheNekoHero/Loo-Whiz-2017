@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public Vector3 vel;
     public GameObject selected = null;
-    public static bool PathBlocked = false;
 
     void Start()
     {
@@ -29,9 +28,6 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(m.StartAction());
         }
         RB2D.velocity = Vector2.zero;
-
-        if (info.tag == "Waypoints")
-        { PathBlocked = true; }
   
     }
     void OnTriggerExit2D(Collider2D info)
@@ -41,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("Sweeping", false);
         anim.SetBool("Wipping", false);
         anim.SetBool("Mopping", false);
-        PathBlocked = false;
     }
 
 

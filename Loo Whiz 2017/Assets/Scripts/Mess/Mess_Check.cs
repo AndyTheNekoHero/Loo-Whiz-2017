@@ -87,7 +87,8 @@ public class Mess_Check : MonoBehaviour
         }
         else
         {
-            Selected = false;
+            if(!GlobalVar.Instance.Cleaning)
+                Selected = false;
         }
 
         if (CurrentActionTime >= ActionTime)

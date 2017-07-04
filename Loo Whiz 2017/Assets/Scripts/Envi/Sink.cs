@@ -6,6 +6,11 @@ public class Sink : MonoBehaviour {
 
     private bool Occupied = false;
     private bool WaterPuddle = false;
+<<<<<<< HEAD
+    public Animator anim;
+=======
+    public bool P_Block = false;
+>>>>>>> 46670009b3f5e5d9613e486302af879356cb39ba
 
     public bool InUse()
     {
@@ -31,5 +36,38 @@ public class Sink : MonoBehaviour {
     public void WaterPuddleCleaned()
     {
         WaterPuddle = false;
+    }
+
+<<<<<<< HEAD
+    public void PlayAnimation()
+    {
+        anim.SetBool("Using", true);
+    }
+    public void StopAnimation()
+    {
+        anim.SetBool("Using", false);
+=======
+    //Check Path Block
+    public bool PathIsBlocked()
+    {
+        return P_Block;
+    }
+
+    public void OnTriggerEnter2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            //Debug.Log("I AM COLLIDED");
+            P_Block = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D Col)
+    {
+        if (Col.tag == "PathBlock")
+        {
+            //Debug.Log("I EXIT!");
+            P_Block = false;
+        }
+>>>>>>> 46670009b3f5e5d9613e486302af879356cb39ba
     }
 }

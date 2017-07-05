@@ -11,7 +11,7 @@ public class Sweep : Mess_Check
     {
         type = MESS_TYPE.SWEEP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-
+        StartCoroutine(DidntClean());
     }
 
     protected override void DoAction()
@@ -34,18 +34,19 @@ public class Sweep : Mess_Check
         GlobalVar.Instance.MeterValue++;
     }
 
-    void Update()
+    IEnumerator DidntClean()
     {
-        DidntClean();
-    }
-
-    private void DidntClean()
-    {
-        t += Time.deltaTime;
-        if (t >= TotalTime)
+        while (true)
         {
-            GlobalVar.Instance.MeterValue--;
-            t = 0;
+            t += Time.deltaTime;
+            if (t >= TotalTime)
+            {
+                GlobalVar.Instance.MeterValue--;
+                t = 0;
+            }
+            yield return null;
         }
+        yield break;
+
     }
 }

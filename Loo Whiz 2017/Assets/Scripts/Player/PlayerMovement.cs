@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-        void OnTriggerEnter2D(Collider2D info)
+    void OnTriggerEnter2D(Collider2D info)
     {
         Mess_Check m = info.GetComponent<Mess_Check>();
         if (m && selected == null)

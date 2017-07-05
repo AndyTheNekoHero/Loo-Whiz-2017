@@ -32,7 +32,7 @@ public class NPC_Script : MonoBehaviour
     [SerializeField]
     private int RandomSpawnOfMess = 80;
     [SerializeField]
-    private int RandomSpawnOfLitter = 20;
+    private int RandomSpawnOfLitter = 40;
 
     bool Stop;
     public int RNG_Path;
@@ -69,12 +69,12 @@ public class NPC_Script : MonoBehaviour
         MoveToWaypoint();
 
         #region Debug Fast Forward
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    Time.timeScale = 2f;
-        //}
-        //else
-        //    Time.timeScale = 1f;
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            Time.timeScale = 2f;
+        }
+        else
+            Time.timeScale = 1f;
         #endregion
 
         if (ParentToTakeFrom == null)
@@ -146,6 +146,7 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && State == C_STATE.SHIT)
             {
                 anim.SetBool("Angry", false);
+                EnviManager.Instance.Cub_Door.SetActive(true);
                 StartCoroutine(ShitAnimEnded());
                 yield break;
             }
@@ -560,10 +561,8 @@ public class NPC_Script : MonoBehaviour
                 if (!EnviManager.Instance.AllDrawn())
                     temp.Add(3);
 
-
-                Debug.Log(temp.Count);
-
-                RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
+                //RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
+                RNG_Path = 2;
             }
 
             switch (RNG_Path)

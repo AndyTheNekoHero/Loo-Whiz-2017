@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Sweep : Mess_Check
 {
+    float t = 0;
+    float TotalTime = 5;
+
     void Start ()
     {
         type = MESS_TYPE.SWEEP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-
+        StartCoroutine(DidntClean());
     }
 
     protected override void DoAction()
@@ -28,5 +31,22 @@ public class Sweep : Mess_Check
         GlobalVar.Instance.IsEnableInput = true;
         GlobalVar.Instance.Cleaning = false;
         anim.SetBool("Sweeping", false);
+        GlobalVar.Instance.MeterValue++;
+    }
+
+    IEnumerator DidntClean()
+    {
+        while (true)
+        {
+            t += Time.deltaTime;
+            if (t >= TotalTime)
+            {
+                GlobalVar.Instance.MeterValue--;
+                t = 0;
+            }
+            yield return null;
+        }
+        yield break;
+
     }
 }

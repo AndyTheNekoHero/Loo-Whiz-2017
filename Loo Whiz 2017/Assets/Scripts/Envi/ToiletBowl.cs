@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToiletBowl : MonoBehaviour {
 
-    private bool Occupied = false;
+    public bool Occupied = false;
     private bool Shit = false;
     private bool ToiletPaper = false;
     public bool P_Block = false;
@@ -56,6 +56,7 @@ public class ToiletBowl : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D Col)
     {
+        Debug.Log(Col.tag);
         if (Col.tag == "PathBlock")
         {
             Debug.Log("I AM COLLIDED");

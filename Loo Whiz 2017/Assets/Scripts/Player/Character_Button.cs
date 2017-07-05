@@ -36,13 +36,13 @@ public class Character_Button : MonoBehaviour
             Collider2D touchedObject = Physics2D.OverlapPoint(TouchPosition);
             if (touchedObject)
             {
-                if (touchedObject.tag == "Player" && GlobalVar.Instance.Cleaning == false)
+                if (touchedObject.tag == "CBtn_collision" && GlobalVar.Instance.Cleaning == false)
                 {
                     Chara_button.SetActive(true);
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;
                 }
-                else if (touchedObject.tag == "Button")
+                else if (touchedObject.tag == "Button" && GlobalVar.Instance.Cleaning == false)
                 {
                     ButtonClick = true;
                     GetComponent<PlayerMovement>().RB2D.velocity = Vector2.zero;

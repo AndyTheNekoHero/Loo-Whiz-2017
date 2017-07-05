@@ -20,13 +20,19 @@ public class NPC_Script : MonoBehaviour
     C_STATE State, tempState;
     public GameObject ParentToTakeFrom;
     [SerializeField]
-    private float peeTime = 10;
+    private float peeTime = 5;
     [SerializeField]
-    private float shitTime = 4;
+    private float shitTime = 5;
     [SerializeField]
-    private float washTime = 3;
+    private float washTime = 5;
     [SerializeField]
     private float angryTime = 8;
+    [SerializeField]
+    private float DrawTime = 5;
+    [SerializeField]
+    private int RandomSpawnOfMess = 80;
+    [SerializeField]
+    private int RandomSpawnOfLitter = 40;
 
     bool Stop;
     public int RNG_Path;
@@ -39,6 +45,8 @@ public class NPC_Script : MonoBehaviour
     ObjectPool NPC;
     Spawner Spwn;
     private Animator anim;
+    public bool DoOnce;
+    public float ThrowPaperTime = 100;
 
     //private float countdown = 0.0f;
 
@@ -52,7 +60,6 @@ public class NPC_Script : MonoBehaviour
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -95,15 +102,17 @@ public class NPC_Script : MonoBehaviour
             UrinalUnOccupy();
 
             int r = Random.Range(1, 100);
-            if (r <= 10)
+            if (r <= RandomSpawnOfMess)
             {
                 //spawn mess
                 CreatedPeeMess();
-                GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().transform));
-                EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f, -8.0f, 0));
-                EnviroPee.transform.localScale = new Vector2(2.5f, 4.0f);
+                if (currentPoint -1 < Waypoint.Count)
+                {
+                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[currentPoint -1].GetComponent<Urinal>().transform));
+                    EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f, -7.0f, 0));
+                }
+                //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
             }
-
 
             if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
             {
@@ -137,6 +146,7 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && State == C_STATE.SHIT)
             {
                 anim.SetBool("Angry", false);
+                EnviManager.Instance.Cub_Door.SetActive(true);
                 StartCoroutine(ShitAnimEnded());
                 yield break;
             }
@@ -148,28 +158,8 @@ public class NPC_Script : MonoBehaviour
                 yield break;
             }
 
-            if (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>() && Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().PathIsBlocked() == false && anim.GetBool("Angry") == true)
-            {
-                anim.SetBool("Angry", false);
-                reachDist = 0.3f;
-                currentPoint -= 1;
-                if (tempState == C_STATE.PEE)
-                {
-                    ChangeState(C_STATE.PEE);
-                }
-                yield break;
-            }
-            if (Waypoint[Waypoint.Count - 1].GetComponent<Sink>() && Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PathIsBlocked() == false && anim.GetBool("Angry") == true)
-            {
-                anim.SetBool("Angry", false);
-                reachDist = 0.3f;
-                currentPoint -= 1;
-                ChangeState(C_STATE.WASH);
-                anim.SetBool("Washing", true);
-                StartCoroutine(WashAnimEnded());
-                yield break;
-            }
-            if (Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>() && Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>().PathIsBlocked() == false && anim.GetBool("Angry") == true)
+            if (Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>() && Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>().PathIsBlocked() == false && anim.GetBool("Angry") == true 
+                && !Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>().IsShit() && !Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>().IsToiletPaper())
             {
                 anim.SetBool("Angry", false);
                 reachDist = 0.3f;
@@ -187,10 +177,12 @@ public class NPC_Script : MonoBehaviour
         anim.SetBool("Angry", false);
         UrinalUnOccupy();
         SinkUnOccupy();
+        BowlUnOccupy();
 
         ChangeState(C_STATE.EXIT);
         ParentToTakeFrom = GameObject.Find("Exit");
         AddChild();
+        GlobalVar.Instance.MeterValue--;
 
         yield break;
     }
@@ -204,31 +196,36 @@ public class NPC_Script : MonoBehaviour
             yield return null;
         }
 
-        int i = 0;
         if (WaypointEnded() && State == C_STATE.SHIT)
         {
             BowlUnOccupy();
+            GlobalVar.Instance.ToiletPaper--;
             EnviManager.Instance.Cub_Door.SetActive(false);
 
-            //cant radom, need have int totaltoiletpaper
-            i = Random.Range(1, 2);
-            if (i == 1)
+            int r = 0;
+            r = Random.Range(1, 100);
+            if (r <= RandomSpawnOfMess)
+            {
                 CreatedShitMess();
-            else if (i == 2)
+                if (currentPoint -1 < Waypoint.Count)
+                {
+                    GameObject EnviroShit = (GameObject)Instantiate(Resources.Load("Shit"), (Waypoint[currentPoint -1].GetComponent<ToiletBowl>().transform));
+                    EnviroShit.transform.position = (EnviroShit.transform.position + new Vector3(0.0f, -8.5f, 0));
+                }
+            }
+
+            if (GlobalVar.Instance.ToiletPaper == 0)
                 CreatedLackofRolls();
 
             if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
             {
+                ChangeState(C_STATE.EXIT);
                 ParentToTakeFrom = GameObject.Find("Exit");
                 AddChild();
-                ChangeState(C_STATE.EXIT);
             }
             else
             {
                 ChangeState(C_STATE.WASH);
-
-                //spawn mess
-
                 WalkToSink();
             }
         }
@@ -242,18 +239,28 @@ public class NPC_Script : MonoBehaviour
         while (delay < washTime)
         {
             delay += Time.deltaTime;
-            yield return null;
+           yield return null;
         }
 
         if (WaypointEnded() && State == C_STATE.WASH)
         {
             anim.SetBool("Washing", false);
-            CreatedWashMess();
+            Waypoint[Waypoint.Count - 1].GetComponent<Sink>().StopAnimation();
             SinkUnOccupy();
+
+            int r = Random.Range(1, 100);
+            if (r <= RandomSpawnOfMess)
+            {
+                //spawn mess
+                CreatedWashMess();
+                if (currentPoint -1 < Waypoint.Count)
+                {
+                    GameObject EnviroWater = (GameObject)Instantiate(Resources.Load("Water"), (Waypoint[currentPoint - 1].GetComponent<Sink>().transform));
+                    EnviroWater.transform.position = (EnviroWater.transform.position + new Vector3(0.0f, -0.5f, 0));
+                }
+            }
+
             ChangeState(C_STATE.EXIT);
-
-            //spawn mess
-
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
         }
@@ -262,11 +269,27 @@ public class NPC_Script : MonoBehaviour
 
     public IEnumerator DrawAnimEnded()
     {
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        float delay = 0;
+        while (delay < DrawTime)
+        {
+            delay += Time.deltaTime;
+            yield return null;
+        }
 
         if (WaypointEnded() && State == C_STATE.DRAW)
         {
             anim.SetBool("Drawing", false);
+            CreatedGraffitiMess();
+
+            if (currentPoint -1 < Waypoint.Count)
+            {
+                GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
+                EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
+                EnviroWall.transform.localScale = new Vector2(0.4f, 0.25f);
+            }
+
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -287,7 +310,6 @@ public class NPC_Script : MonoBehaviour
         anim.SetFloat("MoveY", dir.y);
 
         //Move to waypoint
-        //transform.position = Vector2.Lerp(transform.position, test[currentPoint].position, Time.deltaTime * speed);
         if (dist > reachDist)
         {
             speed = 30f;
@@ -408,8 +430,6 @@ public class NPC_Script : MonoBehaviour
             return;
         }
 
-        PathIsBeingBlocked();
-
         if (WaypointEnded())
         {
             processed = true;
@@ -420,9 +440,10 @@ public class NPC_Script : MonoBehaviour
     //go to cubicle
     IEnumerator ShitAction()
     {
-        if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false)
+        if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false)
         {
             StartCoroutine(ShitAnimEnded());
+            EnviManager.Instance.Cub_Door.SetActive(true);
         }
         else
         {
@@ -439,11 +460,11 @@ public class NPC_Script : MonoBehaviour
             WalkToShit();
             return;
         }
+
         PathIsBeingBlocked();
         if (WaypointEnded())
         {
             processed = true;
-            EnviManager.Instance.Cub_Door.SetActive(true);
             StartCoroutine(ShitAction());
         }
     }
@@ -454,6 +475,7 @@ public class NPC_Script : MonoBehaviour
         if (EnviManager.Instance.SinkMess(Waypoint[Waypoint.Count - 1].GetComponent<Sink>()) == false)
         {
             anim.SetBool("Washing", true);
+            Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PlayAnimation();
             StartCoroutine(WashAnimEnded());
         }
         else
@@ -466,8 +488,6 @@ public class NPC_Script : MonoBehaviour
 
     public void Wash()
     {
-        PathIsBeingBlocked();
-
         if (WaypointEnded())
         {
             Stop = false;
@@ -508,6 +528,14 @@ public class NPC_Script : MonoBehaviour
 
     }
 
+    IEnumerator SpawnLitter()
+    {
+        GameObject Litter = (GameObject)Instantiate(Resources.Load("Litter"));
+        Litter.transform.position = transform.position;
+        ThrowPaperTime = 100;
+        yield break;
+    }
+
     //walking
     public void Walk()
     {
@@ -520,12 +548,22 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
-
             //Random Path
-            if (EnviManager.Instance.UrinalAllFull()) { RNG_Path = Random.Range(2, 4); }
-            else if (EnviManager.Instance.AllDrawn()) { RNG_Path = Random.Range(1, 3); }
-            else
-                RNG_Path = Random.Range(1, 1);
+            {
+                List<int> temp = new List<int>();
+
+                if (!EnviManager.Instance.UrinalAllFull())
+                    temp.Add(1);
+
+                if (!EnviManager.Instance.BowlAllFull())
+                    temp.Add(2);
+
+                if (!EnviManager.Instance.AllDrawn())
+                    temp.Add(3);
+
+                //RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
+                RNG_Path = 2;
+            }
 
             switch (RNG_Path)
             {
@@ -547,19 +585,38 @@ public class NPC_Script : MonoBehaviour
                         ChangeState(C_STATE.DRAW);
                     }
                     break;
-                case 4:
-                    {
-                        //go to basin
-                        ChangeState(C_STATE.WASH);
-                    }
-                    break;
+                //case 4:
+                //    {
+                //        //go to basin
+                //        ChangeState(C_STATE.WASH);
+                //    }
+                //    break;
                 default:
                     break;
             }
         }
+        else
+        {
+            if (DoOnce)
+            {
+                int r = Random.Range(1, 100);
 
-        //Move to target path
+                if (r <= RandomSpawnOfLitter)
+                    ThrowPaperTime = Random.Range(2.0f, 4.0f);
+                else
+                    ThrowPaperTime = 100;
 
+                DoOnce = false;
+            }
+
+            if(ThrowPaperTime > 0)
+                ThrowPaperTime -= Time.deltaTime;
+
+            if (ThrowPaperTime <= 0)
+            {
+                StartCoroutine(SpawnLitter());
+            }
+        }
 
     }
 
@@ -581,7 +638,9 @@ public class NPC_Script : MonoBehaviour
         ////Getting One Urinal
         if (EnviManager.Instance.GetEmptyUrinalSlots() >= 0 && EnviManager.Instance.UrinalList != null)
         {
-            Waypoint.Add(EnviManager.Instance.GetEmptyUrinal());
+            Transform temp = EnviManager.Instance.GetEmptyUrinal();
+            if(temp)
+                Waypoint.Add(temp);
         }
 
         Stop = true;
@@ -592,8 +651,9 @@ public class NPC_Script : MonoBehaviour
         //Getting One Sink
         if (EnviManager.Instance.GetEmptySinkSlots() >= 0 && EnviManager.Instance.SinkList != null)
         {
-            Waypoint.Add(EnviManager.Instance.GetEmptySink());
-            //Debug.Log(EnviManager.Instance.GetEmptySink());
+            Transform temp = EnviManager.Instance.GetEmptySink();
+            if (temp)
+                Waypoint.Add(temp);
         }
         Stop = true;
     }
@@ -603,8 +663,11 @@ public class NPC_Script : MonoBehaviour
         ////Getting One Cubicle
         if (EnviManager.Instance.GetEmptyBowlSlots() >= 0)
         {
-            Waypoint.Add(EnviManager.Instance.GetEmptyBowl());
+            Transform temp = EnviManager.Instance.GetEmptyBowl();
+            if (temp)
+                Waypoint.Add(temp);
         }
+
 
         Stop = true;
     }
@@ -614,7 +677,9 @@ public class NPC_Script : MonoBehaviour
         ////Getting One Cubicle
         if (EnviManager.Instance.GetEmptyWallSlots() >= 0)
         {
-            Waypoint.Add(EnviManager.Instance.GetEmptyWall());
+            Transform temp = EnviManager.Instance.GetEmptyWall();
+            if (temp)
+                Waypoint.Add(temp);
         }
 
         Stop = true;
@@ -626,6 +691,9 @@ public class NPC_Script : MonoBehaviour
         currentPoint = 0;
         Waypoint.Clear();
         ChangeState(C_STATE.WALK);
+        DoOnce = true;
+        ThrowPaperTime = 100;
+
     }
 
     #endregion
@@ -715,24 +783,37 @@ public class NPC_Script : MonoBehaviour
             }
         }
     }
+
+    private void WalllUnOccupy()
+    {
+        foreach (Transform child in Waypoint)
+        {
+            if (child.GetComponent<Draw>())
+            {
+                child.GetComponent<Draw>().NotDrawn();
+                break;
+            }
+        }
+    }
     #endregion
 
     public void PathIsBeingBlocked()
     {
 
-            if (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>() && Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().PathIsBlocked() == true && anim.GetBool("Peeing") == false)
-            {
-                reachDist = 20f;
-                tempState = C_STATE.PEE;
-                ChangeState(C_STATE.ANGRY);
-            }
-            if (Waypoint[Waypoint.Count - 1].GetComponent<Sink>() && Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PathIsBlocked() == true && anim.GetBool("Washing") == false)
-            {
-                reachDist = 20f;
-                tempState = C_STATE.WASH;
-                ChangeState(C_STATE.ANGRY);
-            }
-            if (Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>() && Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>().PathIsBlocked() == true && shitTime >3)
+            //f (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>() && Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().PathIsBlocked() == true && anim.GetBool("Peeing") == false)
+            //
+            //   reachDist = 20f;
+            //   tempState = C_STATE.PEE;
+            //   ChangeState(C_STATE.ANGRY);
+            //
+            //f (Waypoint[Waypoint.Count - 1].GetComponent<Sink>() && Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PathIsBlocked() == true && anim.GetBool("Washing") == false)
+            //
+            //   reachDist = 20f;
+            //   tempState = C_STATE.WASH;
+            //   ChangeState(C_STATE.ANGRY);
+            //
+            if (Waypoint[currentPoint -1].GetComponent<ToiletBowl>() && Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().PathIsBlocked() == true 
+            && shitTime >3 && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsShit() && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsToiletPaper())
             {
                 reachDist = 20f;
                 tempState = C_STATE.SHIT;

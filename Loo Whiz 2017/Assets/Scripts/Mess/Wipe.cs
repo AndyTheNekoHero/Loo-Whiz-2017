@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Wipe : Mess_Check
 {
+    float t = 0;
+    public float TotalTime = 5;
+
     void Start()
     {
         type = MESS_TYPE.WIPE;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-
+        StartCoroutine(DidntClean());
     }
 
     protected override void DoAction()
@@ -29,5 +32,22 @@ public class Wipe : Mess_Check
         GlobalVar.Instance.Cleaning = false;
         anim.SetBool("Wipping", false);
         gameObject.GetComponentInParent<Draw>().GraffiteCleaned();
+        GlobalVar.Instance.MeterValue++;
+    }
+
+     IEnumerator DidntClean()
+    {
+        while (true)
+        {
+            t += Time.deltaTime;
+            if (t >= TotalTime)
+            {
+                GlobalVar.Instance.MeterValue--;
+                t = 0;
+            }
+            yield return null;
+        }
+        yield break;
+        
     }
 }

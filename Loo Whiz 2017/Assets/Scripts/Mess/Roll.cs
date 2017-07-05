@@ -24,5 +24,7 @@ public class Roll : Mess_Check
         GlobalVar.Instance.IsEnableInput = true;
         GlobalVar.Instance.Cleaning = false;
         gameObject.GetComponentInParent<ToiletBowl>().RestockToiletPaper();
+        GlobalVar.Instance.ToiletPaper = 4;
+        GlobalVar.Instance.MeterValue++;
     }
 }

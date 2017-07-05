@@ -89,6 +89,7 @@ public class EnviManager : MonoBehaviour
         }
         return true;
     }
+
     //Get Empty Urinal
     public int GetEmptyUrinalSlots()
     {
@@ -102,6 +103,7 @@ public class EnviManager : MonoBehaviour
         }
         return EmptySlots;
     }
+
     //Get one Transform of an Empty Urinal
     public Transform GetEmptyUrinal()
     {
@@ -110,12 +112,12 @@ public class EnviManager : MonoBehaviour
             if (child.GetComponent<Urinal>().InUse() == false)
             {
                 child.GetComponent<Urinal>().Occupy();
-                //Debug.Log("Child in EnviManager: " + child.name);
                 return child;
             }
         }
         return null;
     }
+
     public bool UrinalMess(Urinal current)
     {
         if (current == null)
@@ -214,6 +216,7 @@ public class EnviManager : MonoBehaviour
         }
         return EmptyBowlSlots;
     }
+
     //Get one Transform of an Empty Urinal
     public Transform GetEmptyBowl()
     {
@@ -283,6 +286,7 @@ public class EnviManager : MonoBehaviour
         }
         return EmptyWallSlots;
     }
+
     //Get one Transform of an Empty Urinal
     public Transform GetEmptyWall()
     {

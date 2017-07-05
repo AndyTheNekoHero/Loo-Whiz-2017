@@ -8,7 +8,7 @@ public class Mop : Mess_Check
     {
         type = MESS_TYPE.MOP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        cust = GameObject.FindGameObjectWithTag("Customer").GetComponent<NPC_Script>();
+        Time.timeScale = 1.0f;
     }
 
     protected override void DoAction()
@@ -28,6 +28,7 @@ public class Mop : Mess_Check
             GlobalVar.Instance.IsEnableInput = true;
             GlobalVar.Instance.Cleaning = false;
             anim.SetBool("Mopping", false);
+            GlobalVar.Instance.MeterValue++;
 
             if (gameObject.GetComponentInParent<Urinal>())
             {

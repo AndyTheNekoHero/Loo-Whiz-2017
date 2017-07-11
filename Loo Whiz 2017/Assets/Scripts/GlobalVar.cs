@@ -13,11 +13,15 @@ public class GlobalVar : MonoBehaviour
     public bool Mop_Selected    = false;
     public bool Sweep_Selected  = false;
     public bool IsEnableInput   = true;
-    public bool Cleaning = false;
-    public int ToiletPaper = 4;
-    public float MeterValue = 0;
-    public bool Win = false;
-    public bool Lose = false;
+    public bool Cleaning        = false;
+    public int ToiletPaper      = 4;
+    public float MeterValue     = 0;
+    public bool Win             = false;
+    public bool Lose            = false;
+    public bool FromStart_HS    = false;
+    public float TimeUsedSecs   = 0;
+    public float TimeUsedMins   = 0;
+    public bool StartGame = false;
 
     void Awake()
     {

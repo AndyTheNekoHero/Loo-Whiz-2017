@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharSelector1 : MonoBehaviour {
-    public void CharSelect(int choice)
+public class CharSelector1 : MonoBehaviour
+{
+    public void MaleSelected()
     {
-        Globals.Instance.set_char(choice);
+        GlobalVar.Instance.Gender = 1;
+    }
+
+    public void FemaleSelected()
+    {
+        GlobalVar.Instance.Gender = 0;
     }
 }

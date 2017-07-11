@@ -36,6 +36,7 @@ public class Spawner : MonoBehaviour
             {
                 //Instantiate(Customer, transform.position, Quaternion.identity);
                 Customer.GetObject();
+                Customer.RandomNPC();
                 GlobalVar.Instance.CustomerCount++;
                 spawnedSuccessfully = true;
             }

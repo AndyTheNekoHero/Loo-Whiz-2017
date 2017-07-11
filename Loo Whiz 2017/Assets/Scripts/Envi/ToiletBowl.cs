@@ -56,10 +56,8 @@ public class ToiletBowl : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D Col)
     {
-        Debug.Log(Col.tag);
         if (Col.tag == "PathBlock")
         {
-            Debug.Log("I AM COLLIDED");
             P_Block = true;
         }
     }
@@ -67,7 +65,6 @@ public class ToiletBowl : MonoBehaviour {
     {
         if (Col.tag == "PathBlock")
         {
-            Debug.Log("I EXIT!");
             P_Block = false;
         }
     }

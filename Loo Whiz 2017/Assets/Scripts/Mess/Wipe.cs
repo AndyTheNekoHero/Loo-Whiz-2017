@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wipe : Mess_Check
 {
     float t = 0;
-    public float TotalTime = 5;
+    public float TotalTime = 10;
 
     void Start()
     {

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: aaebb2107e557ae409cc21c9720219e8
-timeCreated: 1497508526
+timeCreated: 1499754857
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -95,8 +95,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 88
-        height: 95
+        width: 140
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -106,10 +106,10 @@ TextureImporter:
       name: Tool_Buttons_1
       rect:
         serializedVersion: 2
-        x: 88
+        x: 140
         y: 0
-        width: 88
-        height: 95
+        width: 140
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,10 +119,10 @@ TextureImporter:
       name: Tool_Buttons_2
       rect:
         serializedVersion: 2
-        x: 176
+        x: 280
         y: 0
-        width: 88
-        height: 95
+        width: 140
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,10 +132,10 @@ TextureImporter:
       name: Tool_Buttons_3
       rect:
         serializedVersion: 2
-        x: 264
+        x: 420
         y: 0
-        width: 88
-        height: 95
+        width: 140
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

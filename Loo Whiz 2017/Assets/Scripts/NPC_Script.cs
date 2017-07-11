@@ -71,7 +71,7 @@ public class NPC_Script : MonoBehaviour
         #region Debug Fast Forward
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            Time.timeScale = 2f;
+            Time.timeScale = 4f;
         }
         else
             Time.timeScale = 1f;

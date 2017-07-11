@@ -83,6 +83,14 @@ public class NPC_Script : MonoBehaviour
             Debug.LogWarning("Error404! GameObject Not Found! Ending Proramme Now!");
             Application.Quit();
         }
+
+        if (GlobalVar.Instance.Win || GlobalVar.Instance.Lose)
+        {
+            UrinalUnOccupy();
+            SinkUnOccupy();
+            BowlUnOccupy();
+            WalllUnOccupy();
+        }
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
@@ -288,7 +296,7 @@ public class NPC_Script : MonoBehaviour
             {
                 GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
                 EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
-                EnviroWall.transform.localScale = new Vector2(0.4f, 0.25f);
+                EnviroWall.transform.localScale = new Vector2(1.0f, 1.0f);
             }
 
             ChangeState(C_STATE.EXIT);
@@ -439,7 +447,8 @@ public class NPC_Script : MonoBehaviour
 
     IEnumerator ShitAction()
     {
-        if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false)
+        if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false
+            && Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().PathIsBlocked() == false)
         {
             StartCoroutine(ShitAnimEnded());
             EnviManager.Instance.Cub_Door.SetActive(true);
@@ -461,6 +470,7 @@ public class NPC_Script : MonoBehaviour
         }
 
         PathIsBeingBlocked();
+        
         if (WaypointEnded())
         {
             processed = true;
@@ -562,6 +572,7 @@ public class NPC_Script : MonoBehaviour
                     temp.Add(3);
 
                 RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
+                //RNG_Path = 2;
             }
 
             switch (RNG_Path)
@@ -797,26 +808,25 @@ public class NPC_Script : MonoBehaviour
 
     public void PathIsBeingBlocked()
     {
-
-            //f (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>() && Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().PathIsBlocked() == true && anim.GetBool("Peeing") == false)
-            //
-            //   reachDist = 20f;
-            //   tempState = C_STATE.PEE;
-            //   ChangeState(C_STATE.ANGRY);
-            //
-            //f (Waypoint[Waypoint.Count - 1].GetComponent<Sink>() && Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PathIsBlocked() == true && anim.GetBool("Washing") == false)
-            //
-            //   reachDist = 20f;
-            //   tempState = C_STATE.WASH;
-            //   ChangeState(C_STATE.ANGRY);
-            //
-            if (Waypoint[currentPoint -1].GetComponent<ToiletBowl>() && Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().PathIsBlocked() == true 
-            && shitTime >3 && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsShit() && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsToiletPaper())
-            {
-                reachDist = 20f;
-                tempState = C_STATE.SHIT;
-                ChangeState(C_STATE.ANGRY);
-            }
+         //if (Waypoint[Waypoint.Count - 1].GetComponent<Urinal>() && Waypoint[Waypoint.Count - 1].GetComponent<Urinal>().PathIsBlocked() == true && anim.GetBool("Peeing") == false)
+         //
+         //   reachDist = 20f;
+         //   tempState = C_STATE.PEE;
+         //   ChangeState(C_STATE.ANGRY);
+         //
+         //if (Waypoint[Waypoint.Count - 1].GetComponent<Sink>() && Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PathIsBlocked() == true && anim.GetBool("Washing") == false)
+         //
+         //   reachDist = 20f;
+         //   tempState = C_STATE.WASH;
+         //   ChangeState(C_STATE.ANGRY);
+         //
+         if (Waypoint[currentPoint -1].GetComponent<ToiletBowl>() && Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().PathIsBlocked() == true 
+          && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsShit() && !Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().IsToiletPaper())
+         {
+             reachDist = 20f;
+             tempState = C_STATE.SHIT;
+             ChangeState(C_STATE.ANGRY);
+         }
         
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sweep : Mess_Check
 {
     float t = 0;
-    float TotalTime = 5;
+    float TotalTime = 10;
 
     void Start ()
     {

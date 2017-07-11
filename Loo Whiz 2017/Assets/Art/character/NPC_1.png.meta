@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 81f4c039cf044c1478d5e973afa83f9d
-timeCreated: 1496912309
+timeCreated: 1499758787
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -114,6 +114,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -122,9 +130,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 900
-        width: 100
-        height: 100
+        y: 3780
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +142,10 @@ TextureImporter:
       name: NPC_1_1
       rect:
         serializedVersion: 2
-        x: 100
-        y: 900
-        width: 100
-        height: 100
+        x: 416
+        y: 3780
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +155,10 @@ TextureImporter:
       name: NPC_1_2
       rect:
         serializedVersion: 2
-        x: 200
-        y: 900
-        width: 100
-        height: 100
+        x: 832
+        y: 3780
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +168,10 @@ TextureImporter:
       name: NPC_1_3
       rect:
         serializedVersion: 2
-        x: 300
-        y: 900
-        width: 100
-        height: 100
+        x: 1248
+        y: 3780
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,9 +182,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 800
-        width: 100
-        height: 100
+        y: 3360
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,10 +194,10 @@ TextureImporter:
       name: NPC_1_5
       rect:
         serializedVersion: 2
-        x: 100
-        y: 800
-        width: 100
-        height: 100
+        x: 416
+        y: 3360
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,10 +207,10 @@ TextureImporter:
       name: NPC_1_6
       rect:
         serializedVersion: 2
-        x: 200
-        y: 800
-        width: 100
-        height: 100
+        x: 832
+        y: 3360
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,10 +220,10 @@ TextureImporter:
       name: NPC_1_7
       rect:
         serializedVersion: 2
-        x: 300
-        y: 800
-        width: 100
-        height: 100
+        x: 1248
+        y: 3360
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,9 +234,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 700
-        width: 100
-        height: 100
+        y: 2940
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,10 +246,10 @@ TextureImporter:
       name: NPC_1_9
       rect:
         serializedVersion: 2
-        x: 100
-        y: 700
-        width: 100
-        height: 100
+        x: 416
+        y: 2940
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,10 +259,10 @@ TextureImporter:
       name: NPC_1_10
       rect:
         serializedVersion: 2
-        x: 200
-        y: 700
-        width: 100
-        height: 100
+        x: 832
+        y: 2940
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -264,10 +272,10 @@ TextureImporter:
       name: NPC_1_11
       rect:
         serializedVersion: 2
-        x: 300
-        y: 700
-        width: 100
-        height: 100
+        x: 1248
+        y: 2940
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,9 +286,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
-        width: 100
-        height: 100
+        y: 2520
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +298,10 @@ TextureImporter:
       name: NPC_1_13
       rect:
         serializedVersion: 2
-        x: 100
-        y: 600
-        width: 100
-        height: 100
+        x: 416
+        y: 2520
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,10 +311,10 @@ TextureImporter:
       name: NPC_1_14
       rect:
         serializedVersion: 2
-        x: 200
-        y: 600
-        width: 100
-        height: 100
+        x: 832
+        y: 2520
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,10 +324,10 @@ TextureImporter:
       name: NPC_1_15
       rect:
         serializedVersion: 2
-        x: 300
-        y: 600
-        width: 100
-        height: 100
+        x: 1248
+        y: 2520
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,9 +338,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 500
-        width: 100
-        height: 100
+        y: 2100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +350,10 @@ TextureImporter:
       name: NPC_1_17
       rect:
         serializedVersion: 2
-        x: 100
-        y: 500
-        width: 100
-        height: 100
+        x: 416
+        y: 2100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,10 +363,10 @@ TextureImporter:
       name: NPC_1_18
       rect:
         serializedVersion: 2
-        x: 200
-        y: 500
-        width: 100
-        height: 100
+        x: 832
+        y: 2100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,10 +376,10 @@ TextureImporter:
       name: NPC_1_19
       rect:
         serializedVersion: 2
-        x: 300
-        y: 500
-        width: 100
-        height: 100
+        x: 1248
+        y: 2100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -382,9 +390,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 400
-        width: 100
-        height: 100
+        y: 1680
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,10 +402,10 @@ TextureImporter:
       name: NPC_1_21
       rect:
         serializedVersion: 2
-        x: 100
-        y: 400
-        width: 100
-        height: 100
+        x: 416
+        y: 1680
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +415,10 @@ TextureImporter:
       name: NPC_1_22
       rect:
         serializedVersion: 2
-        x: 200
-        y: 400
-        width: 100
-        height: 100
+        x: 832
+        y: 1680
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -420,10 +428,10 @@ TextureImporter:
       name: NPC_1_23
       rect:
         serializedVersion: 2
-        x: 300
-        y: 400
-        width: 100
-        height: 100
+        x: 1248
+        y: 1680
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -434,9 +442,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 100
-        height: 100
+        y: 1260
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -446,10 +454,10 @@ TextureImporter:
       name: NPC_1_25
       rect:
         serializedVersion: 2
-        x: 100
-        y: 300
-        width: 100
-        height: 100
+        x: 416
+        y: 1260
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -459,10 +467,10 @@ TextureImporter:
       name: NPC_1_26
       rect:
         serializedVersion: 2
-        x: 200
-        y: 300
-        width: 100
-        height: 100
+        x: 832
+        y: 1260
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -472,10 +480,10 @@ TextureImporter:
       name: NPC_1_27
       rect:
         serializedVersion: 2
-        x: 300
-        y: 300
-        width: 100
-        height: 100
+        x: 1248
+        y: 1260
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -486,9 +494,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
-        width: 100
-        height: 100
+        y: 840
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,10 +506,10 @@ TextureImporter:
       name: NPC_1_29
       rect:
         serializedVersion: 2
-        x: 100
-        y: 200
-        width: 100
-        height: 100
+        x: 416
+        y: 840
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -511,10 +519,10 @@ TextureImporter:
       name: NPC_1_30
       rect:
         serializedVersion: 2
-        x: 200
-        y: 200
-        width: 100
-        height: 100
+        x: 832
+        y: 840
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -524,10 +532,10 @@ TextureImporter:
       name: NPC_1_31
       rect:
         serializedVersion: 2
-        x: 300
-        y: 200
-        width: 100
-        height: 100
+        x: 1248
+        y: 840
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -538,9 +546,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
-        width: 100
-        height: 100
+        y: 420
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -550,10 +558,10 @@ TextureImporter:
       name: NPC_1_33
       rect:
         serializedVersion: 2
-        x: 100
-        y: 100
-        width: 100
-        height: 100
+        x: 416
+        y: 420
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -563,10 +571,10 @@ TextureImporter:
       name: NPC_1_34
       rect:
         serializedVersion: 2
-        x: 200
-        y: 100
-        width: 100
-        height: 100
+        x: 832
+        y: 420
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -576,10 +584,10 @@ TextureImporter:
       name: NPC_1_35
       rect:
         serializedVersion: 2
-        x: 300
-        y: 100
-        width: 100
-        height: 100
+        x: 1248
+        y: 420
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -591,8 +599,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -602,10 +610,10 @@ TextureImporter:
       name: NPC_1_37
       rect:
         serializedVersion: 2
-        x: 100
+        x: 416
         y: 0
-        width: 100
-        height: 100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -615,10 +623,10 @@ TextureImporter:
       name: NPC_1_38
       rect:
         serializedVersion: 2
-        x: 200
+        x: 832
         y: 0
-        width: 100
-        height: 100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -628,10 +636,10 @@ TextureImporter:
       name: NPC_1_39
       rect:
         serializedVersion: 2
-        x: 300
+        x: 1248
         y: 0
-        width: 100
-        height: 100
+        width: 416.75
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

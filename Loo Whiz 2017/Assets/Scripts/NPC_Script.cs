@@ -47,6 +47,7 @@ public class NPC_Script : MonoBehaviour
     private Animator anim;
     public bool DoOnce;
     public float ThrowPaperTime = 100;
+    private bool ExitAngry = false;
 
     //private float countdown = 0.0f;
 
@@ -175,6 +176,7 @@ public class NPC_Script : MonoBehaviour
         }
 
         anim.SetBool("Angry", false);
+        ExitAngry = true;
         UrinalUnOccupy();
         SinkUnOccupy();
         BowlUnOccupy();
@@ -182,7 +184,6 @@ public class NPC_Script : MonoBehaviour
         ChangeState(C_STATE.EXIT);
         ParentToTakeFrom = GameObject.Find("Exit");
         AddChild();
-        GlobalVar.Instance.MeterValue--;
 
         yield break;
     }
@@ -420,7 +421,6 @@ public class NPC_Script : MonoBehaviour
         yield break;
     }
 
-    //go to urinal
     public void Pee()
     {
         //Change path to Pee
@@ -437,7 +437,6 @@ public class NPC_Script : MonoBehaviour
         }
     }
 
-    //go to cubicle
     IEnumerator ShitAction()
     {
         if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false)
@@ -469,7 +468,6 @@ public class NPC_Script : MonoBehaviour
         }
     }
 
-    //go to basin
     IEnumerator WashAction()
     {
         if (EnviManager.Instance.SinkMess(Waypoint[Waypoint.Count - 1].GetComponent<Sink>()) == false)
@@ -497,7 +495,6 @@ public class NPC_Script : MonoBehaviour
 
     }
 
-    //Go to wall
     public void Draw()
     {
         if (!Stop)
@@ -521,6 +518,10 @@ public class NPC_Script : MonoBehaviour
             //run animation here
 
             //Delete
+            if (ExitAngry)
+                GlobalVar.Instance.MeterValue--;
+
+            ExitAngry = false;
             NPC.ReturnObject(gameObject);
             GlobalVar.Instance.CustomerCount--;
             ChangeState(C_STATE.WAITING_TO_SPAWN);
@@ -536,7 +537,6 @@ public class NPC_Script : MonoBehaviour
         yield break;
     }
 
-    //walking
     public void Walk()
     {
         //Change path to Walk
@@ -561,8 +561,7 @@ public class NPC_Script : MonoBehaviour
                 if (!EnviManager.Instance.AllDrawn())
                     temp.Add(3);
 
-                //RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
-                RNG_Path = 2;
+                RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
             }
 
             switch (RNG_Path)
@@ -619,7 +618,6 @@ public class NPC_Script : MonoBehaviour
         }
 
     }
-
 
     #region For Walk
 

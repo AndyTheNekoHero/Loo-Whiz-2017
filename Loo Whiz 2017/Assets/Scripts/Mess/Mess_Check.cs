@@ -91,7 +91,7 @@ public class Mess_Check : MonoBehaviour
                 Selected = false;
         }
 
-        if (CurrentActionTime >= ActionTime)
+        if (CurrentActionTime >= ActionTime || GlobalVar.Instance.Win || GlobalVar.Instance.Lose)
         {
             FinishedAction();
             Destroy(gameObject);

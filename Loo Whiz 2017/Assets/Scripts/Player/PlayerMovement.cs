@@ -19,27 +19,12 @@ public class PlayerMovement : MonoBehaviour
     {
         RB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-    }
 
-    void OnTriggerEnter2D(Collider2D info)
-    {
-        Mess_Check m = info.GetComponent<Mess_Check>();
-        if (m && selected == null)
-        {
-            StartCoroutine(m.StartAction());
-        }
-        RB2D.velocity = Vector2.zero;
-  
+        if (GlobalVar.Instance.Gender == 0)
+            anim.runtimeAnimatorController = Resources.Load("Player_Movement(F)") as RuntimeAnimatorController;
+        else if (GlobalVar.Instance.Gender == 1)
+            anim.runtimeAnimatorController = Resources.Load("Player_Movement(M)") as RuntimeAnimatorController;
     }
-    void OnTriggerExit2D(Collider2D info)
-    {
-        GlobalVar.Instance.IsEnableInput = true;
-        GlobalVar.Instance.Cleaning = false;
-        anim.SetBool("Sweeping", false);
-        anim.SetBool("Wipping", false);
-        anim.SetBool("Mopping", false);
-    }
-
 
     // Update is called once per frame
     void Update()

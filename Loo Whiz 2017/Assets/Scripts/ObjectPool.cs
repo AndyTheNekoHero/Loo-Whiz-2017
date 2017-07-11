@@ -10,6 +10,8 @@ public class ObjectPool : MonoBehaviour
     // collection of currently inactive instances of the prefab
     private Stack<GameObject> inactiveInstances = new Stack<GameObject>();
 
+    private int totalNPC = 2;
+
     // Returns an instance of the prefab
     public GameObject GetObject()
     {
@@ -37,6 +39,29 @@ public class ObjectPool : MonoBehaviour
 
         // return a reference to the instance
         return spawnedGameObject;
+    }
+
+    public void RandomNPC()
+    {
+        int r = Random.Range(1, totalNPC + 1);
+
+        switch (r)
+        {
+            case 1:
+                {
+                    prefab.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("NPC1_Anim_Controller") as RuntimeAnimatorController;
+                }
+                break;
+
+            case 2:
+                {
+                    prefab.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("NPC2_Anim_Controller") as RuntimeAnimatorController;
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
     // Return an instance of the prefab to the pool
@@ -68,3 +93,4 @@ public class PooledObject : MonoBehaviour
 {
     public ObjectPool pool;
 }
+

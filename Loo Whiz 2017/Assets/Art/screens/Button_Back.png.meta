@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 43f9531d4a707de48bcbaed5e01f6b5e
-timeCreated: 1496804586
+timeCreated: 1499842039
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -94,8 +94,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 70
-        height: 80
+        width: 408
+        height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -105,10 +105,10 @@ TextureImporter:
       name: Button_Back_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 408
         y: 0
-        width: 70
-        height: 80
+        width: 408
+        height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,10 +118,10 @@ TextureImporter:
       name: Button_Back_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 816
         y: 0
-        width: 70
-        height: 80
+        width: 408
+        height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -76,12 +76,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EndScreenButton.cs" />
@@ -110,6 +104,7 @@
     <Compile Include="Assets\Scripts\Option\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Option\MusicManger.cs" />
     <Compile Include="Assets\Scripts\Option\OptionManager.cs" />
+    <Compile Include="Assets\Scripts\Pause.cs" />
     <Compile Include="Assets\Scripts\Player\Character_Button.cs" />
     <Compile Include="Assets\Scripts\Player\GameBtn.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />

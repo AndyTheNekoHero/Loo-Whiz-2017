@@ -47,7 +47,10 @@ public class Wipe : Mess_Check
             }
             yield return null;
         }
-        yield break;
+        //yield break;
+<<<<<<< HEAD
+=======
         
+>>>>>>> a13e3083bf35ddf8d6624f7bde4662128fa078bf
     }
 }

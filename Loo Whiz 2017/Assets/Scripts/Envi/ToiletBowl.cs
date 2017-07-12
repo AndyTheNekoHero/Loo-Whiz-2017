@@ -9,6 +9,21 @@ public class ToiletBowl : MonoBehaviour {
     private bool ToiletPaper = false;
     public bool P_Block = false;
 
+    public Transform DoorChild;
+
+    void Start()
+    {
+        DoorChild = this.gameObject.transform.GetChild(0);
+    }
+
+    public void CloseDoor()
+    {
+        DoorChild.gameObject.SetActive(true);
+    }
+    public void OpenDoor()
+    {
+        DoorChild.gameObject.SetActive(false);
+    }
     public bool InUse()
     {
         return Occupied;

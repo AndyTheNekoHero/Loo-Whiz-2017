@@ -6,8 +6,6 @@ public class EnviManager : MonoBehaviour
 {
     public static EnviManager Instance;
 
-    public GameObject Cub_Door;
-
     private int EmptySlots, EmptySinkSlots, EmptyBowlSlots, EmptyWallSlots;
 
     public List<Transform> UrinalList = new List<Transform>();

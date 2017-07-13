@@ -8,7 +8,6 @@ public class Mop : Mess_Check
     {
         type = MESS_TYPE.MOP;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        Time.timeScale = 1.0f;
     }
 
     protected override void DoAction()

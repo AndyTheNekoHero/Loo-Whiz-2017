@@ -22,6 +22,7 @@ public class GlobalVar : MonoBehaviour
     public float TimeUsedSecs   = 0;
     public float TimeUsedMins   = 0;
     public bool StartGame = false;
+    public int MaxLitter = 0;
 
     void Awake()
     {

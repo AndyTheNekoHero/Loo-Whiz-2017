@@ -24,6 +24,10 @@ public class Spawner : MonoBehaviour
             Spawn();
             countdown = 0f;
         }
+        if (GlobalVar.Instance.Tut_Steps == 1)
+        {
+            MaxTotalCustomer = 2;
+        }
     }
 
     void Spawn()

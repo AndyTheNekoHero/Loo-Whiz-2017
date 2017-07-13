@@ -48,6 +48,7 @@ public class TutorialNPC : MonoBehaviour
     public bool DoOnce;
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
+    public GameObject DialogueObj;
 
     GameObject Cub_Door;
 
@@ -63,14 +64,12 @@ public class TutorialNPC : MonoBehaviour
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
+        Pause.Instance.IsPause = true;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (Time.timeScale == 0)
-            return;
-
+    {     
         ProcessState();
         MoveToWaypoint();
 
@@ -96,6 +95,20 @@ public class TutorialNPC : MonoBehaviour
             BowlUnOccupy();
             WalllUnOccupy();
         }
+        if (GlobalVar.Instance.Tut_Steps == 1)
+        {
+            DialogueObj.transform.GetChild(1).gameObject.SetActive(false);
+            NPC.ReturnObject(gameObject);
+            GlobalVar.Instance.CustomerCount--;
+            ChangeState(C_STATE.WAITING_TO_SPAWN);
+            GlobalVar.Instance.Tut_Steps = 2;
+        }
+        else if (GlobalVar.Instance.Tut_Steps == 4)
+        {
+            DialogueObj.transform.GetChild(2).gameObject.SetActive(false);
+        }
+        else if(GlobalVar.Instance.Tut_Steps == 5)
+            DialogueObj.transform.GetChild(3).gameObject.SetActive(false);
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
@@ -127,12 +140,50 @@ public class TutorialNPC : MonoBehaviour
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
             }
+            ChangeD(1);
+            Pause.Instance.IsPause = false;
                 ParentToTakeFrom = GameObject.Find("Exit2");
                 AddChild();
                 ChangeState(C_STATE.EXIT);
 
         }
         yield break;
+    }
+
+    public void BtnOnPress()
+    {
+        ChangeD(2);
+    }
+
+    public void ChangeD(int D)
+    {
+        switch (D)
+        {
+            case 1:
+                {
+                    DialogueObj = GameObject.Find("TutorialsDialogues");
+                    DialogueObj.transform.GetChild(0).gameObject.SetActive(true);
+                }
+                break;
+            case 2:
+                {
+                    DialogueObj = GameObject.Find("TutorialsDialogues");
+                    DialogueObj.transform.GetChild(0).gameObject.SetActive(false);
+                    if(GlobalVar.Instance.Tut_Steps == 0)
+                        DialogueObj.transform.GetChild(1).gameObject.SetActive(true);
+                }
+                break;
+            case 3:
+                {
+
+                    DialogueObj = GameObject.Find("TutorialsDialogues");
+                    DialogueObj.transform.GetChild(2).gameObject.SetActive(true);
+                    DialogueObj.transform.GetChild(3).gameObject.SetActive(true);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public IEnumerator AngryAnimEnded()
@@ -221,17 +272,12 @@ public class TutorialNPC : MonoBehaviour
             if (GlobalVar.Instance.ToiletPaper == 0)
                 CreatedLackofRolls();
 
-            if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
-            {
-                ChangeState(C_STATE.EXIT);
-                ParentToTakeFrom = GameObject.Find("Exit");
-                AddChild();
-            }
-            else
-            {
-                ChangeState(C_STATE.WASH);
-                WalkToSink();
-            }
+            ChangeD(3);
+            Pause.Instance.IsPause = false;
+            ChangeState(C_STATE.EXIT);
+            ParentToTakeFrom = GameObject.Find("Exit2");
+            AddChild();
+
         }
         yield break;
 
@@ -264,6 +310,8 @@ public class TutorialNPC : MonoBehaviour
                 }
             }
 
+            ChangeD(3);
+            Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -553,52 +601,12 @@ public class TutorialNPC : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
-            //Random Path
-            {
-                List<int> temp = new List<int>();
-
-                if (!EnviManager.Instance.UrinalAllFull())
-                    temp.Add(1);
-
-                if (!EnviManager.Instance.BowlAllFull())
-                    temp.Add(2);
-
-                if (!EnviManager.Instance.AllDrawn())
-                    temp.Add(3);
-
-                //RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
-                RNG_Path = 1;
-            }
-
-            switch (RNG_Path)
-            {
-                case 1:
-                    {
-                        //go to urinal
-                        ChangeState(C_STATE.PEE);
-                    }
-                    break;
-                case 2:
-                    {
-                        //go to cubicle
-                        ChangeState(C_STATE.SHIT);
-                    }
-                    break;
-                case 3:
-                    {
-                        //Draw
-                        ChangeState(C_STATE.DRAW);
-                    }
-                    break;
-                //case 4:
-                //    {
-                //        //go to basin
-                //        ChangeState(C_STATE.WASH);
-                //    }
-                //    break;
-                default:
-                    break;
-            }
+            if (GlobalVar.Instance.Tut_Steps == 0)
+                ChangeState(C_STATE.PEE);
+            else if (GlobalVar.Instance.Tut_Steps == 2)
+            { ChangeState(C_STATE.SHIT); GlobalVar.Instance.Tut_Steps = 3; }
+            else if (GlobalVar.Instance.Tut_Steps == 3)
+            { WalkToSink(); ChangeState(C_STATE.WASH); }
         }
         else
         {

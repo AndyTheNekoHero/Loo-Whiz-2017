@@ -20,6 +20,9 @@ public class Character_Button : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (Time.timeScale == 0f)
+            return;
+
         Chara_button.transform.position = transform.position;
 
         if ( ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) || (Input.GetMouseButtonDown(0))) )

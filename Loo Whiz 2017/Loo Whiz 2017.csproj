@@ -76,12 +76,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EndScreenButton.cs" />
@@ -97,6 +91,7 @@
     <Compile Include="Assets\Scripts\GlobalVar.cs" />
     <Compile Include="Assets\Scripts\HS_btn.cs" />
     <Compile Include="Assets\Scripts\HighScore.cs" />
+    <Compile Include="Assets\Scripts\InfoPanel.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadingScreenManager.cs" />
     <Compile Include="Assets\Scripts\Mess\Mess_Check.cs" />
@@ -118,6 +113,7 @@
     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />
+    <Compile Include="Assets\Scripts\TutorialNPC.cs" />
     <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
     <Compile Include="Assets\Scripts\UI\obj_bgmslider.cs" />

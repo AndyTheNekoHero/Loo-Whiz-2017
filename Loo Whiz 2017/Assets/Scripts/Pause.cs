@@ -28,13 +28,15 @@ public class Pause : MonoBehaviour
     {
         if (IsPause)
         {
-            Time.timeScale = 0f;
             PausePanel.SetActive(true);
+            Time.timeScale = 0f;
+            
         }
         else
         {
-            Time.timeScale = 1f;
             PausePanel.SetActive(false);
+            Time.timeScale = 1f;
+            
         }
     }
 }

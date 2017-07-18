@@ -97,16 +97,30 @@ public class TutorialNPC : MonoBehaviour
         }
         if (GlobalVar.Instance.Tut_Steps == 1)
         {
-            Tut_Dia.Instance.De_activateD(1);
-            NPC.ReturnObject(gameObject);
-            GlobalVar.Instance.CustomerCount--;
-            ChangeState(C_STATE.WAITING_TO_SPAWN);
-            GlobalVar.Instance.Tut_Steps = 2;
+                Tut_Dia.Instance.De_activateD(1);
+            if (WaypointEnded())
+            {
+                NPC.ReturnObject(gameObject);
+                GlobalVar.Instance.CustomerCount--;
+                ChangeState(C_STATE.WAITING_TO_SPAWN);
+                GlobalVar.Instance.Tut_Steps = 2;
+            }
         }
         else if (GlobalVar.Instance.Tut_Steps == 4)
             Tut_Dia.Instance.De_activateD(2);
         else if (GlobalVar.Instance.Tut_Steps == 5)
+        {
             Tut_Dia.Instance.De_activateD(3);
+            if (WaypointEnded())
+            {
+                Tut_Dia.Instance.De_activateD(1);
+                NPC.ReturnObject(gameObject);
+                GlobalVar.Instance.CustomerCount--;
+                ChangeState(C_STATE.WAITING_TO_SPAWN);
+                GlobalVar.Instance.Tut_Steps = 6;
+            }
+        }
+  
 
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
@@ -134,7 +148,7 @@ public class TutorialNPC : MonoBehaviour
                 CreatedPeeMess();
                 if (currentPoint - 1 < Waypoint.Count)
                 {
-                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
+                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee_tut"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
                     EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f, -7.0f, 0));
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);

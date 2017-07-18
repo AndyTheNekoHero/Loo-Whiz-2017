@@ -49,6 +49,7 @@ public class TutorialNPC : MonoBehaviour
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
 
+
     GameObject Cub_Door;
 
     //private float countdown = 0.0f;
@@ -63,14 +64,12 @@ public class TutorialNPC : MonoBehaviour
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
+        Pause.Instance.IsPause = true;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (Time.timeScale == 0)
-            return;
-
+    {     
         ProcessState();
         MoveToWaypoint();
 
@@ -96,6 +95,19 @@ public class TutorialNPC : MonoBehaviour
             BowlUnOccupy();
             WalllUnOccupy();
         }
+        if (GlobalVar.Instance.Tut_Steps == 1)
+        {
+            Tut_Dia.Instance.De_activateD(1);
+            NPC.ReturnObject(gameObject);
+            GlobalVar.Instance.CustomerCount--;
+            ChangeState(C_STATE.WAITING_TO_SPAWN);
+            GlobalVar.Instance.Tut_Steps = 2;
+        }
+        else if (GlobalVar.Instance.Tut_Steps == 4)
+            Tut_Dia.Instance.De_activateD(2);
+        else if (GlobalVar.Instance.Tut_Steps == 5)
+            Tut_Dia.Instance.De_activateD(3);
+
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
@@ -127,6 +139,9 @@ public class TutorialNPC : MonoBehaviour
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
             }
+
+            Tut_Dia.Instance.ActivateD(1);
+            Pause.Instance.IsPause = false;
                 ParentToTakeFrom = GameObject.Find("Exit2");
                 AddChild();
                 ChangeState(C_STATE.EXIT);
@@ -134,7 +149,6 @@ public class TutorialNPC : MonoBehaviour
         }
         yield break;
     }
-
     public IEnumerator AngryAnimEnded()
     {
         float delay = 0;
@@ -221,17 +235,12 @@ public class TutorialNPC : MonoBehaviour
             if (GlobalVar.Instance.ToiletPaper == 0)
                 CreatedLackofRolls();
 
-            if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
-            {
-                ChangeState(C_STATE.EXIT);
-                ParentToTakeFrom = GameObject.Find("Exit");
-                AddChild();
-            }
-            else
-            {
-                ChangeState(C_STATE.WASH);
-                WalkToSink();
-            }
+            Tut_Dia.Instance.ActivateD(3);
+            Pause.Instance.IsPause = false;
+            ChangeState(C_STATE.EXIT);
+            ParentToTakeFrom = GameObject.Find("Exit2");
+            AddChild();
+
         }
         yield break;
 
@@ -264,6 +273,8 @@ public class TutorialNPC : MonoBehaviour
                 }
             }
 
+            Tut_Dia.Instance.ActivateD(3);
+            Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -553,52 +564,12 @@ public class TutorialNPC : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
-            //Random Path
-            {
-                List<int> temp = new List<int>();
-
-                if (!EnviManager.Instance.UrinalAllFull())
-                    temp.Add(1);
-
-                if (!EnviManager.Instance.BowlAllFull())
-                    temp.Add(2);
-
-                if (!EnviManager.Instance.AllDrawn())
-                    temp.Add(3);
-
-                //RNG_Path = temp[RNG_Path = Random.Range(0, temp.Count)];
-                RNG_Path = 1;
-            }
-
-            switch (RNG_Path)
-            {
-                case 1:
-                    {
-                        //go to urinal
-                        ChangeState(C_STATE.PEE);
-                    }
-                    break;
-                case 2:
-                    {
-                        //go to cubicle
-                        ChangeState(C_STATE.SHIT);
-                    }
-                    break;
-                case 3:
-                    {
-                        //Draw
-                        ChangeState(C_STATE.DRAW);
-                    }
-                    break;
-                //case 4:
-                //    {
-                //        //go to basin
-                //        ChangeState(C_STATE.WASH);
-                //    }
-                //    break;
-                default:
-                    break;
-            }
+            if (GlobalVar.Instance.Tut_Steps == 0)
+                ChangeState(C_STATE.PEE);
+            else if (GlobalVar.Instance.Tut_Steps == 2)
+            { ChangeState(C_STATE.SHIT); GlobalVar.Instance.Tut_Steps = 3; }
+            else if (GlobalVar.Instance.Tut_Steps == 3)
+            { WalkToSink(); ChangeState(C_STATE.WASH); }
         }
         else
         {

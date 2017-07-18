@@ -16,9 +16,9 @@ public class Spawner : MonoBehaviour
         countdown = SpawnTime;
         Door = GameObject.Find("Entrance_Door").GetComponent<Animator>();
     }
-    
+
     // Update is called once per frame
-	void Update ()
+    void Update()
     {
         countdown += Time.deltaTime;
         if (countdown >= SpawnTime)
@@ -26,12 +26,15 @@ public class Spawner : MonoBehaviour
             Spawn();
             countdown = 0f;
         }
+        if (GlobalVar.Instance.Tut_Steps == 1)
+        {
+            MaxTotalCustomer = 2;
+        }
         if (Door.GetCurrentAnimatorStateInfo(0).IsName("Door"))
         {
             Door.SetBool("Enter", false);
         }
     }
-
     void Spawn()
     {
         spawnedSuccessfully = false;

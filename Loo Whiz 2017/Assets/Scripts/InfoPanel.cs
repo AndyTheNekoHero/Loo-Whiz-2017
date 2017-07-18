@@ -18,7 +18,6 @@ public class InfoPanel : MonoBehaviour {
         if (Panel.activeSelf == true)
         {
             Content.text = "Welcome to the world of LOO(Let's Observe Ourselves) WHIZ! Let's Begin the tutorial. \n \n Let's play this game to better appreciate the attendants' effort. Let's Observe Ourselves (LOO) in keeping our toilets clean so as to lighten the attendants' workload!";
-
         }
 	}
 

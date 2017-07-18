@@ -24,22 +24,25 @@ public class Mop : Mess_Check
 
     protected override void FinishedAction()
     {
-            GlobalVar.Instance.IsEnableInput = true;
-            GlobalVar.Instance.Cleaning = false;
-            anim.SetBool("Mopping", false);
-            GlobalVar.Instance.MeterValue++;
+        GlobalVar.Instance.IsEnableInput = true;
+        GlobalVar.Instance.Cleaning = false;
+        anim.SetBool("Mopping", false);
+        GlobalVar.Instance.MeterValue++;
 
-            if (gameObject.GetComponentInParent<Urinal>())
-            {
-                gameObject.GetComponentInParent<Urinal>().PeeCleaned();
-            }
-            else if (gameObject.GetComponentInParent<ToiletBowl>())
-            {
-                gameObject.GetComponentInParent<ToiletBowl>().ShitCleaned();
-            }
-            else if (gameObject.GetComponentInParent<Sink>())
-            {
-                gameObject.GetComponentInParent<Sink>().WaterPuddleCleaned();
-            }
+        if (gameObject.GetComponentInParent<Urinal>())
+        {
+            gameObject.GetComponentInParent<Urinal>().PeeCleaned();
+            GlobalVar.Instance.Tut_Steps = 1;
+        }
+        else if (gameObject.GetComponentInParent<ToiletBowl>())
+        {
+            gameObject.GetComponentInParent<ToiletBowl>().ShitCleaned();
+            GlobalVar.Instance.Tut_Steps = 4;
+        }
+        else if (gameObject.GetComponentInParent<Sink>())
+        {
+            gameObject.GetComponentInParent<Sink>().WaterPuddleCleaned();
+            GlobalVar.Instance.Tut_Steps = 5;
+        }
     }
 }

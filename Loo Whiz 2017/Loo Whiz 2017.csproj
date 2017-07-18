@@ -119,6 +119,7 @@
     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />
+    <Compile Include="Assets\Scripts\Tut_Dia.cs" />
     <Compile Include="Assets\Scripts\TutorialNPC.cs" />
     <Compile Include="Assets\Scripts\UI\Audio_1.cs" />
     <Compile Include="Assets\Scripts\UI\Globals.cs" />

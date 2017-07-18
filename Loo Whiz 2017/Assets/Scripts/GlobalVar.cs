@@ -6,7 +6,7 @@ public class GlobalVar : MonoBehaviour
 {
     public static GlobalVar Instance = null;
 
-    public int Gender = 0;
+    public int Gender = 1;
     public int CustomerCount    = 0;
     public bool Roll_Selected   = false;
     public bool Wipe_Selected   = false;
@@ -22,6 +22,7 @@ public class GlobalVar : MonoBehaviour
     public float TimeUsedSecs   = 0;
     public float TimeUsedMins   = 0;
     public bool StartGame = false;
+    public int Tut_Steps = 0;
     public int MaxLitter = 0;
 
     void Awake()

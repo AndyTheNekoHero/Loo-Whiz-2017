@@ -28,6 +28,10 @@ public class Spawner : MonoBehaviour
         {
             MaxTotalCustomer = 2;
         }
+        else if (GlobalVar.Instance.Tut_Steps == 6)
+        {
+            MaxTotalCustomer = 1;
+        }
     }
 
     void Spawn()

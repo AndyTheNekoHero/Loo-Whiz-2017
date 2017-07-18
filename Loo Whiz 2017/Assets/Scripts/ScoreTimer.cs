@@ -16,7 +16,6 @@ public class ScoreTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(Time.timeScale);
         if (Time.timeScale == 0f)
             return;
         else

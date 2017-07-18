@@ -6,7 +6,7 @@ public class GlobalVar : MonoBehaviour
 {
     public static GlobalVar Instance = null;
 
-    public int Gender = 0;
+    public int Gender = 1;
     public int CustomerCount    = 0;
     public bool Roll_Selected   = false;
     public bool Wipe_Selected   = false;

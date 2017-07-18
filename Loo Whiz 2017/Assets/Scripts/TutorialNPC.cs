@@ -48,7 +48,7 @@ public class TutorialNPC : MonoBehaviour
     public bool DoOnce;
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
-    public GameObject DialogueObj;
+
 
     GameObject Cub_Door;
 
@@ -97,18 +97,17 @@ public class TutorialNPC : MonoBehaviour
         }
         if (GlobalVar.Instance.Tut_Steps == 1)
         {
-            DialogueObj.transform.GetChild(1).gameObject.SetActive(false);
+            Tut_Dia.Instance.De_activateD(1);
             NPC.ReturnObject(gameObject);
             GlobalVar.Instance.CustomerCount--;
             ChangeState(C_STATE.WAITING_TO_SPAWN);
             GlobalVar.Instance.Tut_Steps = 2;
         }
         else if (GlobalVar.Instance.Tut_Steps == 4)
-        {
-            DialogueObj.transform.GetChild(2).gameObject.SetActive(false);
-        }
-        else if(GlobalVar.Instance.Tut_Steps == 5)
-            DialogueObj.transform.GetChild(3).gameObject.SetActive(false);
+            Tut_Dia.Instance.De_activateD(2);
+        else if (GlobalVar.Instance.Tut_Steps == 5)
+            Tut_Dia.Instance.De_activateD(3);
+
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
@@ -140,7 +139,8 @@ public class TutorialNPC : MonoBehaviour
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
             }
-            ChangeD(1);
+
+            Tut_Dia.Instance.ActivateD(1);
             Pause.Instance.IsPause = false;
                 ParentToTakeFrom = GameObject.Find("Exit2");
                 AddChild();
@@ -149,43 +149,6 @@ public class TutorialNPC : MonoBehaviour
         }
         yield break;
     }
-
-    public void BtnOnPress()
-    {
-        ChangeD(2);
-    }
-
-    public void ChangeD(int D)
-    {
-        switch (D)
-        {
-            case 1:
-                {
-                    DialogueObj = GameObject.Find("TutorialsDialogues");
-                    DialogueObj.transform.GetChild(0).gameObject.SetActive(true);
-                }
-                break;
-            case 2:
-                {
-                    DialogueObj = GameObject.Find("TutorialsDialogues");
-                    DialogueObj.transform.GetChild(0).gameObject.SetActive(false);
-                    if(GlobalVar.Instance.Tut_Steps == 0)
-                        DialogueObj.transform.GetChild(1).gameObject.SetActive(true);
-                }
-                break;
-            case 3:
-                {
-
-                    DialogueObj = GameObject.Find("TutorialsDialogues");
-                    DialogueObj.transform.GetChild(2).gameObject.SetActive(true);
-                    DialogueObj.transform.GetChild(3).gameObject.SetActive(true);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
     public IEnumerator AngryAnimEnded()
     {
         float delay = 0;
@@ -272,7 +235,7 @@ public class TutorialNPC : MonoBehaviour
             if (GlobalVar.Instance.ToiletPaper == 0)
                 CreatedLackofRolls();
 
-            ChangeD(3);
+            Tut_Dia.Instance.ActivateD(3);
             Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit2");
@@ -310,7 +273,7 @@ public class TutorialNPC : MonoBehaviour
                 }
             }
 
-            ChangeD(3);
+            Tut_Dia.Instance.ActivateD(3);
             Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");

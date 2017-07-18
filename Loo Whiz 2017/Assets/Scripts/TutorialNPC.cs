@@ -84,7 +84,7 @@ public class TutorialNPC : MonoBehaviour
 
         if (ParentToTakeFrom == null)
         {
-            Debug.LogWarning("Error404! GameObject Not Found! Ending Proramme Now!");
+            Debug.LogWarning("Error404! GameObject Not Found! Ending Programme Now!");
             Application.Quit();
         }
 
@@ -98,15 +98,31 @@ public class TutorialNPC : MonoBehaviour
         if (GlobalVar.Instance.Tut_Steps == 1)
         {
             Tut_Dia.Instance.De_activateD(1);
+            if (WaypointEnded())
+            {
+                NPC.ReturnObject(gameObject);
+                GlobalVar.Instance.CustomerCount--;
+                ChangeState(C_STATE.WAITING_TO_SPAWN);
+                GlobalVar.Instance.Tut_Steps = 2;
+            }
+        }
+        else if (GlobalVar.Instance.Tut_Steps == 4)
+        {
+            Tut_Dia.Instance.De_activateD(2);
             NPC.ReturnObject(gameObject);
             GlobalVar.Instance.CustomerCount--;
             ChangeState(C_STATE.WAITING_TO_SPAWN);
-            GlobalVar.Instance.Tut_Steps = 2;
         }
-        else if (GlobalVar.Instance.Tut_Steps == 4)
-            Tut_Dia.Instance.De_activateD(2);
         else if (GlobalVar.Instance.Tut_Steps == 5)
+        {
             Tut_Dia.Instance.De_activateD(3);
+            Tut_Dia.Instance.De_activateD(1);
+            NPC.ReturnObject(gameObject);
+            GlobalVar.Instance.CustomerCount = 0;
+            ChangeState(C_STATE.WAITING_TO_SPAWN);
+            GlobalVar.Instance.Tut_Steps = 6;
+        }
+
 
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
@@ -134,7 +150,7 @@ public class TutorialNPC : MonoBehaviour
                 CreatedPeeMess();
                 if (currentPoint - 1 < Waypoint.Count)
                 {
-                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
+                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee_tut"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
                     EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f, -7.0f, 0));
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
@@ -305,6 +321,8 @@ public class TutorialNPC : MonoBehaviour
                 EnviroWall.transform.localScale = new Vector2(1.0f, 1.0f);
             }
 
+            Tut_Dia.Instance.ActivateD(4);
+            Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -570,6 +588,8 @@ public class TutorialNPC : MonoBehaviour
             { ChangeState(C_STATE.SHIT); GlobalVar.Instance.Tut_Steps = 3; }
             else if (GlobalVar.Instance.Tut_Steps == 3)
             { WalkToSink(); ChangeState(C_STATE.WASH); }
+            else if (GlobalVar.Instance.Tut_Steps == 6)
+            { WalkToWall(); ChangeState(C_STATE.DRAW); }
         }
         else
         {

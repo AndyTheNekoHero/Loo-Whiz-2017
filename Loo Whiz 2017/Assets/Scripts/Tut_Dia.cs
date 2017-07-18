@@ -33,6 +33,14 @@ public class Tut_Dia : MonoBehaviour {
     {
         ActivateD(2);
     }
+    public void BtnOnPress2()
+    {
+        if (GlobalVar.Instance.Tut_Steps == 6)
+        {
+            De_activateD(4);
+            ActivateD(5);
+        }
+    }
 
     public void ActivateD(int D)
     {
@@ -54,6 +62,18 @@ public class Tut_Dia : MonoBehaviour {
                 {
                    transform.GetChild(2).gameObject.SetActive(true);
                    transform.GetChild(3).gameObject.SetActive(true);
+                }
+                break;
+            case 4:
+                {
+                    transform.GetChild(4).gameObject.SetActive(true);
+
+                }
+                break;
+            case 5:
+                {
+                    transform.GetChild(5).gameObject.SetActive(true);
+
                 }
                 break;
             default:
@@ -84,6 +104,17 @@ public class Tut_Dia : MonoBehaviour {
             case 3:
                 {
                     transform.GetChild(3).gameObject.SetActive(false);
+                }
+                break;
+            case 4:
+                {
+                    transform.GetChild(4).gameObject.SetActive(false);
+                }
+                break;
+            case 5:
+                {
+                    transform.GetChild(5).gameObject.SetActive(false);
+
                 }
                 break;
             default:

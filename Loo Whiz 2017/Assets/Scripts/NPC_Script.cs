@@ -32,7 +32,7 @@ public class NPC_Script : MonoBehaviour
     [SerializeField]
     private int RandomSpawnOfMess = 80;
     [SerializeField]
-    private int RandomSpawnOfLitter = 30;
+    private int RandomSpawnOfLitter = 40;
 
     bool Stop;
     public int RNG_Path;
@@ -48,7 +48,6 @@ public class NPC_Script : MonoBehaviour
     public bool DoOnce;
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
-    private Animator ExitDoor;
 
     GameObject Cub_Door;
 
@@ -64,7 +63,6 @@ public class NPC_Script : MonoBehaviour
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
-        ExitDoor = GameObject.Find("Exit_Door").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -95,13 +93,8 @@ public class NPC_Script : MonoBehaviour
             SinkUnOccupy();
             BowlUnOccupy();
             WalllUnOccupy();
-            GlobalVar.Instance.MaxLitter = 0;
         }
-
-        if (ExitDoor.GetCurrentAnimatorStateInfo(0).IsName("Door_Exit"))
-        {
-            ExitDoor.SetBool("Exit", false);
-        }
+        //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
     #region Animation Ended
@@ -165,7 +158,6 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && State == C_STATE.SHIT)
             {
                 anim.SetBool("Angry", false);
-                CloseDoor();
                 StartCoroutine(ShitAnimEnded());
                 yield break;
             }
@@ -233,12 +225,14 @@ public class NPC_Script : MonoBehaviour
             }
 
             if (GlobalVar.Instance.ToiletPaper == 0)
-            {
                 CreatedLackofRolls();
+<<<<<<< HEAD
                 GameObject LackOfToiletPaper = (GameObject)Instantiate(Resources.Load("Toilet_Paper_Icon"), (Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().transform));
                 LackOfToiletPaper.transform.position = LackOfToiletPaper.transform.position + new Vector3(0.0f,-3.0f,0);
 
             }
+=======
+>>>>>>> 53bea5ddb71f608e9ab76fba36805077a92e95e4
 
             if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
             {
@@ -539,8 +533,9 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
-            ExitDoor.SetBool("Exit", true);
+            //run animation here
 
+            //Delete
             if (ExitAngry)
                 GlobalVar.Instance.MeterValue--;
 
@@ -557,7 +552,6 @@ public class NPC_Script : MonoBehaviour
         GameObject Litter = (GameObject)Instantiate(Resources.Load("Litter"));
         Litter.transform.position = transform.position;
         ThrowPaperTime = 100;
-        GlobalVar.Instance.MaxLitter++;
         yield break;
     }
 
@@ -623,19 +617,20 @@ public class NPC_Script : MonoBehaviour
         {
             if (DoOnce)
             {
-                int r = Random.Range(1, 101);
+                int r = Random.Range(1, 100);
 
                 if (r <= RandomSpawnOfLitter)
-                    ThrowPaperTime = Random.Range(2.0f, 3.5f);
+                    ThrowPaperTime = Random.Range(2.0f, 4.0f);
                 else
                     ThrowPaperTime = 100;
 
                 DoOnce = false;
             }
+
             if(ThrowPaperTime > 0)
                 ThrowPaperTime -= Time.deltaTime;
 
-            if (ThrowPaperTime <= 0 && GlobalVar.Instance.MaxLitter < 3)
+            if (ThrowPaperTime <= 0)
             {
                 StartCoroutine(SpawnLitter());
             }
@@ -715,6 +710,7 @@ public class NPC_Script : MonoBehaviour
         ChangeState(C_STATE.WALK);
         DoOnce = true;
         ThrowPaperTime = 100;
+
     }
 
     #endregion

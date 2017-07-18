@@ -8,7 +8,6 @@ public class Roll : Mess_Check
     void Start()
     {
         type = MESS_TYPE.ROll;
-        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
     }
 
     protected override void DoAction()

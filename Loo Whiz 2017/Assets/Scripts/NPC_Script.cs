@@ -238,6 +238,7 @@ public class NPC_Script : MonoBehaviour
             {
                 CreatedLackofRolls();
                 GameObject LackOfToiletPaper = (GameObject)Instantiate(Resources.Load("Toilet_Paper_Icon"), (Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().transform));
+                LackOfToiletPaper.transform.position = LackOfToiletPaper.transform.position + new Vector3(0.0f,-3.0f,0);
 
             }
 

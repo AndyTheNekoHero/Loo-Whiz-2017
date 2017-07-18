@@ -43,7 +43,7 @@ public class Mop : Mess_Check
         else if (gameObject.GetComponentInParent<Sink>())
         {
             gameObject.GetComponentInParent<Sink>().WaterPuddleCleaned();
-            GlobalVar.Instance.Tut_Steps = 5;
+            GlobalVar.Instance.Tut_Steps = 6;
         }
     }
 }

@@ -33,6 +33,8 @@ public class Wipe : Mess_Check
         anim.SetBool("Wipping", false);
         gameObject.GetComponentInParent<Draw>().GraffiteCleaned();
         GlobalVar.Instance.MeterValue++;
+
+        GlobalVar.Instance.Tut_Steps = 8;
     }
 
      IEnumerator DidntClean()

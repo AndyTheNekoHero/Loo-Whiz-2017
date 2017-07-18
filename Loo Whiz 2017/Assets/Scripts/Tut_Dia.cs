@@ -35,7 +35,7 @@ public class Tut_Dia : MonoBehaviour {
     }
     public void BtnOnPress2()
     {
-        if (GlobalVar.Instance.Tut_Steps == 6)
+        if (GlobalVar.Instance.Tut_Steps == 7)
         {
             De_activateD(4);
             ActivateD(5);

@@ -43,7 +43,7 @@ public class TutorialNPC : MonoBehaviour
     Rigidbody2D BodyMovement;
 
     ObjectPool NPC;
-    Spawner Spwn;
+    Tut_spawner Spwn;
     private Animator anim;
     public bool DoOnce;
     public float ThrowPaperTime = 100;
@@ -60,8 +60,8 @@ public class TutorialNPC : MonoBehaviour
         State = C_STATE.WALK;
         Stop = false;
         BodyMovement = GetComponent<Rigidbody2D>();
-        NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
-        Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
+        //NPC = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
+        Spwn = GameObject.Find("tut_Spawner").GetComponent<Tut_spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
         Pause.Instance.IsPause = true;
@@ -95,12 +95,20 @@ public class TutorialNPC : MonoBehaviour
             BowlUnOccupy();
             WalllUnOccupy();
         }
+        TutorialSteps();
+
+
+        //Debug.Log(currentPoint + " " + Waypoint.Count);
+    }
+
+    public void TutorialSteps()
+    {
         if (GlobalVar.Instance.Tut_Steps == 1)
         {
             Tut_Dia.Instance.De_activateD(1);
             if (WaypointEnded())
             {
-                NPC.ReturnObject(gameObject);
+                Destroy(this.gameObject);
                 GlobalVar.Instance.CustomerCount--;
                 ChangeState(C_STATE.WAITING_TO_SPAWN);
                 GlobalVar.Instance.Tut_Steps = 2;
@@ -109,22 +117,27 @@ public class TutorialNPC : MonoBehaviour
         else if (GlobalVar.Instance.Tut_Steps == 4)
         {
             Tut_Dia.Instance.De_activateD(2);
-            NPC.ReturnObject(gameObject);
-            GlobalVar.Instance.CustomerCount--;
-            ChangeState(C_STATE.WAITING_TO_SPAWN);
+            Destroy(this.gameObject);
+            GlobalVar.Instance.Tut_Steps = 5;
+
         }
-        else if (GlobalVar.Instance.Tut_Steps == 5)
+        else if (GlobalVar.Instance.Tut_Steps == 6)
         {
             Tut_Dia.Instance.De_activateD(3);
             Tut_Dia.Instance.De_activateD(1);
-            NPC.ReturnObject(gameObject);
+            Destroy(this.gameObject);
             GlobalVar.Instance.CustomerCount = 0;
             ChangeState(C_STATE.WAITING_TO_SPAWN);
-            GlobalVar.Instance.Tut_Steps = 6;
+            GlobalVar.Instance.Tut_Steps = 7;
         }
-
-
-        //Debug.Log(currentPoint + " " + Waypoint.Count);
+        else if (GlobalVar.Instance.Tut_Steps == 7)
+        {
+            Tut_Dia.Instance.De_activateD(5);
+            Destroy(this.gameObject);
+            GlobalVar.Instance.CustomerCount = 0;
+            ChangeState(C_STATE.WAITING_TO_SPAWN);
+            GlobalVar.Instance.Tut_Steps = 8;
+        }
     }
 
     #region Animation Ended
@@ -150,7 +163,7 @@ public class TutorialNPC : MonoBehaviour
                 CreatedPeeMess();
                 if (currentPoint - 1 < Waypoint.Count)
                 {
-                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee_tut"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
+                    GameObject EnviroPee = (GameObject)Instantiate(Resources.Load("Pee"), (Waypoint[currentPoint - 1].GetComponent<Urinal>().transform));
                     EnviroPee.transform.position = (EnviroPee.transform.position + new Vector3(3.6f, -7.0f, 0));
                 }
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
@@ -588,7 +601,7 @@ public class TutorialNPC : MonoBehaviour
             { ChangeState(C_STATE.SHIT); GlobalVar.Instance.Tut_Steps = 3; }
             else if (GlobalVar.Instance.Tut_Steps == 3)
             { WalkToSink(); ChangeState(C_STATE.WASH); }
-            else if (GlobalVar.Instance.Tut_Steps == 6)
+            else if (GlobalVar.Instance.Tut_Steps == 7)
             { WalkToWall(); ChangeState(C_STATE.DRAW); }
         }
         else

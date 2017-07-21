@@ -173,4 +173,10 @@ public class HighScore : MonoBehaviour {
         { ScoreText3.text = "Rank 3: " + PlayerPrefs.GetString("LName") + (int)PlayerPrefs.GetFloat("LowestMin") + ":" + (int)PlayerPrefs.GetFloat("LowestSec");    }
         #endregion
     }
+
+    public void ResetCurrentScore()
+    {
+        GlobalVar.Instance.TimeUsedMins = 0;
+        GlobalVar.Instance.TimeUsedSecs = 0;
+    }
 }

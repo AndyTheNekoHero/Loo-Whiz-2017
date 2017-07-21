@@ -8,9 +8,14 @@ public class Pause : MonoBehaviour
     
     public GameObject PausePanel;
     public bool IsPause;
+<<<<<<< HEAD
     bool pauseB;
     Character_Button player;
     Rigidbody2D RB2DPlayer;
+=======
+    public bool pauseB;
+    // Use this for initialization
+>>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
 
     void Awake()
     {

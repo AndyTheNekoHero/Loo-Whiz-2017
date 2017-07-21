@@ -6,6 +6,13 @@ public class Tut_Dia : MonoBehaviour {
 
     public static Tut_Dia Instance;
 
+    public GameObject TPanels, NxtBtn, BackBtn;
+
+    public bool Panel2 = false;
+    public bool Panel3 = false;
+    public bool Panel4 = false;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -13,7 +20,7 @@ public class Tut_Dia : MonoBehaviour {
         else if (Instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         // QualitySettings.vSyncCount = 0;
         // Application.targetFrameRate = 60;
@@ -21,13 +28,35 @@ public class Tut_Dia : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        TPanels = GameObject.FindGameObjectWithTag("T_Panels");
+        NxtBtn = GameObject.Find("Next");
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (GlobalVar.Instance.Tut_Steps == 7 && Panel2 == false)
+        {
+            TPanels.SetActive(true);
+            InfoPanel.Instance.Welcome = true;
+            NxtBtn.SetActive(true);
+            Panel2 = true;
+        }
+        else if (GlobalVar.Instance.Tut_Steps == 9 && Panel3 == false)
+        {
+            TPanels.SetActive(true);
+            InfoPanel.Instance.Welcome = true;
+            NxtBtn.SetActive(true);
+            Panel3 = true;
+        }
+        else if (GlobalVar.Instance.Tut_Steps == 13 && Panel4 == false)
+        {
+            TPanels.SetActive(true);
+            InfoPanel.Instance.Welcome = true;
+            NxtBtn.SetActive(true);
+            Panel4 = true;
+        }
+
+    }
 
     public void BtnOnPress()
     {
@@ -35,7 +64,7 @@ public class Tut_Dia : MonoBehaviour {
     }
     public void BtnOnPress2()
     {
-        if (GlobalVar.Instance.Tut_Steps == 6)
+        if (GlobalVar.Instance.Tut_Steps == 7)
         {
             De_activateD(4);
             ActivateD(5);
@@ -76,11 +105,22 @@ public class Tut_Dia : MonoBehaviour {
 
                 }
                 break;
+            case 6:
+                {
+                    transform.GetChild(6).gameObject.SetActive(true);
+
+                }
+                break;
+            case 7:
+                {
+                    transform.GetChild(7).gameObject.SetActive(true);
+
+                }
+                break;
             default:
                 break;
         }
     }
-
 
     public void De_activateD(int D)
     {
@@ -114,6 +154,18 @@ public class Tut_Dia : MonoBehaviour {
             case 5:
                 {
                     transform.GetChild(5).gameObject.SetActive(false);
+
+                }
+                break;
+            case 6:
+                {
+                    transform.GetChild(6).gameObject.SetActive(false);
+
+                }
+                break;
+            case 7:
+                {
+                    transform.GetChild(7).gameObject.SetActive(false);
 
                 }
                 break;

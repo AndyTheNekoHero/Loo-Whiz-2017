@@ -7,6 +7,7 @@ public class CBtn_Collision : MonoBehaviour
     private Rigidbody2D RB2D;
     private Animator anim;
 
+
     // Use this for initialization
     void Start ()
     {

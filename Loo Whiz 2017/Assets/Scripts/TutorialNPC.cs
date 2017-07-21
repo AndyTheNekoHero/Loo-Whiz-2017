@@ -33,8 +33,6 @@ public class TutorialNPC : MonoBehaviour
     private float DrawTime = 5;
     [SerializeField]
     private int RandomSpawnOfMess = 80;
-    [SerializeField]
-    private int RandomSpawnOfLitter = 40;
     #endregion
 
     bool Stop;

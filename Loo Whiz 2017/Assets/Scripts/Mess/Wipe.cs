@@ -6,20 +6,15 @@ using UnityEngine.SceneManagement;
 public class Wipe : Mess_Check
 {
     float t = 0;
-<<<<<<< HEAD
     public float TotalTime = 20;
-
     public GameObject AngryFace;
     Animator anim2;
-
     public AudioClip Cleaning_Sound;
     public AudioClip DoneCleaning_Sound;
     bool Once = true;
     Character_Button Player;
-=======
-    public float TotalTime = 10;
     Scene currentScene;
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
+
 
     void Start()
     {
@@ -27,11 +22,10 @@ public class Wipe : Mess_Check
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         anim2 = AngryFace.GetComponent<Animator>();
         StartCoroutine(DidntClean());
-<<<<<<< HEAD
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character_Button>();
-=======
+
         currentScene = SceneManager.GetActiveScene();
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
+
     }
 
     protected override void DoAction()
@@ -54,26 +48,18 @@ public class Wipe : Mess_Check
 
     protected override void FinishedAction()
     {
-<<<<<<< HEAD
-        AudioManager.instance.PlaySound(DoneCleaning_Sound, transform.position);
-        GlobalVar.Instance.IsEnableInput = true;
-=======
         if (currentScene.name != "Tutorial")
-        {
             GlobalVar.Instance.IsEnableInput = true;
-        }
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
-        GlobalVar.Instance.Cleaning = false;
+        else
+            GlobalVar.Instance.IsEnableInput = false;
+        AudioManager.instance.PlaySound(DoneCleaning_Sound, transform.position);
         anim.SetBool("Wipping", false);
         gameObject.GetComponentInParent<Draw>().GraffiteCleaned();
         GlobalVar.Instance.MeterValue++;
-<<<<<<< HEAD
         Once = true;
-=======
-        GlobalVar.Instance.IsEnableInput = false;
         GlobalVar.Instance.Tut_Steps = 8;
+        GlobalVar.Instance.Cleaning = false;
 
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
     }
 
     IEnumerator DidntClean()

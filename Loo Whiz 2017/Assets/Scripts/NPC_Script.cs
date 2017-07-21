@@ -78,7 +78,7 @@ public class NPC_Script : MonoBehaviour
         #region Debug Fast Forward
         if (Input.GetKey(KeyCode.RightArrow))
             Time.timeScale = 4f;
-        else
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
             Time.timeScale = 1f;
         #endregion
 
@@ -238,10 +238,6 @@ public class NPC_Script : MonoBehaviour
                 GameObject LackOfToiletPaper = (GameObject)Instantiate(Resources.Load("Toilet_Paper_Icon"), (Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().transform));
                 LackOfToiletPaper.transform.position = LackOfToiletPaper.transform.position + new Vector3(0.0f, -3.0f, 0);
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
 
             if (EnviManager.Instance.GetEmptySinkSlots() <= 0)
             {
@@ -314,7 +310,6 @@ public class NPC_Script : MonoBehaviour
             {
                 GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
                 EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
-                EnviroWall.transform.localScale = new Vector2(1.0f, 1.0f);
             }
 
             ChangeState(C_STATE.EXIT);

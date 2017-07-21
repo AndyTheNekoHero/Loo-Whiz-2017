@@ -26,21 +26,11 @@ public class Spawner : MonoBehaviour
             Spawn();
             countdown = 0f;
         }
-<<<<<<< HEAD
+
         if (Door.GetCurrentAnimatorStateInfo(0).IsName("Door"))
         {
             Door.SetBool("Enter", false);
         }
-        if (GlobalVar.Instance.Tut_Steps == 1)
-        {
-            MaxTotalCustomer = 2;
-        }
-        else if (GlobalVar.Instance.Tut_Steps == 6)
-        {
-            MaxTotalCustomer = 1;
-        }
-=======
->>>>>>> 0a630130d0d661133cb6f68e068c0726275a89e8
     }
 
     void Spawn()

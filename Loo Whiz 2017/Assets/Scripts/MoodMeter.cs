@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class MoodMeter : MonoBehaviour
 {
     Slider slider;
-    public GameObject LoadLevel;
+    public GameObject WinPanel;
+    public GameObject LosePanel;
 	// Use this for initialization
 	void Start ()
     {
@@ -24,14 +25,14 @@ public class MoodMeter : MonoBehaviour
         {
             GlobalVar.Instance.Win = true;
             GlobalVar.Instance.CustomerCount = 0;
-            LoadLevel.GetComponent<LoadScene>().LoadSceneNum(4);
+            WinPanel.SetActive(true);
 
         }
         if (slider.value == slider.minValue)
         {
             GlobalVar.Instance.Lose = true;
             GlobalVar.Instance.CustomerCount = 0;
-            LoadLevel.GetComponent<LoadScene>().LoadSceneNum(4);
+            LosePanel.SetActive(true);
         }
     }
 }

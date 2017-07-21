@@ -6,36 +6,27 @@ public class MusicManger : MonoBehaviour
 {
     public AudioClip mainTheme;
     public AudioClip menuTheme;
-    private string sceneName;
+    //private string sceneName;
 
-    void Update()
+    void Start()
     {
-        LevelStart(0);
+        PlayMusic();
     }
 
-    void LevelStart(int sceneIndex)
-    {
-        string newSceneName = SceneManager.GetActiveScene().name;
-        if (newSceneName != sceneName)
-        {
-            sceneName = newSceneName;
-            Invoke("PlayMusic", .2f);
-        }
-    }
+    //void LevelStart(int sceneIndex)
+    //{
+    //    string newSceneName = SceneManager.GetActiveScene().name;
+    //    if (newSceneName != sceneName)
+    //    {
+    //        sceneName = newSceneName;
+    //        Invoke("PlayMusic", .2f);
+    //    }
+    //}
 
     void PlayMusic()
     {
         AudioClip clipToPlay = null;
-
-        if (sceneName == "MainMenu")
-        {
-            clipToPlay = menuTheme;
-        }
-        else if (sceneName == "Tutorial")
-        {
-            clipToPlay = mainTheme;
-        }
-
+        clipToPlay = mainTheme;
         if (clipToPlay != null)
         {
             AudioManager.instance.PlayMusic(clipToPlay, 2);

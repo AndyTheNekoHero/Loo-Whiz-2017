@@ -60,14 +60,18 @@ public class Tut_Dia : MonoBehaviour {
 
     public void BtnOnPress()
     {
-        ActivateD(2);
+        if (transform.GetChild(0).gameObject.activeSelf == true)
+            ActivateD(2);
     }
     public void BtnOnPress2()
     {
         if (GlobalVar.Instance.Tut_Steps == 7)
         {
-            De_activateD(4);
-            ActivateD(5);
+            if (transform.GetChild(4).gameObject.activeSelf == true)
+            {
+                De_activateD(4);
+                ActivateD(5);
+            }
         }
     }
 

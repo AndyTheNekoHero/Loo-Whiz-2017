@@ -4,54 +4,116 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InfoPanel : MonoBehaviour {
+    public static InfoPanel Instance;
 
-    private GameObject Panel;
-    public Text Content;
-    public Text FadeText;
-    public bool FadeCheck;
+    public List<GameObject> Panels = new List<GameObject>();
+    public GameObject Fade, Next, Back;
+
+    private int ChildCount = 0;
+
+    public bool Welcome = true;
+    public bool TutPart2 = false;
+    public bool TutPart3 = false;
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+        // QualitySettings.vSyncCount = 0;
+        // Application.targetFrameRate = 60;
+    }
+
     // Use this for initialization
     void Start () {
 
-
-        Panel = this.gameObject;
+        Fade.SetActive(true);
+        Next.SetActive(true);
         
-        if (Panel.activeSelf == true)
+
+        foreach (Transform child in transform)
         {
-            Content.text = "Welcome to the world of LOO(Let's Observe Ourselves) WHIZ! Let's Begin the tutorial. \n \n Let's play this game to better appreciate the attendants' effort. Let's Observe Ourselves (LOO) in keeping our toilets clean so as to lighten the attendants' workload!";
+            Panels.Add(child.transform.gameObject);
         }
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-        if (/*Input.GetKeyDown(KeyCode.M)*/Content.color.a < 0)
+    // Update is called once per frame
+    void Update()
+    {
+        if (ChildCount == Panels.Count - 1)
         {
-            StartCoroutine(FadeTextToFullAlpha(1f, FadeText));
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            StartCoroutine(FadeTextToZeroAlpha(1f, FadeText));
+            Next.SetActive(false);
         }
     }
-    public IEnumerator FadeTextToFullAlpha(float t, Text i)
-    {
-        i.color = new Color(i.color.r, i.color.g, i.color.b, 0);
-        while (i.color.a < 1.0f)
-        {
-            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
-            yield return null;
-        }
 
+    public void Skip()
+    {
+        Panels[ChildCount].SetActive(false);
+        Back.SetActive(false);
+        ChildCount = Panels.Count - 1;
+        Panels[ChildCount].SetActive(true);
     }
 
-    public IEnumerator FadeTextToZeroAlpha(float t, Text i)
+    public void Nextbtn()
     {
-        i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
-        while (i.color.a > 0.0f)
+        ChildCount++;
+        Panels[ChildCount].SetActive(true);
+
+        if (ChildCount != 0)
+            Panels[ChildCount - 1].SetActive(false);
+
+        if (ChildCount > 0)
+            Back.SetActive(true);
+        else
+            Back.SetActive(false);
+        #region Dialogue
+        if (ChildCount == 4 && Welcome == true)
         {
-            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
-            yield return null;
+            Welcome = false;
+            transform.gameObject.SetActive(false);
+            Fade.SetActive(false);
+            Next.SetActive(false);
+            Back.SetActive(false);
         }
+        else if (ChildCount == 5 && Welcome == true)
+        {
+            Welcome = false;
+            transform.gameObject.SetActive(false);
+            Fade.SetActive(false);
+            Next.SetActive(false);
+            Back.SetActive(false);
+        }
+        else if (ChildCount == 6 && Welcome == true)
+        {
+            Welcome = false;
+            transform.gameObject.SetActive(false);
+            Fade.SetActive(false);
+            Next.SetActive(false);
+            Back.SetActive(false);
+        }
+        #endregion
+    }
+    public void Backbtn()
+    {
+        if (ChildCount == 0)
+            return;
+
+        ChildCount--;
+        Panels[ChildCount].SetActive(true);
+
+        if (ChildCount != Panels.Count - 1)
+            Panels[ChildCount + 1].SetActive(false);
+
+        if (ChildCount > 0)
+            Back.SetActive(true);
+        else
+            Back.SetActive(false);
+
     }
 }
+
 

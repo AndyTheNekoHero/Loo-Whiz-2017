@@ -35,6 +35,7 @@ public class Wipe : Mess_Check
         GlobalVar.Instance.MeterValue++;
 
         GlobalVar.Instance.Tut_Steps = 8;
+        Pause.Instance.IsPause = true;
     }
 
      IEnumerator DidntClean()

@@ -37,7 +37,6 @@ public class Character_Button : MonoBehaviour
 #endif
 
             Collider2D touchedObject = Physics2D.OverlapPoint(TouchPosition);
-            Debug.Log(touchedObject);
             if (touchedObject && GlobalVar.Instance.Cleaning == false)
             {
                 if (touchedObject.tag == "CBtn_collision" && ButtonClick == false)

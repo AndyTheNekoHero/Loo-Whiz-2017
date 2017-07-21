@@ -32,6 +32,9 @@ public class Sweep : Mess_Check
         GlobalVar.Instance.Cleaning = false;
         anim.SetBool("Sweeping", false);
         GlobalVar.Instance.MeterValue++;
+
+        GlobalVar.Instance.Tut_Steps = 10;
+        Pause.Instance.IsPause = true;
     }
 
     IEnumerator DidntClean()

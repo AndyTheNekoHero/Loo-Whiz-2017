@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Mop : Mess_Check
 {
+    private bool TuTcheck = false;
+
     void Start()
     {
         type = MESS_TYPE.MOP;
@@ -34,16 +36,19 @@ public class Mop : Mess_Check
         {
             gameObject.GetComponentInParent<Urinal>().PeeCleaned();
             GlobalVar.Instance.Tut_Steps = 1;
+            Pause.Instance.IsPause = true;
         }
         else if (gameObject.GetComponentInParent<ToiletBowl>())
         {
             gameObject.GetComponentInParent<ToiletBowl>().ShitCleaned();
             GlobalVar.Instance.Tut_Steps = 4;
+            Pause.Instance.IsPause = true;
         }
         else if (gameObject.GetComponentInParent<Sink>())
         {
             gameObject.GetComponentInParent<Sink>().WaterPuddleCleaned();
             GlobalVar.Instance.Tut_Steps = 6;
+            Pause.Instance.IsPause = true;
         }
     }
 }

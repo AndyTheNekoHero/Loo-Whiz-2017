@@ -26,5 +26,9 @@ public class Roll : Mess_Check
         gameObject.GetComponentInParent<ToiletBowl>().RestockToiletPaper();
         GlobalVar.Instance.ToiletPaper = 4;
         GlobalVar.Instance.MeterValue++;
+
+        GlobalVar.Instance.Tut_Steps = 12;
+        Pause.Instance.IsPause = true;
+
     }
 }

@@ -8,7 +8,7 @@ public class Pause : MonoBehaviour
     
     public GameObject PausePanel;
     public bool IsPause;
-    bool pauseB;
+    public bool pauseB;
     // Use this for initialization
 
     void Awake()

@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wipe : Mess_Check
 {
     float t = 0;
     public float TotalTime = 10;
+    Scene currentScene;
 
     void Start()
     {
         type = MESS_TYPE.WIPE;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         StartCoroutine(DidntClean());
+        currentScene = SceneManager.GetActiveScene();
     }
 
     protected override void DoAction()
@@ -28,14 +31,17 @@ public class Wipe : Mess_Check
 
     protected override void FinishedAction()
     {
-        GlobalVar.Instance.IsEnableInput = true;
+        if (currentScene.name != "Tutorial")
+        {
+            GlobalVar.Instance.IsEnableInput = true;
+        }
         GlobalVar.Instance.Cleaning = false;
         anim.SetBool("Wipping", false);
         gameObject.GetComponentInParent<Draw>().GraffiteCleaned();
         GlobalVar.Instance.MeterValue++;
-
+        GlobalVar.Instance.IsEnableInput = false;
         GlobalVar.Instance.Tut_Steps = 8;
-        Pause.Instance.IsPause = true;
+
     }
 
      IEnumerator DidntClean()

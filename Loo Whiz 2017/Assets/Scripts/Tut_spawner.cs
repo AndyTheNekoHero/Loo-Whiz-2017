@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tut_spawner : MonoBehaviour {
 
-    private float countdown = 0f;
+    public float countdown = 0f;
     public float SpawnTime = 1.0f;
     private bool spawnedSuccessfully;
     public int MaxTotalCustomer = 5;

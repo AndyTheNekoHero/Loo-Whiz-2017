@@ -309,6 +309,7 @@ public class TutorialNPC : MonoBehaviour
             }
 
             Pause.Instance.IsPause = false;
+            GlobalVar.Instance.IsEnableInput = true;
 
             if (GlobalVar.Instance.Tut_Steps == 3)
                 Tut_Dia.Instance.ActivateD(3);
@@ -351,7 +352,7 @@ public class TutorialNPC : MonoBehaviour
                     EnviroWater.transform.position = (EnviroWater.transform.position + new Vector3(0.0f, -0.5f, 0));
                 }
             }
-
+            GlobalVar.Instance.IsEnableInput = true;
             Pause.Instance.IsPause = false;
             if (GlobalVar.Instance.Tut_Steps == 3)
                 Tut_Dia.Instance.ActivateD(3);

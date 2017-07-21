@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
 
         if (GlobalVar.Instance.Gender == 0)
-            anim.runtimeAnimatorController = Resources.Load("Player_Movement(F)") as RuntimeAnimatorController;
+            anim.runtimeAnimatorController = Resources.Load("Player_Movement(F)") as RuntimeAnimatorController; 
         else if (GlobalVar.Instance.Gender == 1)
             anim.runtimeAnimatorController = Resources.Load("Player_Movement(M)") as RuntimeAnimatorController;
     }

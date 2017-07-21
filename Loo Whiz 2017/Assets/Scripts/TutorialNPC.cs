@@ -83,7 +83,9 @@ public class TutorialNPC : MonoBehaviour
             Time.timeScale = 4f;
         }
         else
+        {
             Time.timeScale = 1f;
+        }
         #endregion
 
         if (ParentToTakeFrom == null)

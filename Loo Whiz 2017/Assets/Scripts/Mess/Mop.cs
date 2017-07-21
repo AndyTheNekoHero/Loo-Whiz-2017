@@ -43,7 +43,8 @@ public class Mop : Mess_Check
         {
             gameObject.GetComponentInParent<Urinal>().PeeCleaned();
             GlobalVar.Instance.Tut_Steps = 1;
-            GlobalVar.Instance.IsEnableInput = false;
+            if(currentScene.name == "Tutorial")
+                GlobalVar.Instance.IsEnableInput = false;
         }
         else if (gameObject.GetComponentInParent<ToiletBowl>())
         {

@@ -24,6 +24,8 @@ public class Mess_Check : MonoBehaviour
     protected bool Selected = false;
     private Vector2 TouchPosition;
 
+    bool StartDoingAction = false;
+
     public MESS_TYPE gettype()
     {
         return type;
@@ -46,14 +48,15 @@ public class Mess_Check : MonoBehaviour
         InRange = false;
     }
 
-    public virtual IEnumerator StartAction()
+    public virtual void StartAction()
     {
-        while (CurrentActionTime < ActionTime)
-        {
-            DoAction();
-            yield return null;
-        }
-        yield break;
+        StartDoingAction = true;
+        //while (CurrentActionTime < ActionTime)
+        //{
+        //    DoAction();
+        //    yield return null;
+        //}
+        //yield break;
     }
 
     protected virtual void DoAction()
@@ -91,9 +94,14 @@ public class Mess_Check : MonoBehaviour
                 Selected = false;
         }
 
+        if (StartDoingAction)
+            DoAction();
+
         if (CurrentActionTime >= ActionTime || GlobalVar.Instance.Win || GlobalVar.Instance.Lose)
         {
             FinishedAction();
+            GameObject Sparkle = (GameObject)Instantiate(Resources.Load("Sparkle"));
+            Sparkle.transform.position = gameObject.transform.position;
             Destroy(gameObject);
         }
     }

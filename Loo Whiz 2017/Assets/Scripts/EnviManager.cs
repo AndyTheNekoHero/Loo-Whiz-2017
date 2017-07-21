@@ -21,7 +21,7 @@ public class EnviManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization

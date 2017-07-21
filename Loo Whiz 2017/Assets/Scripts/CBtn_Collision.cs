@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CBtn_Collision : MonoBehaviour
 {
-    private GameObject selected = null;
     private Rigidbody2D RB2D;
     private Animator anim;
 
@@ -14,19 +13,13 @@ public class CBtn_Collision : MonoBehaviour
         RB2D = GetComponentInParent<Rigidbody2D>();
         anim = GetComponentInParent<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
     void OnTriggerEnter2D(Collider2D info)
     {
         Mess_Check m = info.GetComponent<Mess_Check>();
-        if (m && selected == null)
+        if (m)
         {
-            StartCoroutine(m.StartAction());
+            m.StartAction();
         }
         RB2D.velocity = Vector2.zero;
 

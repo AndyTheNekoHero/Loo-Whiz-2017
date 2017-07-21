@@ -9,10 +9,12 @@ public class Spawner : MonoBehaviour
     private bool spawnedSuccessfully;
     public int MaxTotalCustomer = 5;
     public ObjectPool Customer;
+    private Animator Door;
 
     void Start()
     {
         countdown = SpawnTime;
+        Door = GameObject.Find("Entrance_Door").GetComponent<Animator>();
     }
     
     // Update is called once per frame
@@ -23,6 +25,10 @@ public class Spawner : MonoBehaviour
         {
             Spawn();
             countdown = 0f;
+        }
+        if (Door.GetCurrentAnimatorStateInfo(0).IsName("Door"))
+        {
+            Door.SetBool("Enter", false);
         }
         if (GlobalVar.Instance.Tut_Steps == 1)
         {
@@ -45,6 +51,7 @@ public class Spawner : MonoBehaviour
                 //Instantiate(Customer, transform.position, Quaternion.identity);
                 Customer.GetObject();
                 Customer.RandomNPC();
+                Door.SetBool("Enter", true);
                 GlobalVar.Instance.CustomerCount++;
                 spawnedSuccessfully = true;
             }

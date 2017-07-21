@@ -21,8 +21,9 @@ public class GlobalVar : MonoBehaviour
     public bool FromStart_HS    = false;
     public float TimeUsedSecs   = 0;
     public float TimeUsedMins   = 0;
-    public bool StartGame = false;
-    public int Tut_Steps = 0;
+    public bool StartGame       = false;
+    public int Tut_Steps        = 0;
+    public int TotalLitter      = 0;
 
     void Awake()
     {

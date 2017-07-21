@@ -48,10 +48,10 @@ public class NPC_Script : MonoBehaviour
     public bool DoOnce;
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
+    private Animator ExitDoor;
 
-    GameObject Cub_Door;
-
-    //private float countdown = 0.0f;
+    public GameObject AngryEffect;
+    public GameObject HappyEffect;
 
     // Use this for initialization
     void Start()
@@ -63,6 +63,7 @@ public class NPC_Script : MonoBehaviour
         Spwn = GameObject.Find("Spawner").GetComponent<Spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
+        ExitDoor = GameObject.Find("Exit_Door").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -77,7 +78,7 @@ public class NPC_Script : MonoBehaviour
         #region Debug Fast Forward
         if (Input.GetKey(KeyCode.RightArrow))
             Time.timeScale = 4f;
-        else
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
             Time.timeScale = 1f;
         #endregion
 
@@ -93,6 +94,11 @@ public class NPC_Script : MonoBehaviour
             SinkUnOccupy();
             BowlUnOccupy();
             WalllUnOccupy();
+        }
+
+        if (ExitDoor.GetCurrentAnimatorStateInfo(0).IsName("Door_Exit"))
+        {
+            ExitDoor.SetBool("Exit", false);
         }
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
@@ -158,6 +164,7 @@ public class NPC_Script : MonoBehaviour
             if (EnviManager.Instance.ShitMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && EnviManager.Instance.RollMess(Waypoint[Waypoint.Count - 1].GetComponent<ToiletBowl>()) == false && State == C_STATE.SHIT)
             {
                 anim.SetBool("Angry", false);
+                CloseDoor();
                 StartCoroutine(ShitAnimEnded());
                 yield break;
             }
@@ -186,6 +193,7 @@ public class NPC_Script : MonoBehaviour
         }
 
         anim.SetBool("Angry", false);
+        AngryEffect.SetActive(true);
         ExitAngry = true;
         UrinalUnOccupy();
         SinkUnOccupy();
@@ -274,6 +282,7 @@ public class NPC_Script : MonoBehaviour
                 }
             }
 
+            HappyEffect.SetActive(true);
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -301,7 +310,6 @@ public class NPC_Script : MonoBehaviour
             {
                 GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
                 EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
-                EnviroWall.transform.localScale = new Vector2(1.0f, 1.0f);
             }
 
             ChangeState(C_STATE.EXIT);
@@ -530,6 +538,7 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
+            ExitDoor.SetBool("Exit", true);
             //run animation here
 
             //Delete
@@ -542,14 +551,6 @@ public class NPC_Script : MonoBehaviour
             ChangeState(C_STATE.WAITING_TO_SPAWN);
         }
 
-    }
-
-    IEnumerator SpawnLitter()
-    {
-        GameObject Litter = (GameObject)Instantiate(Resources.Load("Litter"));
-        Litter.transform.position = transform.position;
-        ThrowPaperTime = 100;
-        yield break;
     }
 
     public void Walk()
@@ -616,7 +617,7 @@ public class NPC_Script : MonoBehaviour
             {
                 int r = Random.Range(1, 100);
 
-                if (r <= RandomSpawnOfLitter)
+                if (r <= RandomSpawnOfLitter && GlobalVar.Instance.TotalLitter < 3)
                     ThrowPaperTime = Random.Range(2.0f, 4.0f);
                 else
                     ThrowPaperTime = 100;
@@ -629,7 +630,10 @@ public class NPC_Script : MonoBehaviour
 
             if (ThrowPaperTime <= 0)
             {
-                StartCoroutine(SpawnLitter());
+                GameObject Litter = (GameObject)Instantiate(Resources.Load("Litter"));
+                Litter.transform.position = transform.position;
+                GlobalVar.Instance.TotalLitter++;
+                ThrowPaperTime = 100;
             }
         }
 
@@ -706,8 +710,9 @@ public class NPC_Script : MonoBehaviour
         Waypoint.Clear();
         ChangeState(C_STATE.WALK);
         DoOnce = true;
-        ThrowPaperTime = 100;
-
+        ThrowPaperTime = 100; 
+        AngryEffect.SetActive(false);
+        HappyEffect.SetActive(false);
     }
 
     #endregion

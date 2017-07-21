@@ -9,7 +9,9 @@ public class Pause : MonoBehaviour
     public GameObject PausePanel;
     public bool IsPause;
     public bool pauseB;
-    // Use this for initialization
+    Character_Button player;
+    Rigidbody2D RB2DPlayer;
+
 
     void Awake()
     {
@@ -18,14 +20,16 @@ public class Pause : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
     }
 
     void Start ()
     {
         IsPause = false;
-	}
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character_Button>();
+        RB2DPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -37,8 +41,20 @@ public class Pause : MonoBehaviour
         ActivePanel();
     }
 
-    public void PauseBtn()  { pauseB = true;    if (!IsPause) IsPause = true;   }
-    public void ResumeBtn() { pauseB = false;   if  (IsPause) IsPause = false;  }
+    public void PauseBtn()
+    {
+        pauseB = true;
+        player.ButtonClick = true;
+        RB2DPlayer.velocity = Vector2.zero;
+        if (!IsPause)
+            IsPause = true;
+    }
+    public void ResumeBtn()
+    {
+        pauseB = false;
+        if  (IsPause)
+            IsPause = false;
+    }
 
 
     public void ActivePanel()

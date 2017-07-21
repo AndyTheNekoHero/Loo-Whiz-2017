@@ -76,6 +76,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EndScreenButton.cs" />
@@ -105,6 +111,7 @@
     <Compile Include="Assets\Scripts\Option\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Option\MusicManger.cs" />
     <Compile Include="Assets\Scripts\Option\OptionManager.cs" />
+    <Compile Include="Assets\Scripts\Panel_Button.cs" />
     <Compile Include="Assets\Scripts\Pause.cs" />
     <Compile Include="Assets\Scripts\Player\Character_Button.cs" />
     <Compile Include="Assets\Scripts\Player\GameBtn.cs" />
@@ -120,6 +127,7 @@
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
     <Compile Include="Assets\Scripts\UI\obj_bgmslider.cs" />
     <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
+    <Compile Include="Assets\Sparkle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

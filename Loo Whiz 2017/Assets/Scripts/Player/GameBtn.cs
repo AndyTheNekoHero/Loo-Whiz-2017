@@ -4,10 +4,12 @@ using System.Collections;
 public class GameBtn : MonoBehaviour
 {
     private Animator anim;
+    Character_Button Player;
 
     void Start()
     {
         anim = GameObject.Find("Player").GetComponent<Animator>();
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character_Button>();
     }
 
     public void Mop()
@@ -19,6 +21,7 @@ public class GameBtn : MonoBehaviour
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+        Player.ButtonClick = false;
 
         //change animation on button click
         anim.SetBool("Mop_Selected",    true);
@@ -35,6 +38,7 @@ public class GameBtn : MonoBehaviour
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+        Player.ButtonClick = false;
 
         //change animation on button click
         anim.SetBool("Mop_Selected",    false);
@@ -51,6 +55,7 @@ public class GameBtn : MonoBehaviour
         GlobalVar.Instance.Wipe_Selected    = false;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+        Player.ButtonClick = false;
 
         //change animation on button click
         anim.SetBool("Mop_Selected",    false);
@@ -67,6 +72,7 @@ public class GameBtn : MonoBehaviour
         GlobalVar.Instance.Wipe_Selected    = true;
         gameObject.SetActive(false);
         GlobalVar.Instance.IsEnableInput = true;
+        Player.ButtonClick = false;
 
         //change animation on button click
         anim.SetBool("Mop_Selected",    false);

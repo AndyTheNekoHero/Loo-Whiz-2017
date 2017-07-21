@@ -14,6 +14,7 @@ public class InfoPanel : MonoBehaviour {
     public bool Welcome = true;
     public bool TutPart2 = false;
     public bool TutPart3 = false;
+    private Animator Door;
 
     void Awake()
     {
@@ -22,15 +23,13 @@ public class InfoPanel : MonoBehaviour {
         else if (Instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-
-        // QualitySettings.vSyncCount = 0;
-        // Application.targetFrameRate = 60;
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    {
+        Door = GameObject.Find("Entrance_Door").GetComponent<Animator>();
         Fade.SetActive(true);
         Next.SetActive(true);
         
@@ -47,6 +46,7 @@ public class InfoPanel : MonoBehaviour {
         if (ChildCount == Panels.Count - 1)
         {
             Next.SetActive(false);
+            Back.SetActive(false);
         }
     }
 
@@ -60,20 +60,24 @@ public class InfoPanel : MonoBehaviour {
 
     public void Nextbtn()
     {
+        GlobalVar.Instance.IsEnableInput = false;
         ChildCount++;
         Panels[ChildCount].SetActive(true);
 
         if (ChildCount != 0)
             Panels[ChildCount - 1].SetActive(false);
 
-        if (ChildCount > 0)
+        if (ChildCount > 0 )
             Back.SetActive(true);
         else
             Back.SetActive(false);
+
         #region Dialogue
         if (ChildCount == 4 && Welcome == true)
         {
             Welcome = false;
+            Door.SetBool("Enter", true);
+            GlobalVar.Instance.IsEnableInput = true;
             transform.gameObject.SetActive(false);
             Fade.SetActive(false);
             Next.SetActive(false);
@@ -82,6 +86,7 @@ public class InfoPanel : MonoBehaviour {
         else if (ChildCount == 5 && Welcome == true)
         {
             Welcome = false;
+            GlobalVar.Instance.IsEnableInput = false;
             transform.gameObject.SetActive(false);
             Fade.SetActive(false);
             Next.SetActive(false);
@@ -90,6 +95,7 @@ public class InfoPanel : MonoBehaviour {
         else if (ChildCount == 6 && Welcome == true)
         {
             Welcome = false;
+            GlobalVar.Instance.IsEnableInput = false;
             transform.gameObject.SetActive(false);
             Fade.SetActive(false);
             Next.SetActive(false);

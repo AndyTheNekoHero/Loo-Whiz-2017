@@ -9,6 +9,8 @@ public class Tut_spawner : MonoBehaviour {
     private bool spawnedSuccessfully;
     public int MaxTotalCustomer = 5;
     public GameObject Customer;
+    private Animator Door;
+
     void Start()
     {
         countdown = SpawnTime;
@@ -17,6 +19,7 @@ public class Tut_spawner : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Door = GameObject.Find("Entrance_Door").GetComponent<Animator>();
         countdown += Time.deltaTime;
         if (countdown >= SpawnTime)
         {
@@ -31,6 +34,10 @@ public class Tut_spawner : MonoBehaviour {
         {
             MaxTotalCustomer = 1;
         }
+        if (Door.GetCurrentAnimatorStateInfo(0).IsName("Door"))
+        {
+            Door.SetBool("Enter", false);
+        }
     }
 
     void Spawn()
@@ -42,7 +49,6 @@ public class Tut_spawner : MonoBehaviour {
             while (spawnedSuccessfully == false)
             {
                 Instantiate(Customer, transform.position, Quaternion.identity);
-
                 GlobalVar.Instance.CustomerCount++;
                 spawnedSuccessfully = true;
             }

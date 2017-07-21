@@ -49,6 +49,7 @@ public class TutorialNPC : MonoBehaviour
     public bool DoOnce;
     public float ThrowPaperTime = 100;
     private bool ExitAngry = false;
+    private Animator ExitDoor;
 
     GameObject Cub_Door;
 
@@ -64,13 +65,12 @@ public class TutorialNPC : MonoBehaviour
         Spwn = GameObject.Find("tut_Spawner").GetComponent<Tut_spawner>();
         transform.position = Spwn.transform.position;
         anim = GetComponent<Animator>();
-        Pause.Instance.IsPause = true;
+        ExitDoor = GameObject.Find("Exit_Door").GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (InfoPanel.Instance.Welcome == true)
             return;
 
@@ -78,14 +78,12 @@ public class TutorialNPC : MonoBehaviour
         MoveToWaypoint();
 
         #region Debug Fast Forward
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
+
+        if (Input.GetKey("space"))
             Time.timeScale = 4f;
-        }
-        else
-        {
+        else if(Input.GetKeyUp("space"))
             Time.timeScale = 1f;
-        }
+
         #endregion
 
         if (ParentToTakeFrom == null)
@@ -102,6 +100,11 @@ public class TutorialNPC : MonoBehaviour
             WalllUnOccupy();
         }
         TutorialSteps();
+
+        if (ExitDoor.GetCurrentAnimatorStateInfo(0).IsName("Door_Exit"))
+        {
+            ExitDoor.SetBool("Exit", false);
+        }
         //Debug.Log(currentPoint + " " + Waypoint.Count);
     }
 
@@ -210,14 +213,14 @@ public class TutorialNPC : MonoBehaviour
             }
 
             Tut_Dia.Instance.ActivateD(1);
-            Pause.Instance.IsPause = false;
-                ParentToTakeFrom = GameObject.Find("Exit2");
-                AddChild();
-                ChangeState(C_STATE.EXIT);
+            ParentToTakeFrom = GameObject.Find("Exit2");
+            AddChild();
+            ChangeState(C_STATE.EXIT);
 
         }
         yield break;
     }
+
     public IEnumerator AngryAnimEnded()
     {
         float delay = 0;
@@ -307,10 +310,6 @@ public class TutorialNPC : MonoBehaviour
                 GameObject LackOfToiletPaper = (GameObject)Instantiate(Resources.Load("Toilet_Paper_Icon"), (Waypoint[currentPoint - 1].GetComponent<ToiletBowl>().transform));
                 LackOfToiletPaper.transform.position = LackOfToiletPaper.transform.position + new Vector3(0.0f, -3.0f, 0);
             }
-
-            Pause.Instance.IsPause = false;
-            GlobalVar.Instance.IsEnableInput = true;
-
             if (GlobalVar.Instance.Tut_Steps == 3)
                 Tut_Dia.Instance.ActivateD(3);
             else if (GlobalVar.Instance.Tut_Steps == 11)
@@ -352,8 +351,6 @@ public class TutorialNPC : MonoBehaviour
                     EnviroWater.transform.position = (EnviroWater.transform.position + new Vector3(0.0f, -0.5f, 0));
                 }
             }
-            GlobalVar.Instance.IsEnableInput = true;
-            Pause.Instance.IsPause = false;
             if (GlobalVar.Instance.Tut_Steps == 3)
                 Tut_Dia.Instance.ActivateD(3);
             else if (GlobalVar.Instance.Tut_Steps == 9)
@@ -370,8 +367,6 @@ public class TutorialNPC : MonoBehaviour
 
     public IEnumerator DrawAnimEnded()
     {
-        //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-
         float delay = 0;
         while (delay < DrawTime)
         {
@@ -392,7 +387,6 @@ public class TutorialNPC : MonoBehaviour
             }
 
             Tut_Dia.Instance.ActivateD(4);
-            Pause.Instance.IsPause = false;
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();
@@ -619,6 +613,7 @@ public class TutorialNPC : MonoBehaviour
         if (WaypointEnded())
         {
             Stop = false;
+            ExitDoor.SetBool("Exit", true);
             //run animation here
 
             //Delete
@@ -684,6 +679,7 @@ public class TutorialNPC : MonoBehaviour
         ////Getting One Urinal
         if (EnviManager.Instance.GetEmptyUrinalSlots() >= 0 && EnviManager.Instance.UrinalList != null)
         {
+
             Transform temp = EnviManager.Instance.GetEmptyUrinal();
             if (temp)
                 Waypoint.Add(temp);

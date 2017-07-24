@@ -53,6 +53,13 @@ public class NPC_Script : MonoBehaviour
     public GameObject AngryEffect;
     public GameObject HappyEffect;
 
+    public AudioClip NPC_Flush;
+    public AudioClip NPC_Grafitti;
+    public AudioClip NPC_Urinal;
+    public AudioClip NPC_Sink;
+
+    private bool PlayGrafittiSound = true;
+
     // Use this for initialization
     void Start()
     {
@@ -218,6 +225,7 @@ public class NPC_Script : MonoBehaviour
         if (WaypointEnded() && State == C_STATE.SHIT)
         {
             BowlUnOccupy();
+            AudioManager.instance.PlaySound(NPC_Flush, transform.position);
             GlobalVar.Instance.ToiletPaper--;
             OpenDoor();
             int r = 0;
@@ -266,9 +274,9 @@ public class NPC_Script : MonoBehaviour
 
         if (WaypointEnded() && State == C_STATE.WASH)
         {
+            SinkUnOccupy();
             anim.SetBool("Washing", false);
             Waypoint[Waypoint.Count - 1].GetComponent<Sink>().StopAnimation();
-            SinkUnOccupy();
 
             int r = Random.Range(1, 100);
             if (r <= RandomSpawnOfMess)
@@ -305,11 +313,25 @@ public class NPC_Script : MonoBehaviour
         {
             anim.SetBool("Drawing", false);
             CreatedGraffitiMess();
+       
 
             if (currentPoint -1 < Waypoint.Count)
             {
-                GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
-                EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
+                int r = Random.Range(1, 3);
+                if (r == 1)
+                {
+                    GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
+                    EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
+                }
+                else if (r == 2)
+                {
+                    GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti2"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
+<<<<<<< HEAD
+                    EnviroWall.transform.position = transform.position + new Vector3(0.0f, 5.0f);
+=======
+                    EnviroWall.transform.position = transform.position + new Vector3(0.0f, 2.0f);
+>>>>>>> 56a7f1bbc2427da7bf3e07ceb3808d48a42d036e
+                }
             }
 
             ChangeState(C_STATE.EXIT);
@@ -432,6 +454,7 @@ public class NPC_Script : MonoBehaviour
         if (EnviManager.Instance.UrinalMess(Waypoint[Waypoint.Count - 1].GetComponent<Urinal>()) == false)
         {
             anim.SetBool("Peeing", true);
+            AudioManager.instance.PlaySound(NPC_Urinal, transform.position);
             StartCoroutine(PeeAnimEnded());
         }
         else
@@ -497,6 +520,7 @@ public class NPC_Script : MonoBehaviour
         {
             anim.SetBool("Washing", true);
             Waypoint[Waypoint.Count - 1].GetComponent<Sink>().PlayAnimation();
+            AudioManager.instance.PlaySound(NPC_Sink, transform.position);
             StartCoroutine(WashAnimEnded());
         }
         else
@@ -529,8 +553,12 @@ public class NPC_Script : MonoBehaviour
             anim.SetBool("Drawing", true);
             //Animation Ended
             StartCoroutine(DrawAnimEnded());
+            if (PlayGrafittiSound)
+            {
+                AudioManager.instance.PlaySound(NPC_Grafitti, transform.position);
+                PlayGrafittiSound = false;
+            }
         }
-
     }
 
     public void NPC_Exit()
@@ -713,6 +741,7 @@ public class NPC_Script : MonoBehaviour
         ThrowPaperTime = 100; 
         AngryEffect.SetActive(false);
         HappyEffect.SetActive(false);
+        PlayGrafittiSound = true;
     }
 
     #endregion

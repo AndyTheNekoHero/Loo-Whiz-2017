@@ -68,4 +68,35 @@ public class Pause : MonoBehaviour
                 PausePanel.SetActive(false);
         }
     }
+
+    public void ResetStage()
+    {
+        GlobalVar.Instance.Win = false;
+        GlobalVar.Instance.Lose = false;
+        GlobalVar.Instance.ToiletPaper = 4;
+        GlobalVar.Instance.TotalLitter = 0;
+<<<<<<< HEAD
+        //GlobalVar.Instance.CustomerCount = 0;
+=======
+>>>>>>> 56a7f1bbc2427da7bf3e07ceb3808d48a42d036e
+        Pause.Instance.IsPause = false;
+
+        GlobalVar.Instance.Mop_Selected     = false;
+        GlobalVar.Instance.Sweep_Selected   = false;
+        GlobalVar.Instance.Wipe_Selected    = false;
+        GlobalVar.Instance.Roll_Selected    = false;
+    }
+    public void ResetHighscore()
+    {
+        GlobalVar.Instance.TimeUsedMins = Mathf.Abs(0);
+        GlobalVar.Instance.TimeUsedSecs = Mathf.Abs(0);
+        Pause.Instance.IsPause = false;
+        GlobalVar.Instance.ToiletPaper = 4;
+        GlobalVar.Instance.TotalLitter = 0;
+
+        GlobalVar.Instance.Mop_Selected     = false;
+        GlobalVar.Instance.Sweep_Selected   = false;
+        GlobalVar.Instance.Wipe_Selected    = false;
+        GlobalVar.Instance.Roll_Selected    = false;
+    }
 }

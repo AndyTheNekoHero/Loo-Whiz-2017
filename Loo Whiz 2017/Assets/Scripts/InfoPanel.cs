@@ -52,6 +52,7 @@ public class InfoPanel : MonoBehaviour {
 
     public void Skip()
     {
+        Tut_Dia.Instance.TPanels.SetActive(true);
         Panels[ChildCount].SetActive(false);
         Back.SetActive(false);
         ChildCount = Panels.Count - 1;

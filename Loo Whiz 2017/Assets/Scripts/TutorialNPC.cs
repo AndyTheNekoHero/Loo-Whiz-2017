@@ -212,7 +212,10 @@ public class TutorialNPC : MonoBehaviour
                 //EnviroPee.transform.localScale = new Vector2(1.5f, 1.5f);
             }
 
-            Tut_Dia.Instance.ActivateD(1);
+            if(GlobalVar.Instance.Mop_Selected == true)
+                Tut_Dia.Instance.ActivateD(2);
+            else
+                Tut_Dia.Instance.ActivateD(1);
             ParentToTakeFrom = GameObject.Find("Exit2");
             AddChild();
             ChangeState(C_STATE.EXIT);
@@ -385,8 +388,10 @@ public class TutorialNPC : MonoBehaviour
                 EnviroWall.transform.position = transform.position + new Vector3(0.0f, 3.0f);
                 //EnviroWall.transform.localScale = new Vector2(1.0f, 1.0f);
             }
-
-            Tut_Dia.Instance.ActivateD(4);
+            if(GlobalVar.Instance.Wipe_Selected == true)
+                Tut_Dia.Instance.ActivateD(5);
+            else
+                Tut_Dia.Instance.ActivateD(4);
             ChangeState(C_STATE.EXIT);
             ParentToTakeFrom = GameObject.Find("Exit");
             AddChild();

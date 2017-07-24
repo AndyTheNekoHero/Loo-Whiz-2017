@@ -12,5 +12,8 @@ public class LoadScene : MonoBehaviour
     {
         GlobalVar.Instance.Win = false;
         GlobalVar.Instance.Lose = false;
+        GlobalVar.Instance.CustomerCount = 0;
+        GlobalVar.Instance.IsEnableInput = true;
+        Pause.Instance.IsPause = false;
     }
 }

@@ -26,6 +26,7 @@ public class MoodMeter : MonoBehaviour
             GlobalVar.Instance.Win = true;
             GlobalVar.Instance.CustomerCount = 0;
             WinPanel.SetActive(true);
+            Pause.Instance.IsPause = true;
 
         }
         if (slider.value == slider.minValue)
@@ -33,6 +34,7 @@ public class MoodMeter : MonoBehaviour
             GlobalVar.Instance.Lose = true;
             GlobalVar.Instance.CustomerCount = 0;
             LosePanel.SetActive(true);
+            Pause.Instance.IsPause = true;
         }
     }
 }

@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreTimer : MonoBehaviour {
-
+public class ScoreTimer : MonoBehaviour
+{
     public Text TextTimer; 
-
-	// Use this for initialization
-	void Start () {
-        GlobalVar.Instance.TimeUsedSecs = 0;
-        GlobalVar.Instance.TimeUsedMins = 0;
-    }
 	
 	// Update is called once per frame
 	void Update ()

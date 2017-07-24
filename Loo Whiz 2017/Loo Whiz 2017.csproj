@@ -116,8 +116,11 @@
     <Compile Include="Assets\Scripts\Player\Character_Button.cs" />
     <Compile Include="Assets\Scripts\Player\GameBtn.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\RandomStageImg.cs" />
     <Compile Include="Assets\Scripts\ScoreTimer.cs" />
     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
+    <Compile Include="Assets\Scripts\ServiceMeter.cs" />
+    <Compile Include="Assets\Scripts\Sparkle.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />
     <Compile Include="Assets\Scripts\Tut_Dia.cs" />
@@ -127,7 +130,6 @@
     <Compile Include="Assets\Scripts\UI\Globals.cs" />
     <Compile Include="Assets\Scripts\UI\obj_bgmslider.cs" />
     <Compile Include="Assets\Scripts\UI\obj_sfxslider.cs" />
-    <Compile Include="Assets\Sparkle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

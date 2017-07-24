@@ -326,7 +326,11 @@ public class NPC_Script : MonoBehaviour
                 else if (r == 2)
                 {
                     GameObject EnviroWall = (GameObject)Instantiate(Resources.Load("Graffiti2"), (Waypoint[currentPoint - 1].GetComponent<Draw>().transform));
+<<<<<<< HEAD
                     EnviroWall.transform.position = transform.position + new Vector3(0.0f, 5.0f);
+=======
+                    EnviroWall.transform.position = transform.position + new Vector3(0.0f, 2.0f);
+>>>>>>> 56a7f1bbc2427da7bf3e07ceb3808d48a42d036e
                 }
             }
 

@@ -75,7 +75,10 @@ public class Pause : MonoBehaviour
         GlobalVar.Instance.Lose = false;
         GlobalVar.Instance.ToiletPaper = 4;
         GlobalVar.Instance.TotalLitter = 0;
+<<<<<<< HEAD
         //GlobalVar.Instance.CustomerCount = 0;
+=======
+>>>>>>> 56a7f1bbc2427da7bf3e07ceb3808d48a42d036e
         Pause.Instance.IsPause = false;
 
         GlobalVar.Instance.Mop_Selected     = false;

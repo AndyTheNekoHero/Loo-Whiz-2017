@@ -76,12 +76,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EndScreenButton.cs" />
@@ -119,7 +113,10 @@
     <Compile Include="Assets\Scripts\RandomStageImg.cs" />
     <Compile Include="Assets\Scripts\ScoreTimer.cs" />
     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\ServiceMeter.cs" />
+=======
+>>>>>>> 56a7f1bbc2427da7bf3e07ceb3808d48a42d036e
     <Compile Include="Assets\Scripts\Sparkle.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Stage_Notifier.cs" />

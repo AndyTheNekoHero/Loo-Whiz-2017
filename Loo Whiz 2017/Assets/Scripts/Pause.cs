@@ -34,10 +34,6 @@ public class Pause : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-    }
-
-    void LateUpdate()
-    {
         ActivePanel();
     }
 
@@ -71,5 +67,32 @@ public class Pause : MonoBehaviour
             if (!pauseB)
                 PausePanel.SetActive(false);
         }
+    }
+
+    public void ResetStage()
+    {
+        GlobalVar.Instance.Win = false;
+        GlobalVar.Instance.Lose = false;
+        GlobalVar.Instance.ToiletPaper = 4;
+        GlobalVar.Instance.TotalLitter = 0;
+        Pause.Instance.IsPause = false;
+
+        GlobalVar.Instance.Mop_Selected     = false;
+        GlobalVar.Instance.Sweep_Selected   = false;
+        GlobalVar.Instance.Wipe_Selected    = false;
+        GlobalVar.Instance.Roll_Selected    = false;
+    }
+    public void ResetHighscore()
+    {
+        GlobalVar.Instance.TimeUsedMins = Mathf.Abs(0);
+        GlobalVar.Instance.TimeUsedSecs = Mathf.Abs(0);
+        Pause.Instance.IsPause = false;
+        GlobalVar.Instance.ToiletPaper = 4;
+        GlobalVar.Instance.TotalLitter = 0;
+
+        GlobalVar.Instance.Mop_Selected     = false;
+        GlobalVar.Instance.Sweep_Selected   = false;
+        GlobalVar.Instance.Wipe_Selected    = false;
+        GlobalVar.Instance.Roll_Selected    = false;
     }
 }
